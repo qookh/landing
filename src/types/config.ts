@@ -30,12 +30,23 @@ export interface GlobalConfig {
   name: string;
   /** Accroche courte (sous le nom dans le footer) */
   tagline?: string;
-  /** Description SEO */
+  /** Description SEO par défaut (utilisée si seo.description absent) */
   description: string;
   /** Chemin vers le logo (relatif à /public) */
   logo: string;
   /** URL de production */
   url?: string;
+  /** Surcharges SEO spécifiques à la page d'accueil */
+  seo?: {
+    /** Titre <title> complet (remplace le format "Nom — Description" par défaut) */
+    title?: string;
+    /** Description meta — remplace global.description si présent */
+    description?: string;
+    /** Image Open Graph (chemin absolu ou relatif à /public) */
+    image?: string;
+    /** Mots-clés meta (injectés via <meta name="keywords">) */
+    keywords?: string[];
+  };
   social?: {
     twitter?: string;
     facebook?: string;
@@ -296,6 +307,14 @@ export interface FooterConfig {
 export interface SiteConfig {
   global?: GlobalConfig;
   announcement?: AnnouncementConfig;
+  /**
+   * Ordre d'affichage des sections.
+   * Clés valides : 'hero' | 'logoCloud' | 'features' | 'howItWorks' | 'featureHighlight'
+   *              | 'bentoGrid' | 'integrations' | 'stats' | 'testimonials' | 'pricing'
+   *              | 'faq' | 'comparisonTable' | 'cta' | 'newsletter'
+   * Si absent, l'ordre par défaut défini dans index.astro est utilisé.
+   */
+  sectionOrder?: string[];
   hero?: HeroConfig;
   logoCloud?: LogoCloudConfig;
   features?: FeaturesConfig;

@@ -13,6 +13,12 @@
       "email": "contact@dupont-plomberie.fr",
       "phone": "01 23 45 67 89",
       "address": "15 rue de la République, 75011 Paris"
+    },
+    "seo": {
+      "title": "Dupont Plomberie — Plombier d'urgence Paris 24h/24",
+      "description": "Plombier certifié Qualibat à Paris et Île-de-France. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",
+      "image": "/images/og-dupont-plomberie.jpg",
+      "keywords": ["plombier Paris", "urgence plomberie", "dépannage plomberie", "plombier 24h", "fuite eau Paris"]
     }
   },
 
