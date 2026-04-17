@@ -71,7 +71,14 @@ export interface HeroConfig {
   backgroundType?: 'solid' | 'gradient' | 'image' | 'video';
   /** URL image/vidéo si backgroundType = 'image' | 'video' */
   backgroundSrc?: string;
+  /** Poster pour la vidéo de fond (préchargement) */
+  backgroundVideoPoster?: string;
+  /** Dégradé CSS personnalisé (ex: "from-blue-900 to-indigo-900") */
+  gradient?: string;
   overlay?: boolean;
+  overlayOpacity?: number;
+  textColor?: 'auto' | 'light' | 'dark';
+  minHeight?: 'default' | 'screen' | 'large';
   align?: 'center' | 'left';
 }
 
@@ -81,7 +88,8 @@ export interface LogoCloudConfig {
   variant?: 'default' | 'marquee' | 'grid';
   grayscale?: boolean;
   pauseOnHover?: boolean;
-  background?: 'default' | 'muted';
+  speed?: 'slow' | 'normal' | 'fast';
+  columns?: 2 | 3 | 4 | 5 | 6;
   logoSize?: 'sm' | 'md' | 'lg';
 }
 
@@ -94,7 +102,6 @@ export interface FeaturesConfig {
     description: string;
   }>;
   footerLink?: CTALink;
-  background?: 'default' | 'muted' | 'accent';
 }
 
 export interface HowItWorksConfig {
@@ -133,7 +140,9 @@ export interface BentoGridConfig {
     description: string;
     icon?: string;
     image?: string;
-    accentColor?: string;
+    /** Couleur d'accentuation — aligne sur le prop `accent` du composant */
+    accent?: 'primary' | 'blue' | 'green' | 'purple' | 'orange';
+    href?: string;
   }>;
 }
 
@@ -206,6 +215,7 @@ export interface NewsletterConfig {
   privacyNote?: string;
   /** URL endpoint (vide = mode démo) */
   action?: string;
+  variant?: 'default' | 'compact' | 'card';
   tallyFormId?: string;
 }
 
@@ -218,20 +228,43 @@ export interface IntegrationsConfig {
     category: string;
     description?: string;
     href?: string;
+    featured?: boolean;
   }>;
   showFilter?: boolean;
   variant?: 'grid' | 'compact' | 'detailed';
-  columns?: number;
+  columns?: 3 | 4 | 5 | 6;
+  invertOnDark?: boolean;
+  footerLink?: CTALink;
 }
 
 export interface FAQConfig {
   title?: string;
   subtitle?: string;
-  faqs: Array<{
+  faqs?: Array<{
     question: string;
     answer: string;
   }>;
+  /** FAQs organisées par catégories (alternatif au flat faqs) */
+  categories?: Array<{
+    name: string;
+    faqs: Array<{ question: string; answer: string }>;
+  }>;
   variant?: 'accordion' | 'simple';
+}
+
+export interface ComparisonTableConfig {
+  title?: string;
+  subtitle?: string;
+  plans: string[];
+  categories: Array<{
+    name: string;
+    features: Array<{
+      name: string;
+      values: (boolean | string)[];
+      tooltip?: string;
+    }>;
+  }>;
+  highlightedPlan?: number;
 }
 
 export interface FooterConfig {
@@ -276,5 +309,6 @@ export interface SiteConfig {
   newsletter?: NewsletterConfig;
   integrations?: IntegrationsConfig;
   faq?: FAQConfig;
+  comparisonTable?: ComparisonTableConfig;
   footer?: FooterConfig;
 }

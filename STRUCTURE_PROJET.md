@@ -638,3 +638,43 @@ Pour adapter ce template à un produit spécifique, modifier dans l'ordre :
 
 **Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
 **Exemple complet** : `src/data/config.json` (plombier Dupont Plomberie)
+
+---
+
+## Audit Props vs Config — Résultats (2026-04-17)
+
+Vérification croisée exhaustive entre chaque composant `.astro` et `SiteConfig`. Corrections appliquées dans `src/types/config.ts`.
+
+### Légende
+- **Oubli** = prop dans le composant, absente de la config → ajouté
+- **Type** = incohérence de type → corrigé
+- **Nettoyage** = prop en config non utilisée dans le composant → conservé (usage futur)
+- **OK** = aucune action requise
+
+| Composant | Prop | Anomalie | Statut |
+|---|---|---|---|
+| `Hero.astro` | `gradient?` | Oubli | Ajouté à `HeroConfig` |
+| `Hero.astro` | `backgroundVideoPoster?` | Oubli | Ajouté à `HeroConfig` |
+| `Hero.astro` | `overlayOpacity?` (number) | Oubli | Ajouté à `HeroConfig` |
+| `Hero.astro` | `textColor?` ('auto'\|'light'\|'dark') | Oubli | Ajouté à `HeroConfig` |
+| `Hero.astro` | `minHeight?` ('default'\|'screen'\|'large') | Oubli | Ajouté à `HeroConfig` |
+| `Hero.astro` | `backgroundImage/Video` | Déjà géré via `backgroundSrc` + mapping index.astro | OK |
+| `Hero.astro` | `badge?` | Nettoyage (config → composant ne l'affiche pas) | Conservé |
+| `LogoCloud.astro` | `speed?` ('slow'\|'normal'\|'fast') | Oubli | Ajouté à `LogoCloudConfig` |
+| `LogoCloud.astro` | `columns?` (2\|3\|4\|5\|6) | Oubli | Ajouté à `LogoCloudConfig` |
+| `LogoCloud.astro` | `logoSize?` ('sm'\|'md'\|'lg') | Oubli | Ajouté à `LogoCloudConfig` |
+| `BentoGrid.astro` | `accentColor: string` vs `accent: enum` | **Type** — composant attend un enum strict | Renommé en `accent?` avec type enum |
+| `BentoGrid.astro` | `href?` sur les items | Oubli | Ajouté aux items de `BentoGridConfig` |
+| `IntegrationsGrid.astro` | `invertOnDark?` | Oubli | Ajouté à `IntegrationsConfig` |
+| `IntegrationsGrid.astro` | `footerLink?` | Oubli | Ajouté à `IntegrationsConfig` |
+| `IntegrationsGrid.astro` | `featured?` (item) | Oubli | Ajouté aux items de `IntegrationsConfig` |
+| `IntegrationsGrid.astro` | `columns?: number` | **Type** — composant attend `3\|4\|5\|6` | Corrigé dans `IntegrationsConfig` |
+| `FAQSection.astro` | `categories?` (FAQCategory[]) | Oubli | Ajouté à `FAQConfig` |
+| `FAQSection.astro` | `faqs` requis → optionnel | Divergence | Rendu optionnel dans `FAQConfig` |
+| `ComparisonTable.astro` | Toutes les props | Orphelin — aucune interface existante | Créé `ComparisonTableConfig` + `comparisonTable?` dans `SiteConfig` |
+| `Newsletter.astro` | `variant?` ('default'\|'compact'\|'card') | Oubli | Ajouté à `NewsletterConfig` |
+| `CTA.astro` | `description`/`action` requis vs optionnel | Divergence requiredness | Config reste optionnel, fallbacks dans index.astro |
+| `CTAConfig` | `tallyFormId?` | Nettoyage | Conservé pour future intégration Tally |
+| `NewsletterConfig` | `tallyFormId?` | Nettoyage | Conservé |
+| `PricingConfig` | `tallyFormId?` | Nettoyage | Conservé |
+| Tous les composants | `background?` ('default'\|'muted'\|'accent') | Pattern architectural — piloté depuis index.astro | Aucune action (intentionnel) |
