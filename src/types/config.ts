@@ -81,6 +81,8 @@ export interface LogoCloudConfig {
   variant?: 'default' | 'marquee' | 'grid';
   grayscale?: boolean;
   pauseOnHover?: boolean;
+  background?: 'default' | 'muted';
+  logoSize?: 'sm' | 'md' | 'lg';
 }
 
 export interface FeaturesConfig {
@@ -92,6 +94,7 @@ export interface FeaturesConfig {
     description: string;
   }>;
   footerLink?: CTALink;
+  background?: 'default' | 'muted' | 'accent';
 }
 
 export interface HowItWorksConfig {

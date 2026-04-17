@@ -39,13 +39,14 @@
   "logoCloud": {
     "title": "Certifié et approuvé par",
     "logos": [
-      { "name": "Qualibat", "src": "/logos/qualibat.svg" },
-      { "name": "RGE", "src": "/logos/rge.svg" },
-      { "name": "CAPEB", "src": "/logos/capeb.svg" },
-      { "name": "Décennale Pro", "src": "/logos/decennale.svg" }
+      { "name": "Qualibat", "src": "images/logos/qualibat.jpg" },
+      { "name": "RGE", "src": "images/logos/rge.png" },
+      { "name": "CAPEB", "src": "images/logos/capeb.png" },
+      { "name": "Décennale Pro", "src": "images/logos/decenale.png" }
     ],
-    "variant": "default",
-    "grayscale": true
+    "grayscale": false,
+    "background": "muted",
+    "logoSize": "lg"
   },
 
   "features": {
@@ -83,7 +84,8 @@
         "description": "Abonnement annuel pour la maintenance préventive de vos installations."
       }
     ],
-    "footerLink": { "label": "Voir toutes nos prestations", "href": "/services" }
+    "footerLink": { "label": "Voir toutes nos prestations", "href": "/services" },
+    "background": "default"
   },
 
   "howItWorks": {

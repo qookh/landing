@@ -72,6 +72,8 @@ const testimonials = (cfg.testimonials?.testimonials ?? []).map((t) => ({
         logos={cfg.logoCloud.logos}
         variant={cfg.logoCloud.variant}
         grayscale={cfg.logoCloud.grayscale}
+        background={cfg.logoCloud.background}
+        logoSize={cfg.logoCloud.logoSize}
         pauseOnHover={cfg.logoCloud.pauseOnHover}
       />
     )
@@ -85,6 +87,7 @@ const testimonials = (cfg.testimonials?.testimonials ?? []).map((t) => ({
         subtitle={cfg.features.subtitle}
         features={cfg.features.features.map((f) => ({ ...f, icon: f.icon ?? 'lucide:check' }))}
         footerLink={cfg.features.footerLink}
+        background='default'
       />
     )
   }
