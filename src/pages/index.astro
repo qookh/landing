@@ -1,0 +1,225 @@
+---
+/**
+ * Landing page pilotée par src/data/config.json.
+ *
+ * Pour changer le contenu : modifier uniquement config.json.
+ * Pour changer le design  : modifier les composants dans src/components.
+ *
+ * Optimisation Cloudflare :
+ * - La page est pré-rendue (SSG) et mise en cache à la périphérie (edge).
+ * - Les assets (/images/, /logos/) utilisent des chemins absolus pour que
+ *   Cloudflare Pages les serve depuis le CDN sans aucune configuration.
+ * - Le hero utilise loading="eager" + fetchpriority="high" (cf. Hero.astro).
+ * - Toutes les images hors-écran utilisent loading="lazy" (comportement par défaut).
+ */
+
+import configJson from '@/data/config.json';
+import type { SiteConfig } from '@/types/config';
+
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import Hero from '@sections/marketing/Hero.astro';
+import LogoCloud from '@sections/marketing/LogoCloud.astro';
+import FeaturesSection from '@sections/marketing/FeaturesSection.astro';
+import HowItWorks from '@sections/marketing/HowItWorks.astro';
+import FeatureHighlight from '@sections/marketing/FeatureHighlight.astro';
+import BentoGrid from '@sections/marketing/BentoGrid.astro';
+import IntegrationsGrid from '@sections/marketing/IntegrationsGrid.astro';
+import CTA from '@sections/marketing/CTA.astro';
+import Newsletter from '@sections/marketing/Newsletter.astro';
+import StatsSection from '@sections/social-proof/StatsSection.astro';
+import TestimonialsSection from '@sections/social-proof/TestimonialsSection.astro';
+import PricingTable from '@sections/pricing/PricingTable.astro';
+import FAQSection from '@sections/content/FAQSection.astro';
+
+const cfg = configJson as SiteConfig;
+
+// Normalisation des témoignages : role et company sont requis par le composant
+const testimonials = (cfg.testimonials?.testimonials ?? []).map((t) => ({
+  quote: t.quote,
+  author: t.author,
+  role: t.role ?? '',
+  company: t.company ?? '',
+  avatar: t.avatar,
+}));
+---
+
+<MarketingLayout
+  title={cfg.global ? `${cfg.global.name} — ${cfg.global.description}` : 'Landing'}
+  description={cfg.global?.description ?? ''}
+>
+  {/* ── Hero ── */}
+  {
+    cfg.hero && (
+      <Hero
+        title={cfg.hero.title}
+        subtitle={cfg.hero.subtitle ?? ''}
+        primaryCTA={cfg.hero.primaryCTA ?? { label: 'Contact', href: '/contact' }}
+        secondaryCTA={cfg.hero.secondaryCTA}
+        backgroundType={cfg.hero.backgroundType}
+        backgroundImage={cfg.hero.backgroundType === 'image' ? cfg.hero.backgroundSrc : undefined}
+        backgroundVideo={cfg.hero.backgroundType === 'video' ? cfg.hero.backgroundSrc : undefined}
+        overlay={cfg.hero.overlay}
+        align={cfg.hero.align}
+      />
+    )
+  }
+
+  {/* ── Logos / Certifications ── */}
+  {
+    cfg.logoCloud && (
+      <LogoCloud
+        title={cfg.logoCloud.title}
+        logos={cfg.logoCloud.logos}
+        variant={cfg.logoCloud.variant}
+        grayscale={cfg.logoCloud.grayscale}
+        pauseOnHover={cfg.logoCloud.pauseOnHover}
+      />
+    )
+  }
+
+  {/* ── Services / Fonctionnalités ── */}
+  {
+    cfg.features && (
+      <FeaturesSection
+        title={cfg.features.title}
+        subtitle={cfg.features.subtitle}
+        features={cfg.features.features.map((f) => ({ ...f, icon: f.icon ?? 'lucide:check' }))}
+        footerLink={cfg.features.footerLink}
+      />
+    )
+  }
+
+  {/* ── Processus étape par étape ── */}
+  {
+    cfg.howItWorks && (
+      <HowItWorks
+        title={cfg.howItWorks.title}
+        subtitle={cfg.howItWorks.subtitle}
+        steps={cfg.howItWorks.steps}
+        variant={cfg.howItWorks.variant}
+        showNumbers={cfg.howItWorks.showNumbers}
+        background="muted"
+      />
+    )
+  }
+
+  {/* ── Mise en avant alternée image / texte ── */}
+  {
+    cfg.featureHighlight && (
+      <FeatureHighlight
+        title={cfg.featureHighlight.title}
+        subtitle={cfg.featureHighlight.subtitle}
+        features={cfg.featureHighlight.features}
+        startImageLeft={cfg.featureHighlight.startImageLeft}
+      />
+    )
+  }
+
+  {/* ── Grille bento (optionnel) ── */}
+  {
+    cfg.bentoGrid && (
+      <BentoGrid
+        title={cfg.bentoGrid.title}
+        subtitle={cfg.bentoGrid.subtitle}
+        items={cfg.bentoGrid.items}
+        background="muted"
+      />
+    )
+  }
+
+  {/* ── Intégrations (optionnel) ── */}
+  {
+    cfg.integrations && (
+      <IntegrationsGrid
+        title={cfg.integrations.title}
+        subtitle={cfg.integrations.subtitle}
+        integrations={cfg.integrations.integrations}
+        showFilter={cfg.integrations.showFilter}
+        variant={cfg.integrations.variant ?? 'grid'}
+        columns={(cfg.integrations.columns ?? 3) as 3 | 4 | 5 | 6}
+        invertOnDark={false}
+      />
+    )
+  }
+
+  {/* ── Chiffres clés ── */}
+  {
+    cfg.stats && (
+      <StatsSection
+        title={cfg.stats.title}
+        subtitle={cfg.stats.subtitle}
+        stats={cfg.stats.stats}
+        columns={cfg.stats.columns}
+      />
+    )
+  }
+
+  {/* ── Témoignages ── */}
+  {
+    testimonials.length > 0 && (
+      <TestimonialsSection
+        title={cfg.testimonials?.title}
+        subtitle={cfg.testimonials?.subtitle}
+        testimonials={testimonials}
+        limit={cfg.testimonials?.limit}
+        footerLink={cfg.testimonials?.footerLink}
+        background="muted"
+      />
+    )
+  }
+
+  {/* ── Tarifs ── */}
+  {
+    cfg.pricing && (
+      <PricingTable
+        title={cfg.pricing.title}
+        subtitle={cfg.pricing.subtitle}
+        plans={cfg.pricing.plans}
+        annualDiscount={cfg.pricing.annualDiscount}
+        defaultPeriod={cfg.pricing.defaultPeriod}
+        footerLink={cfg.pricing.footerLink}
+      />
+    )
+  }
+
+  {/* ── FAQ ── */}
+  {
+    cfg.faq && (
+      <FAQSection
+        title={cfg.faq.title}
+        subtitle={cfg.faq.subtitle}
+        faqs={cfg.faq.faqs}
+        variant={cfg.faq.variant}
+        background="muted"
+      />
+    )
+  }
+
+  {/* ── CTA final ── */}
+  {
+    cfg.cta && (
+      <CTA
+        title={cfg.cta.title}
+        description={cfg.cta.description ?? ''}
+        action={cfg.cta.action ?? { label: 'Nous contacter', href: '/contact' }}
+        secondaryAction={cfg.cta.secondaryAction}
+      />
+    )
+  }
+
+  {/* ── Newsletter ── */}
+  {
+    cfg.newsletter && (
+      <Newsletter
+        title={cfg.newsletter.title}
+        description={cfg.newsletter.description}
+        placeholder={cfg.newsletter.placeholder}
+        buttonText={cfg.newsletter.buttonText}
+        successMessage={cfg.newsletter.successMessage}
+        errorMessage={cfg.newsletter.errorMessage}
+        privacyNote={cfg.newsletter.privacyNote}
+        action={cfg.newsletter.action}
+      />
+    )
+  }
+</MarketingLayout>

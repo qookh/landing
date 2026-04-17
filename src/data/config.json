@@ -1,0 +1,307 @@
+{
+  "global": {
+    "name": "Dupont Plomberie",
+    "tagline": "Votre expert plombier depuis 1998",
+    "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Paris et en Île-de-France. Devis gratuit, artisan certifié Qualibat.",
+    "logo": "/logo.svg",
+    "url": "https://dupont-plomberie.fr",
+    "social": {
+      "facebook": "https://facebook.com/dupontplomberie",
+      "instagram": "https://instagram.com/dupontplomberie"
+    },
+    "contact": {
+      "email": "contact@dupont-plomberie.fr",
+      "phone": "01 23 45 67 89",
+      "address": "15 rue de la République, 75011 Paris"
+    }
+  },
+
+  "announcement": {
+    "enabled": true,
+    "id": "promo-printemps-2026",
+    "text": "🔧 -20% sur tous les diagnostics ce mois-ci !",
+    "href": "/contact",
+    "linkText": "Prendre rendez-vous",
+    "variant": "primary",
+    "dismissible": true
+  },
+
+  "hero": {
+    "title": "Plombier d'urgence à Paris — Intervention en 1h",
+    "subtitle": "Fuite, dégât des eaux, chauffe-eau en panne ? Notre équipe intervient 24h/24, 7j/7 dans tout Paris et l'Île-de-France.",
+    "badge": "⚡ Disponible 24h/24",
+    "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
+    "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" },
+    "backgroundType": "gradient",
+    "align": "center"
+  },
+
+  "logoCloud": {
+    "title": "Certifié et approuvé par",
+    "logos": [
+      { "name": "Qualibat", "src": "/logos/qualibat.svg" },
+      { "name": "RGE", "src": "/logos/rge.svg" },
+      { "name": "CAPEB", "src": "/logos/capeb.svg" },
+      { "name": "Décennale Pro", "src": "/logos/decennale.svg" }
+    ],
+    "variant": "default",
+    "grayscale": true
+  },
+
+  "features": {
+    "title": "Tous les services de plomberie",
+    "subtitle": "Du dépannage d'urgence à la rénovation complète, nous couvrons tous vos besoins.",
+    "features": [
+      {
+        "icon": "lucide:zap",
+        "title": "Urgence 24h/24",
+        "description": "Intervention garantie en moins d'une heure, 7 jours sur 7, jours fériés inclus."
+      },
+      {
+        "icon": "lucide:droplets",
+        "title": "Fuites & Dégâts des eaux",
+        "description": "Détection et réparation de fuites apparentes ou cachées sans destruction."
+      },
+      {
+        "icon": "lucide:flame",
+        "title": "Chauffe-eau & Chaudières",
+        "description": "Installation, dépannage et entretien de tous types de chauffe-eau et chaudières."
+      },
+      {
+        "icon": "lucide:wrench",
+        "title": "Débouchage",
+        "description": "Débouchage de canalisations bouchées par haute pression ou furet motorisé."
+      },
+      {
+        "icon": "lucide:home",
+        "title": "Rénovation Salle de Bain",
+        "description": "Conception et pose complète de salle de bain, douche à l'italienne incluse."
+      },
+      {
+        "icon": "lucide:shield-check",
+        "title": "Contrat d'entretien",
+        "description": "Abonnement annuel pour la maintenance préventive de vos installations."
+      }
+    ],
+    "footerLink": { "label": "Voir toutes nos prestations", "href": "/services" }
+  },
+
+  "howItWorks": {
+    "title": "Comment ça marche ?",
+    "subtitle": "Une intervention simple, rapide et transparente en 3 étapes.",
+    "steps": [
+      {
+        "icon": "lucide:phone",
+        "title": "Appelez-nous",
+        "description": "Décrivez votre problème au 01 23 45 67 89. Devis téléphonique immédiat et gratuit."
+      },
+      {
+        "icon": "lucide:truck",
+        "title": "On arrive chez vous",
+        "description": "Un plombier qualifié arrive en moins d'une heure avec tout le matériel nécessaire."
+      },
+      {
+        "icon": "lucide:check-circle",
+        "title": "Problème résolu",
+        "description": "Réparation effectuée, facture détaillée remise sur place. Garantie 2 ans sur les pièces."
+      }
+    ],
+    "variant": "horizontal",
+    "showNumbers": true
+  },
+
+  "featureHighlight": {
+    "title": "Pourquoi choisir Dupont Plomberie ?",
+    "subtitle": "25 ans d'expérience au service des Parisiens.",
+    "features": [
+      {
+        "badge": "Notre engagement",
+        "title": "Devis transparent, sans surprise",
+        "description": "Nous établissons un devis clair avant toute intervention. Le prix affiché est le prix payé, sans frais cachés ni supplément d'urgence.",
+        "highlights": [
+          "Devis gratuit en 5 minutes",
+          "Prix fixe annoncé à l'avance",
+          "Paiement après intervention"
+        ],
+        "image": "/images/devis-transparent.jpg",
+        "cta": { "label": "Demander un devis", "href": "/contact" }
+      },
+      {
+        "badge": "Expertise",
+        "title": "Artisans certifiés Qualibat",
+        "description": "Toute notre équipe est certifiée et assurée décennale. Nous intervenons sur tous types d'installations : ancien, neuf, copropriété.",
+        "highlights": [
+          "Certification Qualibat",
+          "Assurance décennale incluse",
+          "Formation continue"
+        ],
+        "image": "/images/certification.jpg"
+      }
+    ],
+    "startImageLeft": true
+  },
+
+  "stats": {
+    "title": "Des chiffres qui parlent",
+    "stats": [
+      { "value": "25 ans", "label": "d'expérience" },
+      { "value": "4800+", "label": "Interventions réalisées" },
+      { "value": "98%", "label": "Clients satisfaits" },
+      { "value": "< 1h", "label": "Délai d'intervention" }
+    ],
+    "columns": 4
+  },
+
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Plus de 500 avis vérifiés sur Google.",
+    "testimonials": [
+      {
+        "author": "Marie Leclerc",
+        "role": "Propriétaire",
+        "company": "Paris 11e",
+        "quote": "Intervention en 45 minutes un dimanche soir pour une fuite sous évier. Efficace, propre, et au prix annoncé. Je recommande vivement !"
+      },
+      {
+        "author": "Thomas Bernard",
+        "role": "Gestionnaire",
+        "company": "Syndic Haussmann",
+        "quote": "Dupont Plomberie gère l'entretien de nos 3 immeubles depuis 8 ans. Réactivité et professionnalisme exemplaires."
+      },
+      {
+        "author": "Sophie Martin",
+        "role": "Locataire",
+        "company": "Paris 3e",
+        "quote": "Chauffe-eau remplacé en une demi-journée. Le plombier a expliqué chaque étape et nettoyé après lui. Parfait !"
+      }
+    ],
+    "limit": 3,
+    "footerLink": { "label": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
+  },
+
+  "pricing": {
+    "title": "Tarifs clairs et sans surprise",
+    "subtitle": "Des forfaits adaptés à chaque besoin.",
+    "plans": [
+      {
+        "name": "Diagnostic",
+        "monthlyPrice": 89,
+        "description": "Pour identifier le problème avant d'agir.",
+        "features": [
+          "Visite diagnostic complète",
+          "Rapport écrit",
+          "Devis de réparation gratuit",
+          "Déplacement inclus"
+        ],
+        "cta": { "label": "Réserver", "href": "/contact" }
+      },
+      {
+        "name": "Intervention Standard",
+        "monthlyPrice": 189,
+        "description": "La plupart des dépannages courants.",
+        "features": [
+          "Diagnostic inclus",
+          "1h de main d'œuvre",
+          "Pièces standard incluses",
+          "Garantie 1 an"
+        ],
+        "cta": { "label": "Réserver", "href": "/contact" },
+        "highlighted": true
+      },
+      {
+        "name": "Contrat Annuel",
+        "monthlyPrice": null,
+        "customPrice": "Sur devis",
+        "description": "Pour les propriétaires et gestionnaires d'immeuble.",
+        "features": [
+          "Visites préventives x2/an",
+          "Priorité d'intervention",
+          "Remise 15% sur pièces",
+          "Bilan technique annuel"
+        ],
+        "cta": { "label": "Nous contacter", "href": "/contact" }
+      }
+    ],
+    "footerLink": { "label": "Tous les tarifs et conditions", "href": "/tarifs" }
+  },
+
+  "cta": {
+    "title": "Une urgence ? On est là.",
+    "description": "Fuite, canalisation bouchée, chauffe-eau HS — appelez-nous maintenant. Intervention en moins d'une heure.",
+    "action": { "label": "01 23 45 67 89", "href": "tel:0123456789" },
+    "secondaryAction": { "label": "Envoyer un message", "href": "/contact" }
+  },
+
+  "newsletter": {
+    "title": "Conseils plomberie gratuits",
+    "description": "Recevez nos astuces pour entretenir vos installations et éviter les pannes.",
+    "placeholder": "votre@email.fr",
+    "buttonText": "S'abonner",
+    "successMessage": "Merci ! Vous recevrez nos prochains conseils par email.",
+    "errorMessage": "Une erreur est survenue. Réessayez.",
+    "privacyNote": "Pas de spam. Désinscription en un clic."
+  },
+
+  "faq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce que vous devez savoir avant de nous appeler.",
+    "faqs": [
+      {
+        "question": "Intervenez-vous la nuit et le week-end ?",
+        "answer": "Oui, notre service d'urgence fonctionne 24h/24 et 7j/7, jours fériés inclus. Un supplément de 30€ s'applique pour les interventions entre 20h et 8h."
+      },
+      {
+        "question": "Donnez-vous un devis avant intervention ?",
+        "answer": "Oui, systématiquement. Le diagnostic permet d'établir un devis précis que vous signez avant que nous commencions les travaux."
+      },
+      {
+        "question": "Quelle est la zone d'intervention ?",
+        "answer": "Nous intervenons dans tout Paris (75) et en petite couronne : Hauts-de-Seine (92), Seine-Saint-Denis (93) et Val-de-Marne (94)."
+      },
+      {
+        "question": "Acceptez-vous les bons d'assistance ?",
+        "answer": "Oui, nous acceptons les bons de SOS Plomberie, HomeServe, Assistance Dépannage Habitat et la plupart des contrats d'assistance habitation."
+      }
+    ],
+    "variant": "accordion"
+  },
+
+  "footer": {
+    "description": "Artisan plombier certifié Qualibat à Paris depuis 1998. Urgence 24h/24.",
+    "columns": [
+      {
+        "title": "Services",
+        "links": [
+          { "label": "Urgence plomberie", "href": "/urgence" },
+          { "label": "Détection de fuite", "href": "/fuite" },
+          { "label": "Chauffe-eau", "href": "/chauffe-eau" },
+          { "label": "Débouchage", "href": "/debouchage" },
+          { "label": "Rénovation salle de bain", "href": "/renovation" }
+        ]
+      },
+      {
+        "title": "Zones d'intervention",
+        "links": [
+          { "label": "Paris", "href": "/paris" },
+          { "label": "Hauts-de-Seine", "href": "/92" },
+          { "label": "Seine-Saint-Denis", "href": "/93" },
+          { "label": "Val-de-Marne", "href": "/94" }
+        ]
+      },
+      {
+        "title": "À propos",
+        "links": [
+          { "label": "Notre équipe", "href": "/equipe" },
+          { "label": "Certifications", "href": "/certifications" },
+          { "label": "Avis clients", "href": "/avis" },
+          { "label": "Contact", "href": "/contact" }
+        ]
+      }
+    ],
+    "legal": {
+      "privacyUrl": "/confidentialite",
+      "termsUrl": "/mentions-legales",
+      "copyright": "© 2026 Dupont Plomberie. Tous droits réservés."
+    }
+  }
+}
