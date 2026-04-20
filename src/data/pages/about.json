@@ -1,0 +1,108 @@
+{
+  "seo": {
+    "title": "À propos — Dupont Plomberie depuis 1998",
+    "description": "Découvrez l'histoire de Dupont Plomberie, notre équipe d'artisans certifiés et nos valeurs au service des Parisiens depuis 25 ans.",
+    "keywords": ["plombier certifié Paris", "artisan plombier Île-de-France", "Dupont Plomberie équipe"]
+  },
+  "header": {
+    "title": "25 ans au service des Parisiens",
+    "align": "left",
+    "maxWidth": "lg",
+    "paragraphs": [
+      "Dupont Plomberie a été fondée en 1998 par Michel Dupont avec une idée simple : la plomberie doit être fiable, transparente et accessible à tous. Dès le premier coup de fil, vous méritez un prix clair, un artisan qualifié et une intervention efficace.",
+      "Aujourd'hui, notre équipe de 12 plombiers certifiés intervient chaque jour dans Paris et la petite couronne. Nous sommes fiers de notre taux de satisfaction de 98% et de nos plus de 4 800 interventions réussies."
+    ]
+  },
+  "stats": {
+    "stats": [
+      { "value": "25 ans", "label": "d'expérience" },
+      { "value": "4 800+", "label": "Interventions réalisées" },
+      { "value": "98%", "label": "Clients satisfaits" },
+      { "value": "12", "label": "Techniciens certifiés" }
+    ],
+    "columns": 4
+  },
+  "video": {
+    "title": "Dupont Plomberie en action",
+    "subtitle": "Découvrez comment nous intervenons chez nos clients : réactivité, professionnalisme et transparence.",
+    "videoId": "dQw4w9WgXcQ",
+    "provider": "youtube",
+    "maxWidth": "lg",
+    "lazyLoad": true
+  },
+  "values": {
+    "title": "Nos engagements",
+    "subtitle": "Ce qui guide chacune de nos interventions.",
+    "variant": "card",
+    "columns": 2,
+    "items": [
+      {
+        "icon": "lucide:shield-check",
+        "title": "Transparence totale",
+        "description": "Le prix est annoncé avant de commencer. Pas de frais cachés, pas de mauvaises surprises sur la facture."
+      },
+      {
+        "icon": "lucide:clock",
+        "title": "Réactivité 24h/24",
+        "description": "Une urgence plomberie ne prévient pas. C'est pourquoi nous sommes disponibles nuit et jour, week-ends et jours fériés."
+      },
+      {
+        "icon": "lucide:award",
+        "title": "Expertise certifiée",
+        "description": "Toute notre équipe est certifiée Qualibat et formée en continu aux nouvelles techniques et normes plomberie."
+      },
+      {
+        "icon": "lucide:heart",
+        "title": "Service client humain",
+        "description": "Nous prenons le temps d'expliquer, de conseiller et de vous laisser propre après notre passage. Votre confiance est notre priorité."
+      }
+    ]
+  },
+  "team": {
+    "title": "Notre équipe",
+    "subtitle": "Des artisans passionnés et certifiés.",
+    "columns": 4,
+    "members": [
+      {
+        "name": "Michel Dupont",
+        "role": "Fondateur & Maître plombier",
+        "bio": "25 ans de métier. Michel a fondé la société avec une conviction : la plomberie doit être simple et transparente pour le client.",
+        "avatar": "/images/team/michel-dupont.webp",
+        "social": { "linkedin": "#" }
+      },
+      {
+        "name": "Sophie Dupont",
+        "role": "Responsable clientèle",
+        "bio": "Interlocutrice de confiance, Sophie coordonne les interventions et s'assure que chaque client est pris en charge rapidement.",
+        "avatar": "/images/team/sophie-dupont.webp"
+      },
+      {
+        "name": "Karim Benali",
+        "role": "Chef d'équipe dépannage",
+        "bio": "Spécialiste des urgences et de la détection de fuites. Karim est notre expert en technologies non destructives.",
+        "avatar": "/images/team/karim-benali.webp"
+      },
+      {
+        "name": "Thierry Moreau",
+        "role": "Responsable rénovation",
+        "bio": "15 ans d'expérience en rénovation salle de bain. Thierry pilote nos chantiers de rénovation de A à Z.",
+        "avatar": "/images/team/thierry-moreau.webp"
+      }
+    ]
+  },
+  "content": {
+    "title": "Nos certifications",
+    "align": "left",
+    "maxWidth": "lg",
+    "paragraphs": [
+      "Dupont Plomberie est certifiée Qualibat RGE, la référence nationale de la qualité artisanale. Cette certification nous est attribuée après audit annuel de nos compétences techniques, de notre organisation et de nos références clients.",
+      "Nous disposons également d'une assurance décennale complète couvrant l'ensemble de nos travaux, ainsi que d'une assurance responsabilité civile professionnelle. Toutes nos attestations sont disponibles sur demande."
+    ]
+  },
+  "cta": {
+    "title": "Travailler avec nous",
+    "description": "Vous gérez un immeuble ou avez des besoins plomberie récurrents ? Contactez-nous pour un partenariat sur mesure.",
+    "action": { "label": "Nous contacter", "href": "/contact" },
+    "secondaryAction": { "label": "Voir nos tarifs", "href": "/pricing" }
+  }
+}

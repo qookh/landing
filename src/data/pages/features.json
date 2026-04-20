@@ -1,0 +1,180 @@
+{
+  "seo": {
+    "title": "Nos services de plomberie — Dupont Plomberie Paris",
+    "description": "Découvrez tous nos services : urgence 24h/24, détection de fuites, chauffe-eau, débouchage, rénovation salle de bain. Artisan certifié Qualibat.",
+    "keywords": ["services plomberie Paris", "dépannage plombier", "rénovation salle de bain Paris", "détection fuite Paris"]
+  },
+  "header": {
+    "title": "Tous nos services de plomberie",
+    "subtitle": "Du dépannage d'urgence à la rénovation complète, Dupont Plomberie couvre tous vos besoins avec expertise et réactivité."
+  },
+  "highlight": {
+    "title": "Nos prestations phares",
+    "subtitle": "Les services les plus demandés par nos clients parisiens.",
+    "features": [
+      {
+        "badge": "Urgence",
+        "title": "Intervention d'urgence en 1 heure",
+        "description": "Fuite, dégât des eaux, canalisation bouchée ou chauffe-eau en panne ? Notre équipe est disponible 24h/24, 7j/7 pour intervenir chez vous en moins d'une heure dans Paris et la petite couronne.",
+        "highlights": [
+          "Disponible 24h/24, 7j/7 et jours fériés",
+          "Délai d'intervention garanti < 1h",
+          "Devis sur place avant intervention",
+          "Techniciens expérimentés et équipés"
+        ],
+        "icon": "lucide:zap",
+        "cta": { "label": "Appeler maintenant", "href": "tel:0123456789" }
+      },
+      {
+        "badge": "Expertise",
+        "title": "Détection de fuites sans destruction",
+        "description": "Nous utilisons des technologies de pointe (caméra endoscopique, détecteur acoustique, gaz traceur) pour localiser les fuites cachées sans démolir vos murs ni vos carrelages.",
+        "highlights": [
+          "Détection par caméra endoscopique",
+          "Détecteur acoustique de précision",
+          "Gaz traceur pour fuites enterrées",
+          "Rapport de diagnostic écrit"
+        ],
+        "image": "/images/detection-fuite.jpg",
+        "cta": { "label": "En savoir plus", "href": "/contact" }
+      },
+      {
+        "badge": "Rénovation",
+        "title": "Rénovation salle de bain clé en main",
+        "description": "De la conception à la pose, nous prenons en charge l'intégralité de votre projet : plomberie, carrelage, sanitaires, douche à l'italienne. Un interlocuteur unique pour un chantier sans stress.",
+        "highlights": [
+          "Conception et plans 3D gratuits",
+          "Coordination de tous les corps de métier",
+          "Fourniture et pose des sanitaires",
+          "Garantie décennale sur les travaux"
+        ],
+        "image": "/images/renovation-salle-bain.jpg",
+        "cta": { "label": "Demander un devis", "href": "/contact" }
+      }
+    ]
+  },
+  "categories": [
+    {
+      "title": "Dépannage & Urgences",
+      "subtitle": "Nous intervenons sur toutes les pannes et urgences plomberie",
+      "variant": "with-icon",
+      "columns": 2,
+      "items": [
+        {
+          "icon": "lucide:droplets",
+          "title": "Fuites et dégâts des eaux",
+          "description": "Réparation de fuites apparentes ou cachées, joints de robinetterie, raccords défaillants. Intervention rapide pour limiter les dégâts."
+        },
+        {
+          "icon": "lucide:wrench",
+          "title": "Débouchage de canalisations",
+          "description": "Débouchage par haute pression ou furet motorisé pour évier, douche, WC, canalisation principale bouchée."
+        },
+        {
+          "icon": "lucide:flame",
+          "title": "Panne chauffe-eau",
+          "description": "Diagnostic et réparation de tous types de chauffe-eau : électrique, gaz, thermodynamique. Remplacement en urgence si nécessaire."
+        },
+        {
+          "icon": "lucide:thermometer",
+          "title": "Problèmes de chauffage",
+          "description": "Purge des radiateurs, remplacement de vannes, réglage de la pression du circuit, dépannage de chaudière."
+        }
+      ]
+    },
+    {
+      "title": "Installation & Remplacement",
+      "subtitle": "Installations neuves et remplacements d'équipements sanitaires",
+      "variant": "with-icon",
+      "columns": 2,
+      "items": [
+        {
+          "icon": "lucide:shower-head",
+          "title": "Sanitaires & robinetterie",
+          "description": "Installation et remplacement de WC, lavabos, baignoires, douches, robinets, mitigeurs. Tous types de gammes et de marques."
+        },
+        {
+          "icon": "lucide:flame",
+          "title": "Chauffe-eau & cumulus",
+          "description": "Installation de chauffe-eaux électriques, à gaz, thermodynamiques ou solaires. Conseil sur les aides disponibles (MaPrimeRénov')."
+        },
+        {
+          "icon": "lucide:toolbox",
+          "title": "Rénovation des canalisations",
+          "description": "Remplacement de tuyauteries vétustes (plomb, fonte), mise aux normes des installations, création de nouveaux points d'eau."
+        },
+        {
+          "icon": "lucide:shield-check",
+          "title": "Mise aux normes",
+          "description": "Mise en conformité de vos installations selon les normes DTU en vigueur. Attestation de conformité fournie."
+        }
+      ]
+    },
+    {
+      "title": "Entretien & Prévention",
+      "subtitle": "Pour éviter les pannes et prolonger la durée de vie de vos installations",
+      "variant": "with-icon",
+      "columns": 2,
+      "items": [
+        {
+          "icon": "lucide:calendar",
+          "title": "Contrat d'entretien annuel",
+          "description": "Deux visites préventives par an, priorité d'intervention et remise de 15% sur les pièces. Pour propriétaires et gestionnaires d'immeubles."
+        },
+        {
+          "icon": "lucide:search",
+          "title": "Diagnostic installation",
+          "description": "Bilan complet de vos installations plomberie : état des canalisations, pression, qualité de l'eau, risques identifiés. Rapport écrit et préconisations."
+        },
+        {
+          "icon": "lucide:droplets",
+          "title": "Traitement anti-calcaire",
+          "description": "Installation d'adoucisseurs d'eau et de systèmes anti-calcaire pour protéger vos équipements et améliorer la qualité de l'eau."
+        },
+        {
+          "icon": "lucide:building",
+          "title": "Gestion d'immeuble",
+          "description": "Partenariats avec les syndics et gestionnaires : interventions groupées, rapport d'entretien, facturation mensuelle consolidée."
+        }
+      ]
+    }
+  ],
+  "bentoGrid": {
+    "title": "Pourquoi choisir Dupont Plomberie ?",
+    "subtitle": "25 ans d'expérience au service des Parisiens.",
+    "items": [
+      {
+        "title": "Certifié Qualibat RGE",
+        "description": "Certification nationale garantissant notre compétence et notre professionnalisme. Ouvre droit aux aides à la rénovation.",
+        "icon": "lucide:award",
+        "size": "large",
+        "accent": "primary"
+      },
+      {
+        "title": "Devis transparent",
+        "description": "Prix fixe annoncé avant intervention. Aucun frais caché.",
+        "icon": "lucide:file-text",
+        "accent": "blue"
+      },
+      {
+        "title": "Garantie 1 à 2 ans",
+        "description": "Sur toutes nos interventions, pièces et main d'œuvre.",
+        "icon": "lucide:shield-check",
+        "accent": "green"
+      },
+      {
+        "title": "25 ans d'expérience",
+        "description": "Plus de 4 800 interventions réalisées à Paris et en Île-de-France. 98% de clients satisfaits.",
+        "icon": "lucide:star",
+        "size": "medium",
+        "accent": "purple"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Besoin d'un plombier ?",
+    "description": "Appelez-nous maintenant pour une intervention rapide ou un devis gratuit sans engagement.",
+    "action": { "label": "01 23 45 67 89", "href": "tel:0123456789" },
+    "secondaryAction": { "label": "Demander un devis", "href": "/contact" }
+  }
+}

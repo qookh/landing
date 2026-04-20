@@ -1,0 +1,131 @@
+{
+  "seo": {
+    "title": "Témoignages clients — Dupont Plomberie Paris",
+    "description": "Découvrez les témoignages de nos clients parisiens : particuliers, propriétaires, gestionnaires d'immeubles et syndics.",
+    "keywords": ["avis plombier Paris", "témoignages plomberie", "clients Dupont Plomberie"]
+  },
+  "header": {
+    "title": "Ils nous font confiance",
+    "subtitle": "Plus de 500 avis vérifiés sur Google. Découvrez ce que disent nos clients."
+  },
+  "stats": {
+    "stats": [
+      { "value": "500+", "label": "Avis vérifiés Google" },
+      { "value": "98%", "label": "Taux de satisfaction" },
+      { "value": "4 800+", "label": "Interventions réalisées" },
+      { "value": "25 ans", "label": "D'expérience" }
+    ],
+    "columns": 4
+  },
+  "featuredCases": {
+    "title": "Témoignages à la une",
+    "subtitle": "Des clients qui nous font confiance au quotidien.",
+    "cases": [
+      {
+        "company": "Syndic Haussmann Gestion",
+        "logo": "/images/logos/syndic-haussmann.svg",
+        "industry": "Gestion immobilière",
+        "quote": "Dupont Plomberie gère l'entretien de nos 3 immeubles depuis 8 ans. Réactivité exemplaire, devis toujours respectés et techniciens professionnels. Nous ne changerions pour rien au monde.",
+        "author": "Thomas Bernard",
+        "role": "Gestionnaire de copropriété",
+        "metrics": [
+          { "value": "3", "label": "Immeubles gérés" },
+          { "value": "8 ans", "label": "De partenariat" },
+          { "value": "< 1h", "label": "Temps de réponse" }
+        ],
+        "featured": true
+      },
+      {
+        "company": "Résidence Les Lilas",
+        "logo": "/images/logos/residence-lilas.svg",
+        "industry": "Copropriété",
+        "quote": "Suite à un dégât des eaux important un samedi soir, Michel est arrivé en 40 minutes. Il a localisé la fuite sans casser de carrelage et tout était réparé avant minuit. Un service exceptionnel.",
+        "author": "Françoise Petit",
+        "role": "Présidente du conseil syndical",
+        "metrics": [
+          { "value": "40 min", "label": "Délai d'intervention" },
+          { "value": "0", "label": "Carrelage cassé" },
+          { "value": "100%", "label": "Problème résolu" }
+        ],
+        "featured": true
+      }
+    ]
+  },
+  "gridCases": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Particuliers, propriétaires, syndics — tous font confiance à Dupont Plomberie.",
+    "cases": [
+      {
+        "company": "Particulier — Paris 11e",
+        "industry": "Particulier",
+        "quote": "Chauffe-eau remplacé en une demi-journée. Le technicien a expliqué chaque étape et nettoyé après lui. Prix conforme au devis. Parfait !",
+        "author": "Sophie Martin",
+        "role": "Propriétaire"
+      },
+      {
+        "company": "Particulier — Paris 3e",
+        "industry": "Particulier",
+        "quote": "Intervention en 45 minutes un dimanche soir pour une fuite sous évier. Efficace, propre et au prix annoncé. Je recommande vivement !",
+        "author": "Marie Leclerc",
+        "role": "Locataire"
+      },
+      {
+        "company": "Cabinet médical — Paris 9e",
+        "industry": "Professionnel de santé",
+        "quote": "Débouchage urgent d'une canalisation pendant notre ouverture. Discrets, rapides et efficaces. Ils ont minimisé les nuisances pour nos patients.",
+        "author": "Dr. Jean Rousseau",
+        "role": "Médecin généraliste",
+        "metrics": [
+          { "value": "< 30 min", "label": "Résolution" }
+        ]
+      },
+      {
+        "company": "Restaurant La Bonne Table",
+        "industry": "Restauration",
+        "quote": "Une fuite en plein service du midi, ils ont répondu en 20 minutes et réparé sans fermer le restaurant. Professionnalisme total.",
+        "author": "Laurent Dubois",
+        "role": "Gérant"
+      },
+      {
+        "company": "Agence immobilière Prestige",
+        "industry": "Immobilier",
+        "quote": "Nous recommandons systématiquement Dupont Plomberie à nos locataires et propriétaires. Fiabilité et sérieux à toute épreuve.",
+        "author": "Isabelle Morin",
+        "role": "Directrice d'agence",
+        "metrics": [
+          { "value": "5 ans", "label": "De collaboration" }
+        ]
+      },
+      {
+        "company": "Hôtel Particulier — Paris 7e",
+        "industry": "Hôtellerie",
+        "quote": "Contrat annuel depuis 3 ans. Les visites préventives ont évité plusieurs pannes majeures. Excellent rapport qualité-prix.",
+        "author": "Philippe Mercier",
+        "role": "Directeur technique",
+        "metrics": [
+          { "value": "0", "label": "Panne majeure" },
+          { "value": "3 ans", "label": "De contrat" }
+        ]
+      }
+    ]
+  },
+  "logoCloud": {
+    "title": "Ils nous font confiance",
+    "grayscale": true,
+    "variant": "default",
+    "logos": [
+      { "name": "Syndic Haussmann", "src": "/logos/syndic-haussmann.svg" },
+      { "name": "Foncia", "src": "/logos/foncia.svg" },
+      { "name": "Nexity", "src": "/logos/nexity.svg" },
+      { "name": "HomeServe", "src": "/logos/homeserve.svg" },
+      { "name": "Qualibat", "src": "/logos/qualibat.svg" },
+      { "name": "CAPEB", "src": "/logos/capeb.svg" }
+    ]
+  },
+  "cta": {
+    "title": "Rejoignez nos clients satisfaits",
+    "description": "Appelez-nous maintenant pour une intervention rapide ou demandez un devis gratuit.",
+    "action": { "label": "Appeler maintenant", "href": "tel:0123456789" },
+    "secondaryAction": { "label": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
+  }
+}

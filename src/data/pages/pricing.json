@@ -1,0 +1,133 @@
+{
+  "seo": {
+    "title": "Tarifs plomberie — Dupont Plomberie Paris",
+    "description": "Tarifs clairs et transparents pour tous vos travaux de plomberie. Diagnostic, dépannage, rénovation. Devis gratuit.",
+    "keywords": ["tarifs plombier Paris", "prix plomberie", "devis plombier", "coût intervention plomberie"]
+  },
+  "plans": [
+    {
+      "name": "Diagnostic",
+      "monthlyPrice": 89,
+      "description": "Pour identifier le problème avant d'agir.",
+      "features": [
+        "Visite diagnostic complète",
+        "Rapport écrit détaillé",
+        "Devis de réparation gratuit",
+        "Déplacement inclus",
+        "Disponible 7j/7"
+      ],
+      "cta": { "label": "Réserver", "href": "/contact" }
+    },
+    {
+      "name": "Intervention Standard",
+      "monthlyPrice": 189,
+      "description": "La plupart des dépannages courants.",
+      "features": [
+        "Diagnostic inclus",
+        "1h de main d'œuvre",
+        "Pièces standard incluses",
+        "Garantie 1 an",
+        "Facture détaillée",
+        "Disponible 7j/7"
+      ],
+      "cta": { "label": "Réserver", "href": "/contact" },
+      "highlighted": true,
+      "badge": "Le plus demandé"
+    },
+    {
+      "name": "Contrat Annuel",
+      "monthlyPrice": null,
+      "customPrice": "Sur devis",
+      "description": "Pour les propriétaires et gestionnaires d'immeuble.",
+      "features": [
+        "Visites préventives x2/an",
+        "Priorité d'intervention",
+        "Remise 15% sur pièces",
+        "Bilan technique annuel",
+        "Réduction supplément nuit 50%",
+        "Devis en 24h"
+      ],
+      "cta": { "label": "Nous contacter", "href": "/contact" }
+    }
+  ],
+  "annualDiscount": 0,
+  "defaultPeriod": "monthly",
+  "guarantee": {
+    "title": "Garantie satisfaction — Devis respecté",
+    "description": "Le prix annoncé dans le devis est le prix payé. Aucun frais caché, aucun supplément surprise. Garantie 1 an sur la main d'œuvre.",
+    "icon": "lucide:shield-check"
+  },
+  "comparison": {
+    "title": "Comparez nos formules en détail",
+    "subtitle": "Choisissez la formule adaptée à votre situation.",
+    "plans": ["Diagnostic", "Standard", "Contrat Annuel"],
+    "highlightedPlan": 1,
+    "categories": [
+      {
+        "name": "Inclus",
+        "features": [
+          { "name": "Déplacement", "values": [true, true, true] },
+          { "name": "Diagnostic", "values": [true, true, true] },
+          { "name": "Main d'œuvre (1h)", "values": [false, true, true] },
+          { "name": "Pièces standard", "values": [false, true, true] }
+        ]
+      },
+      {
+        "name": "Garanties",
+        "features": [
+          { "name": "Garantie main d'œuvre", "values": [false, "1 an", "2 ans"] },
+          { "name": "Garantie pièces", "values": ["Fabricant", "Fabricant", "Fabricant"] },
+          { "name": "Devis signé avant travaux", "values": [true, true, true] },
+          { "name": "Assurance décennale", "values": [true, true, true] }
+        ]
+      },
+      {
+        "name": "Disponibilité",
+        "features": [
+          { "name": "Intervention 24h/24", "values": [true, true, true] },
+          { "name": "Priorité d'intervention", "values": [false, false, true] },
+          { "name": "Réduction supplément nuit", "values": [false, false, "50%"] },
+          { "name": "Délai de réponse devis", "values": ["Sur place", "Sur place", "24h"] }
+        ]
+      },
+      {
+        "name": "Avantages financiers",
+        "features": [
+          { "name": "Remise pièces", "values": [false, false, "15%"] },
+          { "name": "Visites préventives annuelles", "values": [false, false, "x2"] },
+          { "name": "Bilan technique annuel", "values": [false, false, true] }
+        ]
+      }
+    ]
+  },
+  "faqs": [
+    {
+      "question": "Le prix du diagnostic est-il déduit de la réparation ?",
+      "answer": "Oui. Si vous acceptez notre devis de réparation, les 89€ du diagnostic sont intégralement déduits du montant final des travaux."
+    },
+    {
+      "question": "Y a-t-il un supplément pour les interventions de nuit ?",
+      "answer": "Un supplément de 30€ s'applique pour les interventions entre 20h et 8h, et pour les dimanches et jours fériés. Ce supplément est indiqué clairement dans le devis."
+    },
+    {
+      "question": "Quels moyens de paiement acceptez-vous ?",
+      "answer": "Espèces, chèque, carte bancaire sur site. Nous acceptons également les bons d'assistance des principales compagnies (HomeServe, SOS Plomberie, Assistance Dépannage Habitat)."
+    },
+    {
+      "question": "Le contrat annuel est-il résiliable ?",
+      "answer": "Oui, le contrat est résiliable à tout moment avec un préavis de 30 jours. Le prorata des mois non consommés est remboursé."
+    },
+    {
+      "question": "Puis-je bénéficier d'aides de l'État pour mes travaux ?",
+      "answer": "Pour certains travaux (chauffe-eau solaire, pompe à chaleur, isolation), vous pouvez bénéficier de MaPrimeRénov' ou de l'éco-PTZ grâce à notre certification RGE Qualibat. Nous vous accompagnons dans vos démarches."
+    }
+  ],
+  "faqTitle": "Questions sur nos tarifs",
+  "faqVariant": "simple",
+  "cta": {
+    "title": "Besoin d'un devis personnalisé ?",
+    "description": "Pour les travaux importants ou hors forfait, contactez-nous pour un devis gratuit et sans engagement.",
+    "action": { "label": "Demander un devis gratuit", "href": "/contact" },
+    "secondaryAction": { "label": "Nous appeler", "href": "tel:0123456789" }
+  }
+}

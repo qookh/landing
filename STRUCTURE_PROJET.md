@@ -653,3 +653,77 @@ Résultat des deux passes d'audit croisé composants ↔ SiteConfig :
 | `FAQSection.astro` | ✅ | +`categories?` + `faqs` rendu optionnel |
 | **`background` prop (tous)** | ✅ | Pattern architectural intentionnel — piloté par index.astro, absent de config.json |
 | `tallyFormId` (config uniquement) | ℹ️ | Conservé dans CTAConfig, NewsletterConfig, PricingConfig pour future intégration Tally |
+
+---
+
+## 14. Pages Data-Driven (`src/pages/`)
+
+### Architecture par page
+
+Chaque page (hors `index.astro`) importe son propre fichier JSON depuis `src/data/pages/`.
+Les interfaces TypeScript correspondantes sont dans `src/types/pages.ts`.
+
+```
+src/data/pages/<page>.json
+          │
+          ▼ (cast as <Page>Config depuis src/types/pages.ts)
+src/pages/<page>.astro
+          │
+          └── Props spread vers les composants + SEO passé à MarketingLayout
+```
+
+### Pages interfacées
+
+| Page | Fichier de données | Interface TypeScript | Composants utilisés |
+|---|---|---|---|
+| `src/pages/about.astro` | `src/data/pages/about.json` | `AboutPageConfig` | PageHeader, StatsSection, VideoEmbed, ValuesSection, TeamSection, ContentSection, CTA |
+| `src/pages/customers.astro` | `src/data/pages/customers.json` | `CustomersPageConfig` | PageHeader, StatsSection, CaseStudyCard, LogoCloud, CTA |
+| `src/pages/faq.astro` | `src/data/pages/faq.json` | `FAQPageConfig` | PageHeader, FAQSection, CTA |
+| `src/pages/features.astro` | `src/data/pages/features.json` | `FeaturesPageConfig` | PageHeader, FeatureHighlight, ValuesSection, BentoGrid, CTA |
+| `src/pages/pricing.astro` | `src/data/pages/pricing.json` | `PricingPageConfig` | PricingTable, TrustBadges, ComparisonTable, FAQSection, CTA |
+
+### Pages non data-driven (intentionnel)
+
+| Page | Raison |
+|---|---|
+| `src/pages/403.astro`, `404.astro`, `500.astro` | Codes d'erreur = constantes sémantiques, pas de contenu configurable |
+| `src/pages/privacy.astro`, `terms.astro` | Prose juridique statique avec quelques valeurs depuis `src/config/` |
+| `src/pages/contact.astro` | Déjà piloté par `src/config/contact.ts` et `src/config/site.ts` |
+| `src/pages/blog/**`, `src/pages/testimonials.astro` | Content collections Astro (`astro:content`) — architecture correcte |
+
+### Structure des fichiers de config par page
+
+Toutes les interfaces partagent les primitives réutilisables de `src/types/pages.ts` :
+
+| Interface partagée | Utilisée par | Description |
+|---|---|---|
+| `PageSEO` | Toutes les pages | `title`, `description`, `image`, `keywords` |
+| `PageHeaderConfig` | Toutes sauf pricing | `title`, `subtitle`, `paragraphs?`, `align`, `size`, `maxWidth` |
+| `CTABlockConfig` | Toutes les pages | `title`, `description?`, `action?`, `secondaryAction?` |
+| `ValueItem` | About, Features | Item icône + titre + description |
+| `TeamMember` | About | Membre avec avatar, bio, réseaux sociaux |
+| `CaseStudyItem` | Customers | Témoignage client avec métriques |
+| `FeatureHighlightItem` | Features | Feature mise en avant avec badge, highlights, CTA |
+| `BentoItem` | Features | Item grille bento |
+
+### Patron de chaque page
+
+```astro
+---
+import pageJson from '@/data/pages/<name>.json';
+import type { <Name>PageConfig } from '@/types/pages';
+const cfg = pageJson as <Name>PageConfig;
+const pageTitle = cfg.seo?.title ?? cfg.header?.title ?? '<Fallback>';
+const pageDescription = cfg.seo?.description ?? '';
+---
+<MarketingLayout title={pageTitle} description={pageDescription} image={cfg.seo?.image} tags={cfg.seo?.keywords}>
+  <!-- Sections conditionnelles avec spread : {cfg.section && <Composant {...cfg.section} />} -->
+</MarketingLayout>
+```
+
+### Déployer pour un nouveau client
+
+Pour adapter une page à un nouveau client :
+1. Modifier uniquement `src/data/pages/<page>.json`
+2. Remplacer le contenu (textes, images, liens)
+3. Aucun `.astro` à toucher — le code est entièrement réutilisable

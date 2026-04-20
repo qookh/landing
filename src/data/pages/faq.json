@@ -1,0 +1,106 @@
+{
+  "seo": {
+    "title": "Questions fréquentes — Dupont Plomberie",
+    "description": "Toutes les réponses à vos questions sur nos interventions, tarifs, zones d'intervention et garanties.",
+    "keywords": ["FAQ plombier Paris", "questions plomberie", "tarifs plombier", "zone intervention plombier"]
+  },
+  "header": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce que vous devez savoir avant de nous appeler. Vous ne trouvez pas votre réponse ?",
+    "align": "center"
+  },
+  "variant": "accordion",
+  "categories": [
+    {
+      "name": "Intervention & Urgences",
+      "faqs": [
+        {
+          "question": "Intervenez-vous en urgence la nuit et le week-end ?",
+          "answer": "Oui, notre service d'urgence fonctionne 24h/24 et 7j/7, jours fériés inclus. Un supplément de 30€ s'applique pour les interventions entre 20h et 8h ainsi que les dimanches et jours fériés."
+        },
+        {
+          "question": "Quel est le délai d'intervention moyen ?",
+          "answer": "Nous nous engageons à intervenir en moins d'une heure pour les urgences dans Paris et la petite couronne. En dehors des heures de pointe, le délai moyen est de 45 minutes."
+        },
+        {
+          "question": "Quelle est votre zone d'intervention ?",
+          "answer": "Nous intervenons dans tout Paris (75) et la petite couronne : Hauts-de-Seine (92), Seine-Saint-Denis (93) et Val-de-Marne (94). Pour les communes plus éloignées, contactez-nous pour vérifier la disponibilité."
+        }
+      ]
+    },
+    {
+      "name": "Devis & Tarifs",
+      "faqs": [
+        {
+          "question": "Donnez-vous un devis avant d'intervenir ?",
+          "answer": "Oui, systématiquement. Après un diagnostic rapide, nous établissons un devis précis que vous signez avant que nous commencions les travaux. Aucune surprise sur la facture finale."
+        },
+        {
+          "question": "Le déplacement est-il facturé ?",
+          "answer": "Le déplacement est inclus dans notre forfait diagnostic (89€). Si vous acceptez notre devis de réparation, le diagnostic est déduit du montant final."
+        },
+        {
+          "question": "Quels moyens de paiement acceptez-vous ?",
+          "answer": "Nous acceptons les espèces, les chèques, et les cartes bancaires sur site. Nous acceptons également les bons d'assistance HomeServe, SOS Plomberie et Assistance Dépannage Habitat."
+        },
+        {
+          "question": "Proposez-vous des facilités de paiement ?",
+          "answer": "Pour les travaux importants (rénovation salle de bain, remplacement chaudière), nous pouvons étudier un plan de paiement en plusieurs fois. Contactez-nous pour en discuter."
+        }
+      ]
+    },
+    {
+      "name": "Garanties & Certifications",
+      "faqs": [
+        {
+          "question": "Quelles sont vos garanties sur les travaux ?",
+          "answer": "Toutes nos réparations sont garanties 1 an sur la main d'œuvre. Les pièces fournies par nos soins bénéficient de la garantie fabricant (généralement 2 à 5 ans). Pour les gros travaux, nous appliquons la garantie décennale."
+        },
+        {
+          "question": "Êtes-vous certifiés Qualibat ?",
+          "answer": "Oui, Dupont Plomberie est certifié Qualibat RGE. Cette certification garantit notre compétence technique et notre professionnalisme. Elle vous permet également de bénéficier des aides à la rénovation énergétique (MaPrimeRénov', éco-PTZ)."
+        },
+        {
+          "question": "Êtes-vous assurés ?",
+          "answer": "Oui, nous disposons d'une assurance responsabilité civile professionnelle et d'une assurance décennale couvrant tous les travaux que nous réalisons. Nous pouvons vous fournir les attestations sur demande."
+        }
+      ]
+    },
+    {
+      "name": "Types de Travaux",
+      "faqs": [
+        {
+          "question": "Intervenez-vous sur les chauffe-eau électriques et à gaz ?",
+          "answer": "Oui, nous intervenons sur tous types de chauffe-eau : électriques, à gaz, solaires, thermodynamiques. Nos techniciens sont habilités gaz et certifiés pour les chauffe-eau solaires."
+        },
+        {
+          "question": "Pouvez-vous détecter des fuites sans faire de dégâts ?",
+          "answer": "Oui, nous utilisons des technologies de détection non destructives : caméra endoscopique, détecteur acoustique, gaz traceur. Dans la grande majorité des cas, nous localisons la fuite sans casser les murs ni les carrelages."
+        },
+        {
+          "question": "Réalisez-vous des rénovations complètes de salle de bain ?",
+          "answer": "Absolument. De la conception jusqu'à la pose, nous prenons en charge l'intégralité de votre projet : plomberie, carrelage, sanitaires, douche à l'italienne. Nous travaillons avec des partenaires carreleurs et électriciens pour une prestation clé en main."
+        }
+      ]
+    },
+    {
+      "name": "Contrats d'entretien",
+      "faqs": [
+        {
+          "question": "Qu'est-ce que votre contrat d'entretien annuel ?",
+          "answer": "Notre contrat annuel comprend 2 visites préventives par an, la priorité d'intervention en cas d'urgence, une remise de 15% sur les pièces de remplacement et un bilan technique complet de vos installations. Idéal pour les propriétaires et les gestionnaires d'immeubles."
+        },
+        {
+          "question": "Le contrat d'entretien couvre-t-il les urgences ?",
+          "answer": "Oui, les abonnés au contrat annuel bénéficient d'une priorité d'intervention : votre appel est traité en priorité et le supplément de nuit est réduit de 50%."
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Vous avez une autre question ?",
+    "description": "Notre équipe est disponible pour répondre à toutes vos questions par téléphone ou par email.",
+    "action": { "label": "Nous appeler", "href": "tel:0123456789" },
+    "secondaryAction": { "label": "Envoyer un message", "href": "/contact" }
+  }
+}
