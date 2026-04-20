@@ -47,6 +47,9 @@ export interface SocialLinks {
   twitter?: string;
   github?: string;
   discord?: string;
+  facebook?: string;
+  instagram?: string;
+  linkedin?: string;
 }
 
 export interface Address {
@@ -59,6 +62,7 @@ export interface Address {
 
 export interface ContactInfo {
   email: string;
+  phone?: string;
   supportEmail?: string;
   salesEmail?: string;
   address: Address;

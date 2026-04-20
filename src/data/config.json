@@ -4,16 +4,62 @@
     "tagline": "Votre expert plombier depuis 1998",
     "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Paris et en Île-de-France. Devis gratuit, artisan certifié Qualibat.",
     "logo": "/logo.svg",
+    "ogImage": "/images/og-dupont-plomberie.jpg",
     "url": "https://dupont-plomberie.fr",
     "social": {
       "facebook": "https://facebook.com/dupontplomberie",
       "instagram": "https://instagram.com/dupontplomberie"
     },
+    "legal": {
+      "privacyEmail": "privacy@dupont-plomberie.fr",
+      "legalEmail": "legal@dupont-plomberie.fr",
+      "lastUpdated": "1er avril 2025"
+    },
     "contact": {
       "email": "contact@dupont-plomberie.fr",
       "phone": "01 23 45 67 89",
-      "address": "15 rue de la République, 75011 Paris"
+      "address": {
+        "street": "15 rue de la Paix",
+        "city": "Paris",
+        "state": "75",
+        "zip": "75001",
+        "country": "France"
+      }
     },
+    "contactMethods": [
+      {
+        "icon": "lucide:phone",
+        "label": "Téléphone",
+        "value": "01 23 45 67 89",
+        "href": "tel:0123456789"
+      },
+      {
+        "icon": "lucide:mail",
+        "label": "Email",
+        "value": "contact@dupont-plomberie.fr",
+        "href": "mailto:contact@dupont-plomberie.fr"
+      },
+      {
+        "icon": "simple-icons:facebook",
+        "label": "Facebook",
+        "value": "Retrouvez-nous sur Facebook",
+        "href": "https://facebook.com/dupontplomberie"
+      }
+    ],
+    "contactFAQs": [
+      {
+        "question": "Intervenez-vous les nuits et le week-end ?",
+        "answer": "Oui, notre service d'urgence est disponible 24h/24, 7j/7 y compris les jours fériés, pour toute panne ou fuite."
+      },
+      {
+        "question": "Quel est le délai d'intervention en urgence ?",
+        "answer": "Nous garantissons une intervention en moins d'une heure dans Paris et la petite couronne pour les urgences plomberie."
+      },
+      {
+        "question": "Proposez-vous des devis gratuits ?",
+        "answer": "Oui, tous nos devis sont gratuits et sans engagement. Le tarif est fixé avant le début des travaux, aucune mauvaise surprise."
+      }
+    ],
     "seo": {
       "title": "Dupont Plomberie — Plombier d'urgence Paris 24h/24",
       "description": "Plombier certifié Qualibat à Paris et Île-de-France. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",

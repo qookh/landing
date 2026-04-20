@@ -57,7 +57,13 @@ export interface GlobalConfig {
   contact?: {
     email?: string;
     phone?: string;
-    address?: string;
+    address?: string | {
+      street?: string;
+      city?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+    };
   };
 }
 

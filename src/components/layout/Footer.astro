@@ -69,6 +69,32 @@ const legalLinks = filterByFeature(footer.legal);
         <!-- Social Links -->
         <div class="flex items-center gap-4 mt-4">
           {
+            social.facebook && (
+              <a
+                href={social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                class="text-text-muted hover:text-text transition-colors"
+              >
+                <Icon name="simple-icons:facebook" class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            social.instagram && (
+              <a
+                href={social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                class="text-text-muted hover:text-text transition-colors"
+              >
+                <Icon name="simple-icons:instagram" class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
             social.twitter && (
               <a
                 href={social.twitter}
@@ -78,32 +104,6 @@ const legalLinks = filterByFeature(footer.legal);
                 class="text-text-muted hover:text-text transition-colors"
               >
                 <Icon name="lucide:twitter" class="w-5 h-5" />
-              </a>
-            )
-          }
-          {
-            social.github && (
-              <a
-                href={social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                class="text-text-muted hover:text-text transition-colors"
-              >
-                <Icon name="lucide:github" class="w-5 h-5" />
-              </a>
-            )
-          }
-          {
-            social.discord && (
-              <a
-                href={social.discord}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Discord"
-                class="text-text-muted hover:text-text transition-colors"
-              >
-                <Icon name="simple-icons:discord" class="w-5 h-5" />
               </a>
             )
           }
