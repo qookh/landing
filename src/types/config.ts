@@ -137,6 +137,8 @@ export interface FeatureHighlightConfig {
     description: string;
     highlights?: string[];
     image?: string;
+    /** Icône Lucide optionnelle (ex: "lucide:check") */
+    icon?: string;
     cta?: CTALink;
   }>;
   startImageLeft?: boolean;

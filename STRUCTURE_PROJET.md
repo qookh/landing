@@ -1,107 +1,119 @@
 # STRUCTURE_PROJET.md — Source de Vérité
 
-> Projet : Virex SaaS Landing Page (Astro 5 + Tailwind CSS 4)
-> Généré le : 2026-04-17
-> But : référence centralisée pour rendre chaque composant dynamique.
->
-> **Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
-> **Fichier de données** : `src/data/config.json` (exemple plombier complet)
+> Projet : Landing Page Astro 5 + Tailwind CSS 4
+> Dernière mise à jour : 2026-04-17 (post-QA final)
+> But : référence exhaustive et auditée — props composants ↔ clés JSON ↔ SiteConfig.
+
+**Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
+**Fichier de données** : `src/data/config.json`
+**Page principale** : `src/pages/index.astro`
 
 ---
 
-## 1. Configuration Centrale (`src/config/`)
+## Architecture Data-Flow
 
-Ces fichiers sont la **première source** à modifier pour personnaliser le site.
+```
+src/data/config.json
+       │
+       ▼  (cast as SiteConfig)
+src/pages/index.astro
+       │
+       ├── Props normalisés (heroProps, featuresProps, etc.)
+       ├── sectionOrder[] → ordre d'affichage configurable
+       └── Spread props → <Composant {...props} background={bg(idx)} />
+```
 
-### `src/config/site.ts`
-| Variable | Valeur par défaut | Env var |
+Le `background` de chaque section (alternance `default`/`muted`) est calculé **par index de position** dans `index.astro` et n'est **pas** configurable dans `config.json`. C'est un choix architectural intentionnel.
+
+---
+
+## 1. Configuration Interne (`src/config/`)
+
+Ces fichiers alimentent le Header, Footer, SEO, et les composants qui ne passent pas par `config.json`.
+
+| Fichier | Rôle | Ne pas confondre avec |
 |---|---|---|
-| `name` | `"Virex"` | `SITE_NAME` |
-| `description` | `"The modern platform for building and shipping faster"` | — |
-| `url` | `"http://localhost:4321"` | `SITE_URL` |
-| `author` | `"Virex Team"` | `SITE_AUTHOR` |
-| `logo` | `"/logo.svg"` | — |
-| `ogImage` | `"/images/og-image.png"` | — |
-| `social.twitter` | `"https://twitter.com/virex"` | — |
-| `social.github` | `"https://github.com/virex"` | — |
-| `social.discord` | `"https://discord.gg/virex"` | — |
-| `legal.privacyEmail` | — | — |
-| `legal.legalEmail` | — | — |
-| `legal.lastUpdated` | `"December 17, 2024"` | — |
+| `site.ts` | Nom, URL, logo, ogImage, réseaux sociaux | `global` de config.json |
+| `navigation.ts` | Liens Header + Footer | `footer.columns` de config.json |
+| `contact.ts` | Emails de contact | `global.contact` de config.json |
+| `content.ts` | Annonce par défaut, newsletter interne | `announcement` de config.json |
 
-### `src/config/content.ts`
-| Variable | Valeur par défaut |
-|---|---|
-| `announcement.enabled` | `true` |
-| `announcement.id` | `"launch-2025"` |
-| `announcement.text` | `"🚀 Virex 2.0 is here!"` |
-| `announcement.href` | `"/changelog"` |
-| `announcement.linkText` | `"See what's new"` |
-| `announcement.variant` | `"primary"` |
-| `newsletter.title` | `"Stay in the loop"` |
-| `newsletter.description` | `"Get the latest updates…"` |
-| `newsletter.placeholder` | `"Enter your email"` |
-| `newsletter.buttonText` | `"Subscribe"` |
-
-### `src/config/contact.ts`
-| Variable | Valeur par défaut |
-|---|---|
-| `email` | `"hello@virex.example.com"` |
-| `supportEmail` | `"support@virex.example.com"` |
-| `salesEmail` | `"sales@virex.example.com"` |
-| `address` | `"123 Market Street, Suite 400, San Francisco, CA 94102"` |
-
-### `src/config/navigation.ts`
-| Zone | Liens |
-|---|---|
-| Header principal | Features, Pricing, Demo, Customers, Enterprise, Docs*, Blog* |
-| Header CTA | Login (ghost), Get Started (primary) |
-| Footer Product | Features, Integrations, Security, Pricing, FAQ |
-| Footer Solutions | Enterprise, Customers, Request Demo, Status |
-| Footer Resources | Documentation*, Blog*, Changelog*, Roadmap* |
-| Footer Company | About, Careers, Contact, Testimonials* |
-
-*Items marqués : visibilité contrôlée par `src/config/features.ts`
+> **Important :** `Header.astro` et `Footer.astro` lisent directement depuis `src/config/` — ils ne reçoivent **pas** de props depuis `config.json`. Pour changer navigation ou logo, modifier `src/config/site.ts` et `src/config/navigation.ts`.
 
 ---
 
-## 2. Layouts (`src/layouts/`)
+## 2. SEO de la Page d'Accueil
 
-| Fichier | Rôle | Props clés |
+Les métadonnées SEO viennent de `config.json → global.seo` et sont passées à `MarketingLayout` :
+
+| Clé JSON | Prop MarketingLayout | Description |
 |---|---|---|
-| `BaseLayout.astro` | Racine HTML, SEO, thème | `title`, `description`, `image`, `type` |
-| `MarketingLayout.astro` | Page publique avec Header+Footer | Hérite de BaseLayout |
-| `BlogLayout.astro` | Article de blog | — |
-| `DashboardLayout.astro` | Interface app | — |
-| `DocsLayout.astro` | Documentation | — |
-| `ErrorLayout.astro` | Pages d'erreur | — |
+| `global.seo.title` | `title` | Titre `<title>` complet |
+| `global.seo.description` | `description` | Meta description |
+| `global.seo.image` | `image` | Image Open Graph |
+| `global.seo.keywords` | `tags` | Mots-clés `<meta name="keywords">` |
+
+Fallbacks : si `seo.title` absent → `"${global.name} — ${global.description}"`. Si `seo.description` absent → `global.description`.
+
+```json
+"global": {
+  "name": "Dupont Plomberie",
+  "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie.",
+  "seo": {
+    "title": "Dupont Plomberie — Plombier d'urgence Paris 24h/24",
+    "description": "Plombier certifié Qualibat. Intervention en 1h, devis gratuit, 24h/24 et 7j/7.",
+    "image": "/images/og-dupont-plomberie.jpg",
+    "keywords": ["plombier Paris", "urgence plomberie", "plombier 24h"]
+  }
+}
+```
 
 ---
 
-## 3. Composants Marketing (`src/components/sections/marketing/`)
+## 3. Ordre des Sections
+
+Par défaut, les sections s'affichent dans cet ordre :
+`hero` → `logoCloud` → `features` → `howItWorks` → `featureHighlight` → `bentoGrid` → `integrations` → `stats` → `testimonials` → `pricing` → `comparisonTable` → `faq` → `cta` → `newsletter`
+
+Pour personnaliser, ajouter `sectionOrder` à la racine de `config.json` :
+
+```json
+"sectionOrder": ["hero", "features", "stats", "testimonials", "pricing", "faq", "cta"]
+```
+
+Sections omises de `sectionOrder` ne s'affichent pas (même si leur clé existe dans config.json). Sections dont la clé est absente de config.json sont ignorées silencieusement.
+
+---
+
+## 4. Composants Marketing (`src/components/sections/marketing/`)
 
 ### `Hero.astro`
-**Rôle** : Section hero principale de la landing page.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre principal (H1) |
-| `subtitle` | `string` | Sous-titre / accroche |
-| `badge` | `string` | Badge flottant au-dessus du titre |
-| `primaryCTA` | `{ text, href }` | Bouton CTA principal |
-| `secondaryCTA` | `{ text, href }` | Bouton secondaire (optionnel) |
-| `backgroundType` | `solid\|gradient\|image\|video` | Type de fond |
-| `backgroundSrc` | `string` | URL image/vidéo |
-| `overlay` | `boolean` | Overlay sombre sur image/vidéo |
-| `align` | `left\|center\|right` | Alignement du contenu |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `hero.title` | ✅ |
+| `subtitle` | `string` | `hero.subtitle` | ✅ (fallback `''`) |
+| `primaryCTA` | `{ label: string; href: string }` | `hero.primaryCTA` | ✅ (fallback Contact) |
+| `secondaryCTA` | `{ label: string; href: string }` | `hero.secondaryCTA` | — |
+| `backgroundType` | `'solid' \| 'gradient' \| 'image' \| 'video'` | `hero.backgroundType` | — |
+| `backgroundImage` | `string` | `hero.backgroundSrc` *(si type=image)* | — |
+| `backgroundVideo` | `string` | `hero.backgroundSrc` *(si type=video)* | — |
+| `backgroundVideoPoster` | `string` | `hero.backgroundVideoPoster` | — |
+| `gradient` | `string` | `hero.gradient` | — |
+| `overlay` | `boolean` | `hero.overlay` | — |
+| `overlayOpacity` | `number` | `hero.overlayOpacity` | — |
+| `textColor` | `'auto' \| 'light' \| 'dark'` | `hero.textColor` | — |
+| `minHeight` | `'default' \| 'screen' \| 'large'` | `hero.minHeight` | — |
+| `align` | `'center' \| 'left'` | `hero.align` | — |
+
+> **Note mapping** : `hero.backgroundSrc` est splitté en `backgroundImage` ou `backgroundVideo` par index.astro selon `backgroundType`. Ne pas mettre `backgroundImage`/`backgroundVideo` directement dans config.json.
 
 ```json
 "hero": {
   "title": "Plombier d'urgence à Paris — Intervention en 1h",
   "subtitle": "Fuite, dégât des eaux, chauffe-eau en panne ? Notre équipe intervient 24h/24, 7j/7.",
-  "badge": "⚡ Disponible 24h/24",
-  "primaryCTA": { "text": "Appeler maintenant", "href": "tel:0123456789" },
-  "secondaryCTA": { "text": "Voir nos tarifs", "href": "#pricing" },
+  "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
+  "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" },
   "backgroundType": "gradient",
   "align": "center"
 }
@@ -110,17 +122,18 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
 ---
 
 ### `AnnouncementBar.astro`
-**Rôle** : Bandeau dismissible en haut de page.
 
-| Prop | Type | Description |
+> Alimenté par `MarketingLayout` depuis `src/config/content.ts`, **pas** depuis `config.json` directement. La clé `announcement` de config.json n'est pas encore branchée au layout.
+
+| Clé JSON | Type | Description |
 |---|---|---|
-| `enabled` | `boolean` | Afficher ou masquer |
-| `id` | `string` | ID unique (persistance localStorage) |
-| `text` | `string` | Texte de l'annonce |
-| `href` | `string` | URL du lien |
-| `linkText` | `string` | Texte du lien |
-| `variant` | `primary\|secondary\|gradient` | Style |
-| `dismissible` | `boolean` | Bouton de fermeture |
+| `announcement.enabled` | `boolean` | Afficher ou masquer (contrôlé par le layout) |
+| `announcement.id` | `string` | ID unique — changer pour reset dismiss localStorage |
+| `announcement.text` | `string` | Texte de l'annonce |
+| `announcement.href` | `string` | URL du lien optionnel |
+| `announcement.linkText` | `string` | Texte du lien |
+| `announcement.variant` | `'primary' \| 'secondary' \| 'gradient'` | Style visuel |
+| `announcement.dismissible` | `boolean` | Afficher bouton de fermeture |
 
 ```json
 "announcement": {
@@ -137,15 +150,17 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
 ---
 
 ### `LogoCloud.astro`
-**Rôle** : Logos clients / certifications / partenaires.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre (ex: "Certifié par") |
-| `logos` | `Array<{ name, src, href? }>` | Liste des logos |
-| `variant` | `default\|marquee\|grid` | Style d'affichage |
-| `grayscale` | `boolean` | Logos en niveaux de gris |
-| `pauseOnHover` | `boolean` | Pause au survol (marquee) |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `logoCloud.title` | — |
+| `logos` | `Array<{ name, src, href? }>` | `logoCloud.logos` | ✅ |
+| `variant` | `'default' \| 'marquee' \| 'grid'` | `logoCloud.variant` | — |
+| `grayscale` | `boolean` | `logoCloud.grayscale` | — |
+| `pauseOnHover` | `boolean` | `logoCloud.pauseOnHover` | — |
+| `speed` | `'slow' \| 'normal' \| 'fast'` | `logoCloud.speed` | — |
+| `columns` | `2 \| 3 \| 4 \| 5 \| 6` | `logoCloud.columns` | — |
+| `logoSize` | `'sm' \| 'md' \| 'lg'` | `logoCloud.logoSize` | — |
 
 ```json
 "logoCloud": {
@@ -153,7 +168,8 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
   "logos": [
     { "name": "Qualibat", "src": "/logos/qualibat.svg" },
     { "name": "RGE", "src": "/logos/rge.svg" },
-    { "name": "CAPEB", "src": "/logos/capeb.svg" }
+    { "name": "CAPEB", "src": "/logos/capeb.svg" },
+    { "name": "Décennale Pro", "src": "/logos/decennale.svg" }
   ],
   "variant": "default",
   "grayscale": true
@@ -163,15 +179,15 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
 ---
 
 ### `FeaturesSection.astro`
-**Rôle** : Grille de fonctionnalités (icônes + texte).
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre de la section |
-| `subtitle` | `string` | Sous-titre |
-| `features` | `Array<{ icon, title, description }>` | Liste des features |
-| `footerLink` | `{ text, href }` | Lien en bas de section |
-| `background` | `string` | Variante de fond |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `features.title` | — |
+| `subtitle` | `string` | `features.subtitle` | — |
+| `features` | `Array<{ icon: string; title: string; description: string }>` | `features.features` | ✅ |
+| `footerLink` | `{ label: string; href: string }` | `features.footerLink` | — |
+
+> **Attention** : Le composant exige `icon: string` (non optionnel). Si absent dans config.json, index.astro applique le fallback `'lucide:check'`.
 
 ```json
 "features": {
@@ -182,22 +198,21 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
     { "icon": "lucide:droplets", "title": "Fuites & Dégâts des eaux", "description": "Détection et réparation sans destruction." },
     { "icon": "lucide:flame", "title": "Chauffe-eau & Chaudières", "description": "Installation, dépannage et entretien." }
   ],
-  "footerLink": { "text": "Voir toutes nos prestations", "href": "/services" }
+  "footerLink": { "label": "Voir toutes nos prestations", "href": "/services" }
 }
 ```
 
 ---
 
 ### `HowItWorks.astro`
-**Rôle** : Processus en étapes numérotées.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre de la section |
-| `subtitle` | `string` | Sous-titre |
-| `steps` | `Array<{ icon, title, description, image? }>` | Étapes du processus |
-| `variant` | `horizontal\|vertical\|alternating` | Disposition |
-| `showNumbers` | `boolean` | Afficher numéros |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `howItWorks.title` | — |
+| `subtitle` | `string` | `howItWorks.subtitle` | — |
+| `steps` | `Array<{ icon?, title, description, image? }>` | `howItWorks.steps` | ✅ |
+| `variant` | `'horizontal' \| 'vertical' \| 'alternating'` | `howItWorks.variant` | — |
+| `showNumbers` | `boolean` | `howItWorks.showNumbers` | — |
 
 ```json
 "howItWorks": {
@@ -216,18 +231,18 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
 ---
 
 ### `FeatureHighlight.astro`
-**Rôle** : Sections alternées image/texte pour highlights produit.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre global |
-| `subtitle` | `string` | Sous-titre |
-| `features` | `Array<{ badge, title, description, highlights[], image, cta? }>` | Features avec images |
-| `startImageLeft` | `boolean` | Commencer image à gauche |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `featureHighlight.title` | — |
+| `subtitle` | `string` | `featureHighlight.subtitle` | — |
+| `features` | `Array<{ badge?, title, description, highlights?, image?, icon?, cta? }>` | `featureHighlight.features` | ✅ |
+| `startImageLeft` | `boolean` | `featureHighlight.startImageLeft` | — |
 
 ```json
 "featureHighlight": {
   "title": "Pourquoi choisir Dupont Plomberie ?",
+  "subtitle": "25 ans d'expérience au service des Parisiens.",
   "features": [
     {
       "badge": "Notre engagement",
@@ -235,7 +250,14 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
       "description": "Le prix affiché est le prix payé, sans frais cachés.",
       "highlights": ["Devis gratuit en 5 min", "Prix fixe à l'avance", "Paiement après intervention"],
       "image": "/images/devis-transparent.jpg",
-      "cta": { "text": "Demander un devis", "href": "/contact" }
+      "cta": { "label": "Demander un devis", "href": "/contact" }
+    },
+    {
+      "badge": "Expertise",
+      "title": "Artisans certifiés Qualibat",
+      "description": "Toute notre équipe est certifiée et assurée décennale.",
+      "highlights": ["Certification Qualibat", "Assurance décennale incluse", "Formation continue"],
+      "image": "/images/certification.jpg"
     }
   ],
   "startImageLeft": true
@@ -245,23 +267,23 @@ Ces fichiers sont la **première source** à modifier pour personnaliser le site
 ---
 
 ### `BentoGrid.astro`
-**Rôle** : Grille bento style moderne pour présenter des fonctionnalités.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre de la section |
-| `subtitle` | `string` | Sous-titre |
-| `items` | `Array<{ size, title, description, icon?, image?, accentColor }>` | Items de la grille |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `bentoGrid.title` | — |
+| `subtitle` | `string` | `bentoGrid.subtitle` | — |
+| `items` | `Array<{ size?, title, description, icon?, image?, accent?, href? }>` | `bentoGrid.items` | ✅ |
 
-Tailles disponibles : `small`, `medium`, `large`
+Valeurs `size` : `'small' | 'medium' | 'large'`
+Valeurs `accent` : `'primary' | 'blue' | 'green' | 'purple' | 'orange'`
 
 ```json
 "bentoGrid": {
   "title": "Notre savoir-faire en un coup d'œil",
   "items": [
-    { "size": "large", "title": "Urgence 24h/24", "description": "Disponible nuit et jour.", "icon": "lucide:zap", "accentColor": "blue" },
+    { "size": "large", "title": "Urgence 24h/24", "description": "Disponible nuit et jour.", "icon": "lucide:zap", "accent": "blue" },
     { "size": "small", "title": "Devis gratuit", "description": "En 5 minutes au téléphone.", "icon": "lucide:file-text" },
-    { "size": "medium", "title": "Certifié Qualibat", "description": "Artisan reconnu.", "icon": "lucide:shield-check" }
+    { "size": "medium", "title": "Certifié Qualibat", "description": "Artisan reconnu.", "icon": "lucide:shield-check", "accent": "primary" }
   ]
 }
 ```
@@ -269,44 +291,71 @@ Tailles disponibles : `small`, `medium`, `large`
 ---
 
 ### `IntegrationsGrid.astro`
-**Rôle** : Vitrine des intégrations / connecteurs.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre |
-| `subtitle` | `string` | Sous-titre |
-| `integrations` | `Array<{ name, logo, category, description?, href? }>` | Liste |
-| `showFilter` | `boolean` | Filtre par catégorie |
-| `variant` | `grid\|compact\|detailed` | Style d'affichage |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `integrations.title` | — |
+| `subtitle` | `string` | `integrations.subtitle` | — |
+| `integrations` | `Array<{ name, logo, category, description?, href?, featured? }>` | `integrations.integrations` | ✅ |
+| `showFilter` | `boolean` | `integrations.showFilter` | — |
+| `variant` | `'grid' \| 'compact' \| 'detailed'` | `integrations.variant` | — |
+| `columns` | `3 \| 4 \| 5 \| 6` | `integrations.columns` | — |
+| `invertOnDark` | `boolean` | `integrations.invertOnDark` | — |
+| `footerLink` | `{ label: string; href: string }` | `integrations.footerLink` | — |
 
 ```json
 "integrations": {
-  "title": "Nos partenaires",
+  "title": "Nos partenaires assurance & assistance",
   "integrations": [
-    { "name": "HomeServe", "logo": "/logos/homeserve.svg", "category": "Assistance", "href": "https://homeserve.fr" },
+    { "name": "HomeServe", "logo": "/logos/homeserve.svg", "category": "Assistance", "href": "https://homeserve.fr", "featured": true },
     { "name": "SOS Plomberie", "logo": "/logos/sos.svg", "category": "Urgence" }
   ],
   "showFilter": false,
-  "variant": "grid"
+  "variant": "grid",
+  "columns": 4
+}
+```
+
+---
+
+### `CTA.astro`
+
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `cta.title` | ✅ |
+| `description` | `string` | `cta.description` | ✅ (fallback `''`) |
+| `action` | `{ label: string; href: string }` | `cta.action` | ✅ (fallback Contact) |
+| `secondaryAction` | `{ label: string; href: string }` | `cta.secondaryAction` | — |
+
+> **Note** : `description` et `action` sont requis par le composant mais optionnels en config. index.astro applique des fallbacks. Prévoir ces champs dans config.json.
+> `tallyFormId` est prévu en config pour une future intégration Tally (non utilisé actuellement par le composant).
+
+```json
+"cta": {
+  "title": "Une urgence ? On est là.",
+  "description": "Fuite, canalisation bouchée, chauffe-eau HS — appelez-nous maintenant.",
+  "action": { "label": "01 23 45 67 89", "href": "tel:0123456789" },
+  "secondaryAction": { "label": "Envoyer un message", "href": "/contact" }
 }
 ```
 
 ---
 
 ### `Newsletter.astro`
-**Rôle** : Formulaire d'inscription newsletter.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre |
-| `description` | `string` | Description |
-| `placeholder` | `string` | Placeholder email |
-| `buttonText` | `string` | Texte bouton |
-| `successMessage` | `string` | Message succès |
-| `errorMessage` | `string` | Message erreur |
-| `privacyNote` | `string` | Note confidentialité |
-| `action` | `string` | URL endpoint (vide = démo) |
-| `tallyFormId` | `string` | ID Tally (optionnel) |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `newsletter.title` | — |
+| `description` | `string` | `newsletter.description` | — |
+| `placeholder` | `string` | `newsletter.placeholder` | — |
+| `buttonText` | `string` | `newsletter.buttonText` | — |
+| `successMessage` | `string` | `newsletter.successMessage` | — |
+| `errorMessage` | `string` | `newsletter.errorMessage` | — |
+| `privacyNote` | `string` | `newsletter.privacyNote` | — |
+| `action` | `string` | `newsletter.action` | — |
+| `variant` | `'default' \| 'compact' \| 'card'` | `newsletter.variant` | — |
+
+> `tallyFormId` prévu en config pour future intégration Tally.
 
 ```json
 "newsletter": {
@@ -322,26 +371,27 @@ Tailles disponibles : `small`, `medium`, `large`
 
 ---
 
-## 4. Composants Social Proof (`src/components/sections/social-proof/`)
+## 5. Composants Social Proof (`src/components/sections/social-proof/`)
 
 ### `StatsSection.astro`
-**Rôle** : Affichage de métriques / chiffres clés.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre de section |
-| `subtitle` | `string` | Sous-titre |
-| `stats` | `Array<{ value, label, suffix? }>` | Liste des métriques |
-| `columns` | `2\|3\|4` | Nombre de colonnes |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `stats.title` | — |
+| `subtitle` | `string` | `stats.subtitle` | — |
+| `stats` | `Array<{ value: string; label: string; description?: string }>` | `stats.stats` | ✅ |
+| `columns` | `2 \| 3 \| 4` | `stats.columns` | — |
+
+> **Attention** : `value` est une chaîne — inclure le suffixe directement (`"25 ans"`, `"98%"`, `"< 1h"`). Il n'y a **pas** de champ `suffix` séparé.
 
 ```json
 "stats": {
   "title": "Des chiffres qui parlent",
   "stats": [
-    { "value": "25", "label": "Années d'expérience", "suffix": "ans" },
-    { "value": "4800", "label": "Interventions réalisées", "suffix": "+" },
-    { "value": "98", "label": "Clients satisfaits", "suffix": "%" },
-    { "value": "1", "label": "Délai d'intervention", "suffix": "h" }
+    { "value": "25 ans", "label": "d'expérience" },
+    { "value": "4800+", "label": "Interventions réalisées" },
+    { "value": "98%", "label": "Clients satisfaits" },
+    { "value": "< 1h", "label": "Délai d'intervention" }
   ],
   "columns": 4
 }
@@ -350,15 +400,16 @@ Tailles disponibles : `small`, `medium`, `large`
 ---
 
 ### `TestimonialsSection.astro`
-**Rôle** : Grille de témoignages clients.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre |
-| `subtitle` | `string` | Sous-titre |
-| `testimonials` | `Array<{ name, role, company, avatar?, quote }>` | Témoignages |
-| `limit` | `number` | Nombre max à afficher |
-| `footerLink` | `{ text, href }` | Lien "Voir tous" |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `testimonials.title` | — |
+| `subtitle` | `string` | `testimonials.subtitle` | — |
+| `testimonials` | `Array<{ author, role, company, avatar?, quote }>` | `testimonials.testimonials` | ✅ |
+| `limit` | `number` | `testimonials.limit` | — |
+| `footerLink` | `{ label: string; href: string }` | `testimonials.footerLink` | — |
+
+> **Attention** : Le composant exige `role: string` et `company: string` (non optionnels). Si absents en config, index.astro applique le fallback `''`. Le champ s'appelle **`author`**, pas `name`.
 
 ```json
 "testimonials": {
@@ -366,97 +417,113 @@ Tailles disponibles : `small`, `medium`, `large`
   "subtitle": "Plus de 500 avis vérifiés sur Google.",
   "testimonials": [
     {
-      "name": "Marie Leclerc",
+      "author": "Marie Leclerc",
       "role": "Propriétaire",
       "company": "Paris 11e",
       "quote": "Intervention en 45 minutes un dimanche soir. Efficace, propre, et au prix annoncé !"
     },
     {
-      "name": "Thomas Bernard",
+      "author": "Thomas Bernard",
       "role": "Gestionnaire",
       "company": "Syndic Haussmann",
       "quote": "Dupont Plomberie gère nos 3 immeubles depuis 8 ans. Professionnalisme exemplaire."
     }
   ],
   "limit": 3,
-  "footerLink": { "text": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
+  "footerLink": { "label": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
 }
 ```
 
 ---
 
-## 5. Composants Pricing (`src/components/sections/pricing/`)
+## 6. Composants Pricing (`src/components/sections/pricing/`)
 
 ### `PricingTable.astro`
-**Rôle** : Tableau de plans tarifaires avec toggle mensuel/annuel.
 
-| Prop | Type | Description |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `pricing.title` | — |
+| `subtitle` | `string` | `pricing.subtitle` | — |
+| `plans` | `Array<PricingPlan>` | `pricing.plans` | ✅ |
+| `annualDiscount` | `number` | `pricing.annualDiscount` | — |
+| `defaultPeriod` | `'monthly' \| 'annual'` | `pricing.defaultPeriod` | — |
+| `footerLink` | `{ label: string; href: string }` | `pricing.footerLink` | — |
+
+**Structure PricingPlan :**
+
+| Clé | Type | Notes |
 |---|---|---|
-| `title` | `string` | Titre |
-| `subtitle` | `string` | Sous-titre |
-| `plans` | `Array<{ name, price, annualPrice?, description, features[], cta, popular? }>` | Plans |
-| `annualDiscount` | `number` | % réduction annuelle |
-| `defaultPeriod` | `monthly\|annual` | Période par défaut |
-| `footerLink` | `{ text, href }` | Lien bas (FAQ, contact) |
-| `tallyFormId` | `string` | ID Tally (optionnel) |
+| `name` | `string` | — |
+| `monthlyPrice` | `number \| null` | `null` = plan sur devis |
+| `customPrice` | `string` | Affiché si `monthlyPrice` est null |
+| `description` | `string` | — |
+| `features` | `string[]` | Liste des inclusions |
+| `cta` | `{ label: string; href: string }` | — |
+| `highlighted` | `boolean` | Badge "Most Popular" |
+| `badge` | `string` | Texte badge personnalisé |
 
-`price: "custom"` pour les plans Enterprise / sur devis.
+> **Attention** : Les champs sont `monthlyPrice` (pas `price`) et `highlighted` (pas `popular`).
 
 ```json
 "pricing": {
   "title": "Tarifs clairs et sans surprise",
+  "subtitle": "Des forfaits adaptés à chaque besoin.",
   "plans": [
     {
       "name": "Diagnostic",
-      "price": 89,
+      "monthlyPrice": 89,
       "description": "Pour identifier le problème avant d'agir.",
-      "features": ["Visite diagnostic complète", "Rapport écrit", "Devis de réparation gratuit"],
-      "cta": { "text": "Réserver", "href": "/contact" }
+      "features": ["Visite diagnostic complète", "Rapport écrit", "Devis de réparation gratuit", "Déplacement inclus"],
+      "cta": { "label": "Réserver", "href": "/contact" }
     },
     {
       "name": "Intervention Standard",
-      "price": 189,
+      "monthlyPrice": 189,
       "description": "La plupart des dépannages courants.",
-      "features": ["Diagnostic inclus", "1h de main d'œuvre", "Garantie 1 an"],
-      "cta": { "text": "Réserver", "href": "/contact" },
-      "popular": true
+      "features": ["Diagnostic inclus", "1h de main d'œuvre", "Pièces standard incluses", "Garantie 1 an"],
+      "cta": { "label": "Réserver", "href": "/contact" },
+      "highlighted": true
     },
     {
       "name": "Contrat Annuel",
-      "price": "custom",
-      "description": "Pour les propriétaires et gestionnaires.",
-      "features": ["Visites préventives x2/an", "Priorité d'intervention", "Remise 15% sur pièces"],
-      "cta": { "text": "Nous contacter", "href": "/contact" }
+      "monthlyPrice": null,
+      "customPrice": "Sur devis",
+      "description": "Pour les propriétaires et gestionnaires d'immeuble.",
+      "features": ["Visites préventives x2/an", "Priorité d'intervention", "Remise 15% sur pièces", "Bilan technique annuel"],
+      "cta": { "label": "Nous contacter", "href": "/contact" }
     }
   ],
-  "footerLink": { "text": "Tous les tarifs et conditions", "href": "/tarifs" }
+  "footerLink": { "label": "Tous les tarifs et conditions", "href": "/tarifs" }
 }
 ```
 
 ---
 
 ### `ComparisonTable.astro`
-**Rôle** : Tableau comparatif de features par plan.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre |
-| `subtitle` | `string` | Sous-titre |
-| `plans` | `string[]` | Noms des plans |
-| `categories` | `Array<{ name, features[] }>` | Catégories et features |
-| `highlightedPlan` | `string` | Plan à mettre en avant |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `comparisonTable.title` | — |
+| `subtitle` | `string` | `comparisonTable.subtitle` | — |
+| `plans` | `string[]` | `comparisonTable.plans` | ✅ |
+| `categories` | `Array<{ name, features[] }>` | `comparisonTable.categories` | ✅ |
+| `highlightedPlan` | `number` | `comparisonTable.highlightedPlan` | — |
+
+> **Attention** : `highlightedPlan` est un **index numérique** (0-based), pas un nom de plan.
+> `values` dans chaque feature accepte `boolean | string` pour les cellules du tableau.
 
 ```json
-{
+"comparisonTable": {
   "title": "Comparez nos formules",
   "plans": ["Diagnostic", "Standard", "Annuel"],
-  "highlightedPlan": "Standard",
+  "highlightedPlan": 1,
   "categories": [
     {
       "name": "Inclus",
       "features": [
         { "name": "Déplacement", "values": [true, true, true] },
-        { "name": "Garantie pièces", "values": [false, "1 an", "2 ans"] }
+        { "name": "Garantie pièces", "values": [false, "1 an", "2 ans"] },
+        { "name": "Priorité d'intervention", "values": [false, false, true] }
       ]
     }
   ]
@@ -465,54 +532,27 @@ Tailles disponibles : `small`, `medium`, `large`
 
 ---
 
-## 6. Composants CTA (`src/components/sections/marketing/`)
-
-### `CTA.astro`
-**Rôle** : Bloc d'appel à l'action avec fond coloré.
-
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre CTA |
-| `description` | `string` | Texte descriptif |
-| `action` | `{ text, href }` | Bouton principal |
-| `secondaryAction` | `{ text, href }` | Bouton secondaire |
-| `tallyFormId` | `string` | ID Tally (popup au clic) |
-
-```json
-"cta": {
-  "title": "Une urgence ? On est là.",
-  "description": "Fuite, canalisation bouchée, chauffe-eau HS — appelez-nous maintenant.",
-  "action": { "text": "01 23 45 67 89", "href": "tel:0123456789" },
-  "secondaryAction": { "text": "Envoyer un message", "href": "/contact" }
-}
-```
-
----
-
 ## 7. Composants Contenu (`src/components/sections/content/`)
 
 ### `FAQSection.astro`
-**Rôle** : Accordéon de questions fréquentes.
 
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | Titre |
-| `subtitle` | `string` | Sous-titre |
-| `faqs` | `Array<{ question, answer, category? }>` | Questions/réponses |
-| `variant` | `accordion\|simple` | Style d'affichage |
+| Prop composant | Type | Clé JSON | Requis |
+|---|---|---|---|
+| `title` | `string` | `faq.title` | — |
+| `subtitle` | `string` | `faq.subtitle` | — |
+| `faqs` | `Array<{ question: string; answer: string }>` | `faq.faqs` | — |
+| `categories` | `Array<{ name, faqs[] }>` | `faq.categories` | — |
+| `variant` | `'accordion' \| 'simple'` | `faq.variant` | — |
+
+> Utiliser soit `faqs` (liste plate) soit `categories` (groupées). Les deux sont optionnels, le composant gère les deux modes.
 
 ```json
 "faq": {
   "title": "Questions fréquentes",
+  "subtitle": "Tout ce que vous devez savoir avant de nous appeler.",
   "faqs": [
-    {
-      "question": "Intervenez-vous la nuit et le week-end ?",
-      "answer": "Oui, 24h/24 et 7j/7. Un supplément de 30€ s'applique entre 20h et 8h."
-    },
-    {
-      "question": "Quelle est la zone d'intervention ?",
-      "answer": "Tout Paris (75) et la petite couronne (92, 93, 94)."
-    }
+    { "question": "Intervenez-vous la nuit et le week-end ?", "answer": "Oui, 24h/24 et 7j/7. Supplément de 30€ entre 20h et 8h." },
+    { "question": "Quelle est la zone d'intervention ?", "answer": "Tout Paris (75) et la petite couronne (92, 93, 94)." }
   ],
   "variant": "accordion"
 }
@@ -520,161 +560,96 @@ Tailles disponibles : `small`, `medium`, `large`
 
 ---
 
-## 8. Composants Formulaires (`src/components/forms/`)
+## 8. Layout (`src/components/layout/`)
 
-### `ContactForm.astro`
-**Rôle** : Formulaire de contact.
+### `Header.astro` / `Footer.astro`
 
-| Champ | Type | Options |
+Ces composants **ne reçoivent pas de props** — ils lisent directement depuis `src/config/`.
+Le `footer` de `config.json` n'est pas encore branché au composant `Footer.astro`.
+
+### `AnnouncementBar.astro`
+
+Alimenté par `MarketingLayout` depuis `siteConfig.announcement` (`src/config/content.ts`).
+La clé `announcement` de `config.json` est stockée mais pas encore utilisée par le layout.
+
+---
+
+## 9. Composants Formulaires (`src/components/forms/`)
+
+Ces composants sont **hors du flux config.json** — ils sont utilisés sur des pages dédiées (`/contact`, `/demo`).
+
+| Composant | Rôle | Intégration Tally possible |
 |---|---|---|
-| `firstName` | text | — |
-| `lastName` | text | — |
-| `email` | email | — |
-| `subject` | select | General inquiry, Sales & pricing, Technical support, Enterprise solutions, Partnership opportunities |
-| `message` | textarea | — |
+| `ContactForm.astro` | Formulaire de contact 5 champs | Remplacer par embed/popup Tally |
+| `DemoRequestForm.astro` | Demande de devis / démo | Remplacer par embed/popup Tally |
+| `LoginForm.astro` | Authentification | — |
+| `RegisterForm.astro` | Inscription | — |
+| `ForgotPasswordForm.astro` | Réinitialisation mdp | — |
 
-**Props** : `action` (URL endpoint), mode Netlify Forms supporté.
-
-**Note Tally** : Remplacer par `<tally-widget formId="XXXX" />` pour intégrer un formulaire Tally.
+**Intégration Tally future :** ajouter `tallyFormId` dans `cta`, `newsletter`, ou `pricing` de config.json. Les champs sont déjà définis dans `SiteConfig`.
 
 ---
 
-### `DemoRequestForm.astro`
-**Rôle** : Formulaire de demande de devis / démo.
-
-| Champ | Type | Options |
-|---|---|---|
-| `firstName` | text | — |
-| `lastName` | text | — |
-| `email` | email | — |
-| `company` | text | — |
-| `teamSize` | select | 1-10, 11-50, 51-200, 200+ |
-| `message` | textarea | Optionnel |
-
----
-
-### `LoginForm.astro` / `RegisterForm.astro` / `ForgotPasswordForm.astro`
-**Rôle** : Authentification utilisateur.
-Tous supportent : mode démo, Netlify Identity, endpoint custom via prop `action`.
-
----
-
-## 9. Composants Layout (`src/components/layout/`)
-
-### `Header.astro`
-- Navigation générée depuis `src/config/navigation.ts`
-- Theme toggle intégré
-- Menu mobile hamburger
-- Feature flags pour masquer/afficher des liens
-
-### `Footer.astro`
-- Colonnes générées depuis `src/config/navigation.ts`
-- Copyright calculé dynamiquement (année courante)
-- Liens sociaux depuis `src/config/site.ts`
-
-```json
-"footer": {
-  "description": "Artisan plombier certifié Qualibat à Paris depuis 1998. Urgence 24h/24.",
-  "columns": [
-    {
-      "title": "Services",
-      "links": [
-        { "label": "Urgence plomberie", "href": "/urgence" },
-        { "label": "Chauffe-eau", "href": "/chauffe-eau" }
-      ]
-    }
-  ],
-  "legal": {
-    "privacyUrl": "/confidentialite",
-    "termsUrl": "/mentions-legales",
-    "copyright": "© 2026 Dupont Plomberie. Tous droits réservés."
-  }
-}
-```
-
----
-
-## 10. Note sur Tally
-
-**Aucun formulaire Tally détecté** dans le projet actuel.
-Tous les formulaires sont des composants Astro natifs.
-
-Pour intégrer Tally, les points d'entrée sont :
-- `ContactForm.astro` → remplacer par embed Tally ou popup
-- `DemoRequestForm.astro` → idem
-- `Newsletter.astro` → prop `tallyFormId` prévue dans `SiteConfig`
-- `CTA.astro` → prop `tallyFormId` pour popup au clic du bouton
-
-Ajouter `tallyFormId: string` dans la section concernée de `src/data/config.json`.
-
----
-
-## 11. Carte des Pages (`src/pages/`)
+## 10. Carte des Pages (`src/pages/`)
 
 | Route | Layout | Composants principaux |
 |---|---|---|
-| `/` | MarketingLayout | Hero, FeaturesSection, PricingTable, TestimonialsSection, CTA |
+| `/` | MarketingLayout | Tous les composants via config.json + sectionOrder |
 | `/features` | MarketingLayout | PageHeader, FeatureHighlight, BentoGrid |
-| `/pricing` | MarketingLayout | PageHeader, PricingTable, ComparisonTable, FAQ |
+| `/pricing` | MarketingLayout | PageHeader, PricingTable, ComparisonTable, FAQSection |
 | `/contact` | MarketingLayout | PageHeader, ContactForm |
 | `/demo` | MarketingLayout | PageHeader, DemoRequestForm |
-| `/blog` | MarketingLayout | PageHeader, article list |
+| `/blog` | MarketingLayout | PageHeader, liste articles |
 | `/blog/[slug]` | BlogLayout | Article content |
 | `/login` | MarketingLayout | LoginForm |
 | `/register` | MarketingLayout | RegisterForm |
-| `/dashboard` | DashboardLayout | DashboardShell + Dashboard UI |
+| `/dashboard` | DashboardLayout | DashboardShell |
 
 ---
 
-## 12. Résumé : Variables Prioritaires à Personnaliser
+## 11. Résumé : Déployer pour un Nouveau Client
 
-Pour adapter ce template à un produit spécifique, modifier dans l'ordre :
-
-1. `src/data/config.json` → toutes les sections (objet `SiteConfig`)
-2. `src/config/site.ts` → nom, description, URL, réseaux sociaux (fallback env vars)
-3. `src/config/navigation.ts` → liens de navigation
-4. `src/config/contact.ts` → emails, adresse
-5. Assets → `/public/logo.svg`, `/public/images/og-image.png`
-
-**Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
-**Exemple complet** : `src/data/config.json` (plombier Dupont Plomberie)
+1. **`src/data/config.json`** — remplacer toutes les sections (seul fichier à toucher pour le contenu)
+2. **`src/config/site.ts`** — nom, URL de prod, ogImage, réseaux sociaux
+3. **`src/config/navigation.ts`** — liens du Header et Footer
+4. **`src/config/contact.ts`** — emails de contact
+5. **Assets** → `/public/logo.svg`, `/public/images/og-*.jpg`, `/public/logos/*.svg`
 
 ---
 
-## Audit Props vs Config — Résultats (2026-04-17)
+## 12. Pièges à Éviter (Champs renommés)
 
-Vérification croisée exhaustive entre chaque composant `.astro` et `SiteConfig`. Corrections appliquées dans `src/types/config.ts`.
+| ❌ Ancien nom (obsolète) | ✅ Nom correct | Affecte |
+|---|---|---|
+| `cta.text` / `action.text` | `label` | Tous les CTALink |
+| `testimonials[].name` | `testimonials[].author` | TestimonialsSection |
+| `pricing.plans[].price` | `pricing.plans[].monthlyPrice` | PricingTable |
+| `pricing.plans[].popular` | `pricing.plans[].highlighted` | PricingTable |
+| `stats[].suffix` | *(inclure dans `value`)* | StatsSection |
+| `bentoGrid.items[].accentColor` | `bentoGrid.items[].accent` | BentoGrid |
+| `comparisonTable.highlightedPlan: string` | `comparisonTable.highlightedPlan: number` | ComparisonTable |
 
-### Légende
-- **Oubli** = prop dans le composant, absente de la config → ajouté
-- **Type** = incohérence de type → corrigé
-- **Nettoyage** = prop en config non utilisée dans le composant → conservé (usage futur)
-- **OK** = aucune action requise
+---
 
-| Composant | Prop | Anomalie | Statut |
-|---|---|---|---|
-| `Hero.astro` | `gradient?` | Oubli | Ajouté à `HeroConfig` |
-| `Hero.astro` | `backgroundVideoPoster?` | Oubli | Ajouté à `HeroConfig` |
-| `Hero.astro` | `overlayOpacity?` (number) | Oubli | Ajouté à `HeroConfig` |
-| `Hero.astro` | `textColor?` ('auto'\|'light'\|'dark') | Oubli | Ajouté à `HeroConfig` |
-| `Hero.astro` | `minHeight?` ('default'\|'screen'\|'large') | Oubli | Ajouté à `HeroConfig` |
-| `Hero.astro` | `backgroundImage/Video` | Déjà géré via `backgroundSrc` + mapping index.astro | OK |
-| `Hero.astro` | `badge?` | Nettoyage (config → composant ne l'affiche pas) | Conservé |
-| `LogoCloud.astro` | `speed?` ('slow'\|'normal'\|'fast') | Oubli | Ajouté à `LogoCloudConfig` |
-| `LogoCloud.astro` | `columns?` (2\|3\|4\|5\|6) | Oubli | Ajouté à `LogoCloudConfig` |
-| `LogoCloud.astro` | `logoSize?` ('sm'\|'md'\|'lg') | Oubli | Ajouté à `LogoCloudConfig` |
-| `BentoGrid.astro` | `accentColor: string` vs `accent: enum` | **Type** — composant attend un enum strict | Renommé en `accent?` avec type enum |
-| `BentoGrid.astro` | `href?` sur les items | Oubli | Ajouté aux items de `BentoGridConfig` |
-| `IntegrationsGrid.astro` | `invertOnDark?` | Oubli | Ajouté à `IntegrationsConfig` |
-| `IntegrationsGrid.astro` | `footerLink?` | Oubli | Ajouté à `IntegrationsConfig` |
-| `IntegrationsGrid.astro` | `featured?` (item) | Oubli | Ajouté aux items de `IntegrationsConfig` |
-| `IntegrationsGrid.astro` | `columns?: number` | **Type** — composant attend `3\|4\|5\|6` | Corrigé dans `IntegrationsConfig` |
-| `FAQSection.astro` | `categories?` (FAQCategory[]) | Oubli | Ajouté à `FAQConfig` |
-| `FAQSection.astro` | `faqs` requis → optionnel | Divergence | Rendu optionnel dans `FAQConfig` |
-| `ComparisonTable.astro` | Toutes les props | Orphelin — aucune interface existante | Créé `ComparisonTableConfig` + `comparisonTable?` dans `SiteConfig` |
-| `Newsletter.astro` | `variant?` ('default'\|'compact'\|'card') | Oubli | Ajouté à `NewsletterConfig` |
-| `CTA.astro` | `description`/`action` requis vs optionnel | Divergence requiredness | Config reste optionnel, fallbacks dans index.astro |
-| `CTAConfig` | `tallyFormId?` | Nettoyage | Conservé pour future intégration Tally |
-| `NewsletterConfig` | `tallyFormId?` | Nettoyage | Conservé |
-| `PricingConfig` | `tallyFormId?` | Nettoyage | Conservé |
-| Tous les composants | `background?` ('default'\|'muted'\|'accent') | Pattern architectural — piloté depuis index.astro | Aucune action (intentionnel) |
+## 13. Audit QA Final (2026-04-17)
+
+Résultat des deux passes d'audit croisé composants ↔ SiteConfig :
+
+| Composant | Statut | Correction appliquée |
+|---|---|---|
+| `Hero.astro` | ✅ | +5 props manquantes dans HeroConfig |
+| `LogoCloud.astro` | ✅ | +3 props manquantes dans LogoCloudConfig |
+| `FeaturesSection.astro` | ✅ | Fallback `icon ?? 'lucide:check'` dans index.astro |
+| `HowItWorks.astro` | ✅ | Aucun écart |
+| `FeatureHighlight.astro` | ✅ | +`icon?` ajouté aux items dans FeatureHighlightConfig |
+| `BentoGrid.astro` | ✅ | `accentColor: string` → `accent: enum` + `href?` |
+| `IntegrationsGrid.astro` | ✅ | +`invertOnDark`, `footerLink`, `featured`, type `columns` corrigé |
+| `CTA.astro` | ✅ | Fallbacks `description ?? ''` et `action ?? {...}` dans index.astro |
+| `Newsletter.astro` | ✅ | +`variant?` dans NewsletterConfig |
+| `StatsSection.astro` | ✅ | Aucun écart |
+| `TestimonialsSection.astro` | ✅ | Fallbacks `role ?? ''` et `company ?? ''` dans index.astro |
+| `PricingTable.astro` | ✅ | Aucun écart |
+| `ComparisonTable.astro` | ✅ | Interface créée de zéro (`ComparisonTableConfig`) |
+| `FAQSection.astro` | ✅ | +`categories?` + `faqs` rendu optionnel |
+| **`background` prop (tous)** | ✅ | Pattern architectural intentionnel — piloté par index.astro, absent de config.json |
+| `tallyFormId` (config uniquement) | ℹ️ | Conservé dans CTAConfig, NewsletterConfig, PricingConfig pour future intégration Tally |
