@@ -32,6 +32,21 @@ export interface PageHeaderConfig {
   align?: 'center' | 'left';
   size?: 'default' | 'large';
   maxWidth?: 'sm' | 'md' | 'lg' | 'full';
+  /**
+   * Discriminant de fond — même nommage que HeroConfig dans src/types/config.ts.
+   * 'solid'    → couleur thématique via background
+   * 'gradient' → dégradé Tailwind via gradient
+   * 'image'    → image de fond via backgroundSrc (background sert de fallback CSS)
+   */
+  backgroundType?: 'solid' | 'gradient' | 'image';
+  /** Thème couleur — utilisé sur 'solid' et comme fallback CSS pendant le chargement de l'image */
+  background?: 'default' | 'muted' | 'accent';
+  /** URL de l'image de fond (backgroundType: 'image') */
+  backgroundSrc?: string;
+  /** Classes Tailwind de dégradé (backgroundType: 'gradient', ex: "from-blue-900 to-blue-700") */
+  gradient?: string;
+  /** Overlay sombre pour assurer la lisibilité du texte sur l'image */
+  overlay?: boolean;
 }
 
 /** Bloc CTA de fin de section */

@@ -29,10 +29,14 @@ const pageDescription = cfg.seo?.description ?? '';
     align={cfg.header.align}
     maxWidth={cfg.header.maxWidth}
     size={cfg.header.size}
+    backgroundType={cfg.header.backgroundType}
+    background={cfg.header.background}
+    backgroundSrc={cfg.header.backgroundSrc}
+    overlay={cfg.header.overlay}
   >
     {
       cfg.header.paragraphs?.map((p) => (
-        <p class="mt-4 text-lg text-text-muted leading-relaxed">{p}</p>
+        <p class:list={['mt-4 text-lg leading-relaxed', cfg.header.backgroundType === 'image' ? 'text-white/80' : 'text-text-muted']}>{p}</p>
       ))
     }
   </PageHeader>

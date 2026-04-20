@@ -8,6 +8,10 @@
     "title": "25 ans au service des Parisiens",
     "align": "left",
     "maxWidth": "lg",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-about.jpg",
+    "background": "default",
+    "overlay": true,
     "paragraphs": [
       "Dupont Plomberie a été fondée en 1998 par Michel Dupont avec une idée simple : la plomberie doit être fiable, transparente et accessible à tous. Dès le premier coup de fil, vous méritez un prix clair, un artisan qualifié et une intervention efficace.",
       "Aujourd'hui, notre équipe de 12 plombiers certifiés intervient chaque jour dans Paris et la petite couronne. Nous sommes fiers de notre taux de satisfaction de 98% et de nos plus de 4 800 interventions réussies."

@@ -1,43 +1,56 @@
 ---
 /**
- * PageHeader - Reusable page header section with title and subtitle
+ * PageHeader - En-tête de page réutilisable
  *
- * @description
- * A consistent page header component for marketing pages. Supports
- * different alignments, sizes, and optional description text.
+ * Même nommage que HeroConfig : backgroundType / backgroundSrc / background / gradient / overlay.
  *
- * @example Basic usage
+ * @example Couleur thématique
+ * ```astro
+ * <PageHeader title="Nos services" backgroundType="solid" background="muted" />
+ * ```
+ *
+ * @example Image de fond avec fallback couleur
  * ```astro
  * <PageHeader
- *   title="About Us"
- *   subtitle="Learn about our mission and team."
+ *   title="Contactez-nous"
+ *   backgroundType="image"
+ *   backgroundSrc="/images/header-contact.jpg"
+ *   background="accent"
+ *   overlay={true}
  * />
  * ```
  *
- * @example Left aligned with large title
+ * @example Dégradé personnalisé
  * ```astro
  * <PageHeader
- *   title="We're building the future"
- *   subtitle="Our mission is to make deployment effortless."
- *   align="left"
- *   size="large"
+ *   title="Nos réalisations"
+ *   backgroundType="gradient"
+ *   gradient="from-blue-900 to-indigo-700"
  * />
  * ```
  */
 
 interface Props {
-  /** Page title (h1) */
+  /** Titre de la page (h1) */
   title: string;
-  /** Optional subtitle/description */
+  /** Sous-titre / description */
   subtitle?: string;
-  /** Text alignment */
+  /** Alignement du texte */
   align?: 'center' | 'left';
-  /** Title size */
+  /** Taille du titre */
   size?: 'default' | 'large';
-  /** Maximum width for content */
+  /** Largeur maximale du contenu */
   maxWidth?: 'sm' | 'md' | 'lg' | 'full';
-  /** Section background style */
+  /** Discriminant de fond — même nommage que HeroConfig */
+  backgroundType?: 'solid' | 'gradient' | 'image';
+  /** Thème couleur — actif sur 'solid', aussi fallback CSS quand 'image' charge */
   background?: 'default' | 'muted' | 'accent';
+  /** URL de l'image de fond (backgroundType: 'image') */
+  backgroundSrc?: string;
+  /** Classes Tailwind de dégradé (backgroundType: 'gradient') */
+  gradient?: string;
+  /** Overlay sombre pour lisibilité sur image — true par défaut */
+  overlay?: boolean;
 }
 
 const {
@@ -46,14 +59,24 @@ const {
   align = 'center',
   size = 'default',
   maxWidth = 'lg',
+  backgroundType = 'solid',
   background = 'default',
+  backgroundSrc,
+  gradient,
+  overlay = true,
 } = Astro.props;
 
-const bgClass = {
-  default: 'bg-background',
-  muted: 'bg-surface',
-  accent: 'bg-primary/5',
-}[background];
+const isImage    = backgroundType === 'image' && Boolean(backgroundSrc);
+const isGradient = backgroundType === 'gradient';
+
+// Couleur thématique — aussi fallback CSS pendant le chargement de l'image
+const colorClass = { default: 'bg-background', muted: 'bg-surface', accent: 'bg-primary/5' }[background];
+
+const bgClass = isImage
+  ? `${colorClass} bg-cover bg-center bg-no-repeat`
+  : isGradient
+    ? `bg-gradient-to-r ${gradient ?? 'from-primary to-primary-dark'}`
+    : colorClass;
 
 const alignClass = align === 'left' ? 'text-left' : 'text-center';
 
@@ -68,15 +91,26 @@ const maxWidthClass = {
 }[maxWidth];
 
 const containerClass = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidthClass;
+
+const titleColor    = isImage || isGradient ? 'text-white'    : 'text-text';
+const subtitleColor = isImage || isGradient ? 'text-white/80' : 'text-text-muted';
 ---
 
-<section class:list={['py-section', bgClass]}>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section
+  class:list={['py-section relative overflow-hidden', bgClass]}
+  style={isImage ? { backgroundImage: `url('${backgroundSrc}')` } : undefined}
+>
+  {isImage && overlay && <div class="absolute inset-0 bg-black/50" aria-hidden="true" />}
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class:list={[containerClass, alignClass]}>
-      <h1 class:list={['font-bold text-text leading-tight tracking-tight', titleSizeClass]}>
+      <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
         {title}
       </h1>
-      {subtitle && <p class="mt-6 text-lg text-text-muted leading-relaxed">{subtitle}</p>}
+      {
+        subtitle && (
+          <p class:list={['mt-6 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
+        )
+      }
       <slot />
     </div>
   </div>

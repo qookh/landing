@@ -8,7 +8,11 @@
     "title": "Contactez-nous",
     "subtitle": "Une urgence plomberie ? Un projet de rénovation ? L'équipe Dupont Plomberie est à votre écoute 24h/24.",
     "align": "left",
-    "maxWidth": "lg"
+    "maxWidth": "lg",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-contact.jpg",
+    "background": "accent",
+    "overlay": true
   },
   "formTitle": "Envoyer un message",
   "methodsTitle": "Autres façons de nous joindre",

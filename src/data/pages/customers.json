@@ -6,7 +6,11 @@
   },
   "header": {
     "title": "Ils nous font confiance",
-    "subtitle": "Plus de 500 avis vérifiés sur Google. Découvrez ce que disent nos clients."
+    "subtitle": "Plus de 500 avis vérifiés sur Google. Découvrez ce que disent nos clients.",
+    "backgroundType": "",
+    "backgroundSrc": "",
+    "background": "default",
+    "overlay": true
   },
   "stats": {
     "stats": [

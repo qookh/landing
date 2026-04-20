@@ -7,7 +7,11 @@
   "header": {
     "title": "Questions fréquentes",
     "subtitle": "Tout ce que vous devez savoir avant de nous appeler. Vous ne trouvez pas votre réponse ?",
-    "align": "center"
+    "align": "center",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-faq.jpg",
+    "background": "default",
+    "overlay": true
   },
   "variant": "accordion",
   "categories": [

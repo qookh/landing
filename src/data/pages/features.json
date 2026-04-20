@@ -6,7 +6,11 @@
   },
   "header": {
     "title": "Tous nos services de plomberie",
-    "subtitle": "Du dépannage d'urgence à la rénovation complète, Dupont Plomberie couvre tous vos besoins avec expertise et réactivité."
+    "subtitle": "Du dépannage d'urgence à la rénovation complète, Dupont Plomberie couvre tous vos besoins avec expertise et réactivité.",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-services.jpg",
+    "background": "default",
+    "overlay": true
   },
   "highlight": {
     "title": "Nos prestations phares",

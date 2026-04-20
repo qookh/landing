@@ -6,7 +6,11 @@
   },
   "header": {
     "title": "Ils nous font confiance",
-    "subtitle": "Découvrez ce que nos clients disent de Dupont Plomberie. Des particuliers aux syndics d'immeubles, ils témoignent de leur expérience."
+    "subtitle": "Découvrez ce que nos clients disent de Dupont Plomberie. Des particuliers aux syndics d'immeubles, ils témoignent de leur expérience.",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-testimonials.jpg",
+    "background": "default",
+    "overlay": true
   },
   "emptyMessage": "Aucun témoignage pour l'instant. Revenez bientôt !",
   "cta": {

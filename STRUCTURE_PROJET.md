@@ -1,7 +1,7 @@
 # STRUCTURE_PROJET.md — Source de Vérité
 
 > Projet : Landing Page Astro 5 + Tailwind CSS 4
-> Dernière mise à jour : 2026-04-17 (post-QA final)
+> Dernière mise à jour : 2026-04-21 (harmonisation background PageHeader)
 > But : référence exhaustive et auditée — props composants ↔ clés JSON ↔ SiteConfig.
 
 **Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
@@ -31,14 +31,13 @@ Le `background` de chaque section (alternance `default`/`muted`) est calculé **
 
 Ces fichiers alimentent le Header, Footer, SEO, et les composants qui ne passent pas par `config.json`.
 
-| Fichier | Rôle | Ne pas confondre avec |
+| Fichier | Rôle | Source de données |
 |---|---|---|
-| `site.ts` | Nom, URL, logo, ogImage, réseaux sociaux | `global` de config.json |
-| `navigation.ts` | Liens Header + Footer | `footer.columns` de config.json |
-| `contact.ts` | Emails de contact | `global.contact` de config.json |
-| `content.ts` | Annonce par défaut, newsletter interne | `announcement` de config.json |
+| `site.ts` | Nom, URL, logo, ogImage, réseaux sociaux | Lit `config.json → global` + env var `SITE_NAME` |
+| `navigation.ts` | Liens Header + Footer | Statique (éditer ce fichier) |
+| `index.ts` | Ré-exporte `contact`, `contactMethods`, `contactFAQs`, `announcement`, `content` | Source unique : `config.json` |
 
-> **Important :** `Header.astro` et `Footer.astro` lisent directement depuis `src/config/` — ils ne reçoivent **pas** de props depuis `config.json`. Pour changer navigation ou logo, modifier `src/config/site.ts` et `src/config/navigation.ts`.
+> **Important :** `contact.ts` et `content.ts` ont été supprimés — toutes ces données viennent de `src/data/config.json`. `Header.astro` et `Footer.astro` lisent depuis `src/config/` — ils ne reçoivent **pas** de props depuis `config.json`. Pour changer navigation ou logo : `src/config/site.ts` et `src/config/navigation.ts`.
 
 ---
 
@@ -107,6 +106,7 @@ Sections omises de `sectionOrder` ne s'affichent pas (même si leur clé existe 
 | `align` | `'center' \| 'left'` | `hero.align` | — |
 
 > **Note mapping** : `hero.backgroundSrc` est splitté en `backgroundImage` ou `backgroundVideo` par index.astro selon `backgroundType`. Ne pas mettre `backgroundImage`/`backgroundVideo` directement dans config.json.
+> **Pattern background uniforme** : Hero et `PageHeader` partagent le même jeu de clés (`backgroundType`, `backgroundSrc`, `background`, `gradient`, `overlay`). Voir §7 pour la documentation complète de `PageHeader`.
 
 ```json
 "hero": {
@@ -123,7 +123,7 @@ Sections omises de `sectionOrder` ne s'affichent pas (même si leur clé existe 
 
 ### `AnnouncementBar.astro`
 
-> Alimenté par `MarketingLayout` depuis `src/config/content.ts`, **pas** depuis `config.json` directement. La clé `announcement` de config.json n'est pas encore branchée au layout.
+> Alimenté par `MarketingLayout` depuis `src/config/index.ts → announcement`, lui-même re-exporté depuis `config.json`. Modifier directement la clé `announcement` de `config.json`.
 
 | Clé JSON | Type | Description |
 |---|---|---|
@@ -534,6 +534,51 @@ Valeurs `accent` : `'primary' | 'blue' | 'green' | 'purple' | 'orange'`
 
 ## 7. Composants Contenu (`src/components/sections/content/`)
 
+### `PageHeader.astro`
+
+Composant d'en-tête réutilisable pour toutes les pages secondaires. Partage le **même système de background que `Hero.astro`** (clés identiques).
+
+| Prop | Type | Clé JSON | Défaut |
+|---|---|---|---|
+| `title` | `string` | `header.title` | ✅ requis |
+| `subtitle` | `string` | `header.subtitle` | — |
+| `paragraphs` | `string[]` | `header.paragraphs` | — |
+| `align` | `'center' \| 'left'` | `header.align` | `'center'` |
+| `size` | `'default' \| 'large'` | `header.size` | `'default'` |
+| `maxWidth` | `'sm' \| 'md' \| 'lg' \| 'full'` | `header.maxWidth` | `'lg'` |
+| `backgroundType` | `'solid' \| 'gradient' \| 'image'` | `header.backgroundType` | `'solid'` |
+| `background` | `'default' \| 'muted' \| 'accent'` | `header.background` | `'default'` |
+| `backgroundSrc` | `string` | `header.backgroundSrc` | — |
+| `gradient` | `string` | `header.gradient` | — |
+| `overlay` | `boolean` | `header.overlay` | `true` |
+
+**Exemples JSON :**
+
+```json
+// Couleur thématique
+"header": { "title": "FAQ", "backgroundType": "solid", "background": "muted" }
+
+// Image avec overlay et couleur de fallback
+"header": {
+  "title": "Contactez-nous",
+  "backgroundType": "image",
+  "backgroundSrc": "/images/header-contact.jpg",
+  "background": "accent",
+  "overlay": true
+}
+
+// Dégradé Tailwind
+"header": { "title": "Nos services", "backgroundType": "gradient", "gradient": "from-blue-900 to-indigo-700" }
+
+// Défaut (fond bg-background)
+"header": { "title": "À propos" }
+```
+
+> **Important** : `background` sert aussi de **fallback CSS** pendant le chargement de l'image (`backgroundType: 'image'`). Toujours le définir quand une image est utilisée.
+> **Ancien nom supprimé** : `bgImage` n'existe plus — utiliser `backgroundSrc`.
+
+---
+
 ### `FAQSection.astro`
 
 | Prop composant | Type | Clé JSON | Requis |
@@ -569,8 +614,7 @@ Le `footer` de `config.json` n'est pas encore branché au composant `Footer.astr
 
 ### `AnnouncementBar.astro`
 
-Alimenté par `MarketingLayout` depuis `siteConfig.announcement` (`src/config/content.ts`).
-La clé `announcement` de `config.json` est stockée mais pas encore utilisée par le layout.
+Alimenté par `MarketingLayout` depuis `src/config/index.ts → announcement`, lui-même lu depuis `config.json → announcement`. Pour modifier l'annonce, éditer uniquement `config.json`.
 
 ---
 
@@ -609,10 +653,10 @@ Ces composants sont **hors du flux config.json** — ils sont utilisés sur des 
 
 ## 11. Résumé : Déployer pour un Nouveau Client
 
-1. **`src/data/config.json`** — remplacer toutes les sections (seul fichier à toucher pour le contenu)
-2. **`src/config/site.ts`** — nom, URL de prod, ogImage, réseaux sociaux
-3. **`src/config/navigation.ts`** — liens du Header et Footer
-4. **`src/config/contact.ts`** — emails de contact
+1. **`src/data/config.json`** — remplacer toutes les sections (contenu page d'accueil + global + contact + announcement)
+2. **`src/data/pages/*.json`** — remplacer le contenu de chaque page secondaire
+3. **`src/config/site.ts`** — nom, URL de prod, ogImage, réseaux sociaux (lit config.json, env var `SITE_NAME` en override)
+4. **`src/config/navigation.ts`** — liens du Header et Footer (statique, éditer ce fichier)
 5. **Assets** → `/public/logo.svg`, `/public/images/og-*.jpg`, `/public/logos/*.svg`
 
 ---
@@ -628,6 +672,8 @@ Ces composants sont **hors du flux config.json** — ils sont utilisés sur des 
 | `stats[].suffix` | *(inclure dans `value`)* | StatsSection |
 | `bentoGrid.items[].accentColor` | `bentoGrid.items[].accent` | BentoGrid |
 | `comparisonTable.highlightedPlan: string` | `comparisonTable.highlightedPlan: number` | ComparisonTable |
+| `header.bgImage` | `header.backgroundSrc` (+ ajouter `backgroundType: "image"`) | PageHeader |
+| `header.background: "accent"` *(seul)* | `header.backgroundType: "solid", background: "accent"` | PageHeader |
 
 ---
 
@@ -653,6 +699,7 @@ Résultat des deux passes d'audit croisé composants ↔ SiteConfig :
 | `FAQSection.astro` | ✅ | +`categories?` + `faqs` rendu optionnel |
 | **`background` prop (tous)** | ✅ | Pattern architectural intentionnel — piloté par index.astro, absent de config.json |
 | `tallyFormId` (config uniquement) | ℹ️ | Conservé dans CTAConfig, NewsletterConfig, PricingConfig pour future intégration Tally |
+| **`PageHeader` background system** | ✅ *(2026-04-21)* | `bgImage`/`overlay` (props épars) → `backgroundType`/`backgroundSrc`/`background`/`gradient`/`overlay` — aligné sur Hero |
 
 ---
 
@@ -677,19 +724,20 @@ src/pages/<page>.astro
 | Page | Fichier de données | Interface TypeScript | Composants utilisés |
 |---|---|---|---|
 | `src/pages/about.astro` | `src/data/pages/about.json` | `AboutPageConfig` | PageHeader, StatsSection, VideoEmbed, ValuesSection, TeamSection, ContentSection, CTA |
+| `src/pages/contact.astro` | `src/data/pages/contact.json` | `ContactPageConfig` | PageHeader, ContactForm (contactMethods/contactFAQs via `src/config`) |
 | `src/pages/customers.astro` | `src/data/pages/customers.json` | `CustomersPageConfig` | PageHeader, StatsSection, CaseStudyCard, LogoCloud, CTA |
 | `src/pages/faq.astro` | `src/data/pages/faq.json` | `FAQPageConfig` | PageHeader, FAQSection, CTA |
 | `src/pages/features.astro` | `src/data/pages/features.json` | `FeaturesPageConfig` | PageHeader, FeatureHighlight, ValuesSection, BentoGrid, CTA |
 | `src/pages/pricing.astro` | `src/data/pages/pricing.json` | `PricingPageConfig` | PricingTable, TrustBadges, ComparisonTable, FAQSection, CTA |
+| `src/pages/testimonials.astro` | `src/data/pages/testimonials.json` | `TestimonialsPageConfig` | PageHeader, liste testimonials via `astro:content`, CTA |
+| `src/pages/privacy.astro` | `src/data/pages/privacy.json` | `LegalPageConfig` | Prose légale rendue dynamiquement depuis sections JSON |
+| `src/pages/terms.astro` | `src/data/pages/terms.json` | `LegalPageConfig` | Idem |
 
 ### Pages non data-driven (intentionnel)
 
 | Page | Raison |
 |---|---|
 | `src/pages/403.astro`, `404.astro`, `500.astro` | Codes d'erreur = constantes sémantiques, pas de contenu configurable |
-| `src/pages/privacy.astro`, `terms.astro` | Prose juridique statique avec quelques valeurs depuis `src/config/` |
-| `src/pages/contact.astro` | Déjà piloté par `src/config/contact.ts` et `src/config/site.ts` |
-| `src/pages/blog/**`, `src/pages/testimonials.astro` | Content collections Astro (`astro:content`) — architecture correcte |
 
 ### Structure des fichiers de config par page
 
