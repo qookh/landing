@@ -1,0 +1,18 @@
+{
+  "seo": {
+    "title": "Témoignages clients — Dupont Plomberie Paris",
+    "description": "Découvrez les avis et témoignages de nos clients parisiens. Plus de 4 800 interventions réalisées avec 98% de satisfaction.",
+    "keywords": ["avis plombier Paris", "témoignages Dupont Plomberie", "clients satisfaits plomberie"]
+  },
+  "header": {
+    "title": "Ils nous font confiance",
+    "subtitle": "Découvrez ce que nos clients disent de Dupont Plomberie. Des particuliers aux syndics d'immeubles, ils témoignent de leur expérience."
+  },
+  "emptyMessage": "Aucun témoignage pour l'instant. Revenez bientôt !",
+  "cta": {
+    "title": "Besoin d'un plombier de confiance ?",
+    "description": "Rejoignez nos milliers de clients satisfaits. Intervention rapide, devis transparent, garantie sur tous les travaux.",
+    "action": { "label": "Appeler maintenant", "href": "tel:0123456789" },
+    "secondaryAction": { "label": "Demander un devis", "href": "/contact" }
+  }
+}

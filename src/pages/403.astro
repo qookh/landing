@@ -1,14 +1,21 @@
 ---
+import errorsJson from '@/data/pages/errors.json';
+import type { ErrorsPageConfig } from '@/types/pages';
+
 import ErrorLayout from '@/layouts/ErrorLayout.astro';
 import ErrorPage from '@components/error/ErrorPage.astro';
+
+const cfg = (errorsJson as ErrorsPageConfig)['403'];
 
 Astro.response.status = 403;
 ---
 
-<ErrorLayout title="Access Denied" description="You don't have permission to access this page.">
+<ErrorLayout title={cfg.layoutTitle} description={cfg.layoutDescription}>
   <ErrorPage
-    code={403}
-    title="Access Denied"
-    message="You don't have permission to access this page. If you believe this is a mistake, please contact support."
+    code={cfg.code}
+    title={cfg.title}
+    message={cfg.message}
+    showHomeButton={cfg.showHomeButton}
+    showContactButton={cfg.showContactButton}
   />
 </ErrorLayout>

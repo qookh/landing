@@ -1,10 +1,14 @@
 ---
+import testimonialsJson from '@/data/pages/testimonials.json';
+import type { TestimonialsPageConfig } from '@/types/pages';
+
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import PageHeader from '@sections/content/PageHeader.astro';
 import TestimonialsGrid from '@sections/social-proof/TestimonialsGrid.astro';
 import CTA from '@sections/marketing/CTA.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { siteConfig } from '@/config';
+
+const cfg = testimonialsJson as TestimonialsPageConfig;
 
 type TestimonialEntry = CollectionEntry<'testimonials'>;
 
@@ -12,47 +16,48 @@ const testimonials = await getCollection(
   'testimonials',
   ({ data }: { data: TestimonialEntry['data'] }) => !data.draft
 );
-const sortedTestimonials = testimonials.sort(
+const sorted = testimonials.sort(
   (a: TestimonialEntry, b: TestimonialEntry) => a.data.order - b.data.order
 );
 
-// Separate featured testimonials for highlight section
-const featuredTestimonials = sortedTestimonials.filter((t: TestimonialEntry) => t.data.featured);
-const otherTestimonials = sortedTestimonials.filter((t: TestimonialEntry) => !t.data.featured);
+const featured = sorted.filter((t: TestimonialEntry) => t.data.featured);
+const others = sorted.filter((t: TestimonialEntry) => !t.data.featured);
+
+const mapT = (t: TestimonialEntry) => ({
+  quote: t.data.quote,
+  author: t.data.author,
+  role: t.data.role ?? '',
+  company: t.data.company ?? '',
+  avatar: t.data.avatar,
+});
+
+const pageTitle = cfg.seo?.title ?? cfg.header.title;
+const pageDescription = cfg.seo?.description ?? '';
 ---
 
 <MarketingLayout
-  title={`Testimonials - ${siteConfig.name}`}
-  description={`See what developers and teams are saying about ${siteConfig.name}. Real stories from real users.`}
+  title={pageTitle}
+  description={pageDescription}
+  image={cfg.seo?.image}
+  tags={cfg.seo?.keywords}
 >
-  <PageHeader
-    title="Loved by developers"
-    subtitle={`Don't just take our word for it. Here's what developers and teams are saying about ${siteConfig.name}.`}
-  />
+  <PageHeader {...cfg.header} />
 
   <TestimonialsGrid
-    featured={featuredTestimonials.map((t: TestimonialEntry) => ({
-      quote: t.data.quote,
-      author: t.data.author,
-      role: t.data.role,
-      company: t.data.company,
-      avatar: t.data.avatar,
-    }))}
-    testimonials={otherTestimonials.map((t: TestimonialEntry) => ({
-      quote: t.data.quote,
-      author: t.data.author,
-      role: t.data.role,
-      company: t.data.company,
-      avatar: t.data.avatar,
-    }))}
-    emptyMessage="No testimonials yet. Check back soon!"
+    featured={featured.map(mapT)}
+    testimonials={others.map(mapT)}
+    emptyMessage={cfg.emptyMessage}
     background="default"
   />
 
-  <CTA
-    title="Ready to join them?"
-    description="Start building and shipping faster with our modern deployment platform."
-    action={{ label: 'Get Started Free', href: '/pricing' }}
-    background="muted"
-  />
+  {
+    cfg.cta && (
+      <CTA
+        {...cfg.cta}
+        description={cfg.cta.description ?? ''}
+        action={cfg.cta.action ?? { label: 'Contact', href: '/contact' }}
+        background="muted"
+      />
+    )
+  }
 </MarketingLayout>

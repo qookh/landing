@@ -217,6 +217,64 @@ export interface FeaturesPageConfig {
   cta?: CTABlockConfig;
 }
 
+/** src/data/pages/testimonials.json */
+export interface TestimonialsPageConfig {
+  seo?: PageSEO;
+  header: PageHeaderConfig;
+  emptyMessage?: string;
+  cta?: CTABlockConfig;
+}
+
+/** src/data/pages/contact.json */
+export interface ContactPageConfig {
+  seo?: PageSEO;
+  header: PageHeaderConfig;
+  formTitle: string;
+  methodsTitle: string;
+  officeTitle: string;
+  faqsTitle: string;
+  faqsLink?: { label: string; href: string };
+}
+
+/** Section de contenu légal (privacy/terms) */
+export interface LegalSection {
+  heading?: string;
+  subheading?: string;
+  /** Paragraphe principal */
+  content?: string;
+  /** Liste <ul> */
+  items?: string[];
+}
+
+/** src/data/pages/privacy.json et terms.json */
+export interface LegalPageConfig {
+  seo?: PageSEO;
+  title: string;
+  lastUpdated: string;
+  intro?: string;
+  sections: LegalSection[];
+  contactEmail: string;
+  address: string;
+}
+
+/** Config d'une page d'erreur individuelle */
+export interface ErrorConfig {
+  layoutTitle: string;
+  layoutDescription: string;
+  code: number;
+  title: string;
+  message: string;
+  showHomeButton?: boolean;
+  showContactButton?: boolean;
+}
+
+/** src/data/pages/errors.json */
+export interface ErrorsPageConfig {
+  '403': ErrorConfig;
+  '404': ErrorConfig;
+  '500': ErrorConfig;
+}
+
 /** src/data/pages/pricing.json */
 export interface PricingPageConfig {
   seo?: PageSEO;

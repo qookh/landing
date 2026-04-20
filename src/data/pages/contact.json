@@ -1,0 +1,18 @@
+{
+  "seo": {
+    "title": "Contact — Dupont Plomberie Paris",
+    "description": "Contactez Dupont Plomberie pour une intervention d'urgence ou un devis gratuit. Disponible 24h/24, 7j/7 à Paris et en Île-de-France.",
+    "keywords": ["contact plombier Paris", "devis plomberie gratuit", "urgence plombier Paris"]
+  },
+  "header": {
+    "title": "Contactez-nous",
+    "subtitle": "Une urgence plomberie ? Un projet de rénovation ? L'équipe Dupont Plomberie est à votre écoute 24h/24.",
+    "align": "left",
+    "maxWidth": "lg"
+  },
+  "formTitle": "Envoyer un message",
+  "methodsTitle": "Autres façons de nous joindre",
+  "officeTitle": "Notre agence",
+  "faqsTitle": "Questions fréquentes",
+  "faqsLink": { "label": "Voir toutes les FAQ", "href": "/faq" }
+}

@@ -1,0 +1,84 @@
+{
+  "seo": {
+    "title": "Politique de Confidentialité — Dupont Plomberie Paris",
+    "description": "Politique de confidentialité de Dupont Plomberie. Découvrez comment nous collectons, utilisons et protégeons vos données personnelles conformément au RGPD.",
+    "keywords": ["politique confidentialité", "RGPD", "données personnelles Dupont Plomberie"]
+  },
+  "title": "Politique de Confidentialité",
+  "lastUpdated": "1er avril 2025",
+  "intro": "Chez Dupont Plomberie, la protection de vos données personnelles est une priorité. Cette politique explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez notre site ou faites appel à nos services.",
+  "sections": [
+    {
+      "heading": "1. Responsable du traitement",
+      "content": "Le responsable du traitement est Dupont Plomberie, entreprise individuelle spécialisée dans les travaux de plomberie, dont le siège social est situé à Paris, France."
+    },
+    {
+      "heading": "2. Données collectées",
+      "content": "Nous pouvons collecter les données suivantes :",
+      "items": [
+        "Données d'identité : nom, prénom",
+        "Coordonnées : adresse email, numéro de téléphone, adresse postale",
+        "Données de demande : nature du problème de plomberie, date souhaitée d'intervention",
+        "Données de navigation : adresse IP, type de navigateur, pages visitées (via cookies)"
+      ]
+    },
+    {
+      "heading": "3. Finalités du traitement",
+      "content": "Vos données sont collectées uniquement pour les finalités suivantes :",
+      "items": [
+        "Répondre à vos demandes de devis ou d'intervention",
+        "Gérer la relation client et assurer le suivi des travaux",
+        "Envoyer des communications commerciales (avec votre consentement préalable)",
+        "Améliorer nos services et notre site internet",
+        "Respecter nos obligations légales et comptables"
+      ]
+    },
+    {
+      "heading": "4. Base légale du traitement",
+      "content": "Nos traitements reposent sur les bases légales suivantes : exécution du contrat (devis, intervention), intérêt légitime (suivi client, amélioration du service), consentement (newsletters, cookies non essentiels) et obligation légale (facturation, comptabilité)."
+    },
+    {
+      "heading": "5. Partage des données",
+      "content": "Nous ne vendons jamais vos données personnelles à des tiers. Elles peuvent être partagées avec :",
+      "items": [
+        "Nos prestataires techniques (hébergement, messagerie) liés par des garanties contractuelles",
+        "Les autorités compétentes sur réquisition légale",
+        "Nos sous-traitants partenaires dans le cadre strict de l'exécution de la prestation"
+      ]
+    },
+    {
+      "heading": "6. Durée de conservation",
+      "content": "Vos données sont conservées pendant la durée strictement nécessaire à la finalité du traitement : 3 ans pour les données prospects, 10 ans pour les données de facturation et comptabilité, 1 mois pour les données de navigation anonymisées."
+    },
+    {
+      "heading": "7. Vos droits (RGPD)",
+      "content": "Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679), vous disposez des droits suivants :",
+      "items": [
+        "Droit d'accès : obtenir une copie de vos données personnelles",
+        "Droit de rectification : corriger des données inexactes ou incomplètes",
+        "Droit à l'effacement : demander la suppression de vos données",
+        "Droit à la portabilité : recevoir vos données dans un format structuré et lisible",
+        "Droit d'opposition : vous opposer à certains traitements",
+        "Droit à la limitation : restreindre temporairement l'utilisation de vos données"
+      ]
+    },
+    {
+      "heading": "8. Cookies",
+      "content": "Notre site utilise des cookies pour améliorer votre expérience de navigation. Les cookies techniques essentiels sont déposés sans consentement préalable. Les cookies analytiques et de personnalisation nécessitent votre accord explicite, que vous pouvez retirer à tout moment via les paramètres de votre navigateur."
+    },
+    {
+      "heading": "9. Sécurité des données",
+      "content": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, modification, divulgation ou destruction. Toutefois, aucune transmission sur Internet ne peut être garantie à 100% sécurisée."
+    },
+    {
+      "heading": "10. Modifications de cette politique",
+      "content": "Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment afin de refléter les évolutions légales ou nos pratiques. La version en vigueur est celle affichée sur cette page avec la date de dernière mise à jour. Nous vous encourageons à la consulter régulièrement."
+    },
+    {
+      "heading": "11. Réclamation",
+      "content": "Si vous estimez que le traitement de vos données ne respecte pas la réglementation applicable, vous avez le droit d'introduire une réclamation auprès de la CNIL (Commission Nationale de l'Informatique et des Libertés) : www.cnil.fr."
+    }
+  ],
+  "contactEmail": "privacy@dupont-plomberie.fr",
+  "address": "15 rue de la Paix, 75001 Paris, France"
+}

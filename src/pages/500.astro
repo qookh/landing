@@ -1,14 +1,21 @@
 ---
+import errorsJson from '@/data/pages/errors.json';
+import type { ErrorsPageConfig } from '@/types/pages';
+
 import ErrorLayout from '@/layouts/ErrorLayout.astro';
 import ErrorPage from '@components/error/ErrorPage.astro';
+
+const cfg = (errorsJson as ErrorsPageConfig)['500'];
 
 Astro.response.status = 500;
 ---
 
-<ErrorLayout title="Server Error" description="Something went wrong on our end.">
+<ErrorLayout title={cfg.layoutTitle} description={cfg.layoutDescription}>
   <ErrorPage
-    code={500}
-    title="Server Error"
-    message="Something went wrong on our end. We're working to fix it. Please try again later."
+    code={cfg.code}
+    title={cfg.title}
+    message={cfg.message}
+    showHomeButton={cfg.showHomeButton}
+    showContactButton={cfg.showContactButton}
   />
 </ErrorLayout>

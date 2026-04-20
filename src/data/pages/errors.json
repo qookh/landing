@@ -1,0 +1,29 @@
+{
+  "403": {
+    "layoutTitle": "Accès refusé",
+    "layoutDescription": "Vous n'avez pas la permission d'accéder à cette page.",
+    "code": 403,
+    "title": "Accès refusé",
+    "message": "Vous n'avez pas les droits nécessaires pour accéder à cette page. Si vous pensez qu'il s'agit d'une erreur, n'hésitez pas à nous contacter.",
+    "showHomeButton": true,
+    "showContactButton": true
+  },
+  "404": {
+    "layoutTitle": "Page introuvable",
+    "layoutDescription": "La page que vous cherchez n'existe pas.",
+    "code": 404,
+    "title": "Page introuvable",
+    "message": "Désolé, nous n'avons pas trouvé la page que vous cherchez. Elle a peut-être été déplacée ou supprimée.",
+    "showHomeButton": true,
+    "showContactButton": false
+  },
+  "500": {
+    "layoutTitle": "Erreur serveur",
+    "layoutDescription": "Une erreur est survenue de notre côté.",
+    "code": 500,
+    "title": "Erreur serveur",
+    "message": "Une erreur inattendue est survenue. Nos équipes en ont été informées. Veuillez réessayer dans quelques instants.",
+    "showHomeButton": true,
+    "showContactButton": true
+  }
+}

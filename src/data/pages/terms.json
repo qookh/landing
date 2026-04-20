@@ -1,0 +1,82 @@
+{
+  "seo": {
+    "title": "Conditions Générales — Dupont Plomberie Paris",
+    "description": "Conditions générales d'utilisation et de vente de Dupont Plomberie. Lisez attentivement avant de faire appel à nos services de plomberie.",
+    "keywords": ["conditions générales plomberie", "CGU Dupont Plomberie", "conditions de vente artisan"]
+  },
+  "title": "Conditions Générales",
+  "lastUpdated": "1er avril 2025",
+  "intro": "Les présentes Conditions Générales régissent l'utilisation de notre site internet et le recours à nos services de plomberie. En nous contactant ou en acceptant un devis, vous acceptez sans réserve ces conditions.",
+  "sections": [
+    {
+      "heading": "1. Identification de l'entreprise",
+      "content": "Dupont Plomberie est une entreprise individuelle spécialisée dans les travaux de plomberie, certifiée Qualibat RGE, dont le siège social est situé au 15 rue de la Paix, 75001 Paris. SIRET : 123 456 789 00010 — TVA intracommunautaire : FR 12 123456789."
+    },
+    {
+      "heading": "2. Services proposés",
+      "content": "Dupont Plomberie propose des services de plomberie incluant, sans s'y limiter :",
+      "items": [
+        "Interventions d'urgence : fuites, dégâts des eaux, débouchage de canalisations",
+        "Installation et remplacement de sanitaires, robinetterie et équipements de chauffage",
+        "Détection de fuites par méthodes non destructives (caméra, acoustique, gaz traceur)",
+        "Rénovation complète de salles de bain clé en main",
+        "Entretien préventif et contrats d'entretien annuels",
+        "Mise aux normes d'installations selon les DTU en vigueur"
+      ]
+    },
+    {
+      "heading": "3. Devis et commande",
+      "content": "Tout devis est gratuit, sans engagement et valable 30 jours à compter de sa date d'émission. Le devis signé par le client vaut acceptation de la commande. Pour les interventions d'urgence, un devis verbal est établi sur place avant tout commencement des travaux. Nous nous réservons le droit de refuser toute commande pour des raisons légitimes."
+    },
+    {
+      "heading": "4. Tarifs et modalités de paiement",
+      "content": "Les tarifs sont exprimés en euros TTC. Le paiement est exigible à réception de la facture, sauf accord préalable écrit. Modes de paiement acceptés :",
+      "items": [
+        "Espèces (dans la limite légale)",
+        "Virement bancaire",
+        "Chèque",
+        "Carte bancaire"
+      ]
+    },
+    {
+      "heading": "5. Pénalités de retard",
+      "content": "Tout retard de paiement entraîne l'application de pénalités de retard calculées au taux légal en vigueur, ainsi qu'une indemnité forfaitaire de recouvrement de 40 €, conformément à l'article L.441-10 du Code de commerce."
+    },
+    {
+      "heading": "6. Délais d'intervention",
+      "content": "Les délais d'intervention sont donnés à titre indicatif. Pour les urgences, nous nous efforçons d'intervenir dans l'heure au sein de Paris et de la petite couronne. Les délais pour les travaux planifiés sont précisés dans le devis. Dupont Plomberie ne peut être tenu responsable de retards dus à des circonstances extérieures à sa volonté (conditions météo, embouteillages, force majeure)."
+    },
+    {
+      "heading": "7. Garanties",
+      "content": "Nos travaux bénéficient des garanties légales et contractuelles suivantes :",
+      "items": [
+        "Garantie de parfait achèvement : 1 an après réception des travaux",
+        "Garantie biennale sur les équipements dissociables : 2 ans",
+        "Garantie décennale sur les travaux de construction et de rénovation : 10 ans",
+        "Garantie contractuelle pièces et main d'œuvre sur toutes nos interventions"
+      ]
+    },
+    {
+      "heading": "8. Responsabilité",
+      "content": "Dupont Plomberie est couvert par une assurance responsabilité civile professionnelle et une assurance décennale. Sa responsabilité est limitée au montant de l'intervention concernée pour les dommages directs prouvés. Dupont Plomberie ne saurait être tenu responsable des dommages indirects, immatériels ou consécutifs."
+    },
+    {
+      "heading": "9. Droit de rétractation",
+      "content": "Pour les contrats conclus à distance ou hors établissement avec des consommateurs, vous disposez d'un délai de rétractation de 14 jours à compter de la signature du devis, conformément aux articles L.221-18 et suivants du Code de la consommation. Ce droit ne s'applique pas aux interventions d'urgence demandées expressément par le client ni aux travaux entièrement exécutés avant expiration de ce délai avec votre accord."
+    },
+    {
+      "heading": "10. Propriété intellectuelle",
+      "content": "L'ensemble du contenu de ce site (textes, images, logo, structure) est protégé par les droits de propriété intellectuelle et appartient exclusivement à Dupont Plomberie. Toute reproduction, représentation ou utilisation sans autorisation écrite préalable est strictement interdite."
+    },
+    {
+      "heading": "11. Données personnelles",
+      "content": "La collecte et le traitement de vos données personnelles sont régis par notre Politique de Confidentialité, accessible à l'adresse /privacy. Conformément au RGPD, vous disposez de droits sur vos données que vous pouvez exercer à tout moment."
+    },
+    {
+      "heading": "12. Médiation et litiges",
+      "content": "En cas de litige, une solution amiable sera recherchée en priorité. À défaut, vous pouvez recourir gratuitement au médiateur de la consommation compétent pour le secteur de l'artisanat du bâtiment. Les coordonnées du médiateur sont disponibles sur demande. Les présentes conditions sont régies par le droit français et tout litige relève de la compétence des tribunaux de Paris, sauf disposition légale impérative contraire applicable aux consommateurs."
+    }
+  ],
+  "contactEmail": "legal@dupont-plomberie.fr",
+  "address": "15 rue de la Paix, 75001 Paris, France"
+}
