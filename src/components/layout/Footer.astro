@@ -25,8 +25,7 @@ const filterByFeature = (items: NavigationItem[]) =>
   items.filter((item) => !item.feature || features[item.feature as keyof FeatureFlags]);
 
 // Filter all navigation sections
-const productLinks = filterByFeature(footer.product);
-const solutionsLinks = filterByFeature(footer.solutions);
+const productLinks = filterByFeature(footer.services);
 const resourcesLinks = filterByFeature(footer.resources);
 const companyLinks = filterByFeature(footer.company);
 const legalLinks = filterByFeature(footer.legal);
@@ -115,30 +114,9 @@ const legalLinks = filterByFeature(footer.legal);
       {
         productLinks.length > 0 && (
           <div>
-            <h3 class="font-semibold text-sm text-text mb-4">Product</h3>
+            <h3 class="font-semibold text-sm text-text mb-4">Notre métier</h3>
             <ul class="space-y-3">
               {productLinks.map((link) => (
-                <li>
-                  <a
-                    href={link.href}
-                    class="text-sm text-text-muted hover:text-text transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )
-      }
-
-      <!-- Solutions Column -->
-      {
-        solutionsLinks.length > 0 && (
-          <div>
-            <h3 class="font-semibold text-sm text-text mb-4">Solutions</h3>
-            <ul class="space-y-3">
-              {solutionsLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
@@ -157,7 +135,7 @@ const legalLinks = filterByFeature(footer.legal);
       {
         resourcesLinks.length > 0 && (
           <div>
-            <h3 class="font-semibold text-sm text-text mb-4">Resources</h3>
+            <h3 class="font-semibold text-sm text-text mb-4">Nos resources</h3>
             <ul class="space-y-3">
               {resourcesLinks.map((link) => (
                 <li>
@@ -178,7 +156,7 @@ const legalLinks = filterByFeature(footer.legal);
       {
         companyLinks.length > 0 && (
           <div>
-            <h3 class="font-semibold text-sm text-text mb-4">Company</h3>
+            <h3 class="font-semibold text-sm text-text mb-4">Notre société</h3>
             <ul class="space-y-3">
               {companyLinks.map((link) => (
                 <li>
@@ -204,7 +182,7 @@ const legalLinks = filterByFeature(footer.legal);
         <!-- Copyright -->
         <p class="text-sm text-text-muted">
           &copy; {currentYear}
-          {siteConfig.name}. All rights reserved.
+          {siteConfig.name}. Tout droit réservé.
         </p>
         <!-- Legal Links -->
         <div class="flex items-center gap-6">

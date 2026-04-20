@@ -157,9 +157,9 @@ const bg = (idx: number): 'default' | 'muted' => (idx % 2 === 0 ? 'default' : 'm
       if (key === 'testimonials' && testimonialsProps && testimonialsProps.testimonials.length > 0) {
         return <TestimonialsSection {...testimonialsProps} background={bg(idx)} />;
       }
-      if (key === 'pricing' && cfg.pricing) {
+/*      if (key === 'pricing' && cfg.pricing) {
         return <PricingTable {...cfg.pricing} background={bg(idx)} />;
-      }
+      } */
       if (key === 'comparisonTable' && cfg.comparisonTable) {
         return <ComparisonTable {...cfg.comparisonTable} background={bg(idx)} />;
       }
