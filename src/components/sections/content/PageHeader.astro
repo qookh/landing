@@ -2,13 +2,15 @@
 /**
  * PageHeader — En-tête de page réutilisable.
  *
- * Partage le même système de background que Hero (backgroundType / backgroundSrc / background / gradient / overlay).
- * Supporte deux modes d'affichage via `layout` :
- *   'centered' (défaut) — Texte centré, fond plein écran.
- *   'split'             — Grille 2 colonnes : titre+contenu à gauche, image à droite.
+ * Partage le même système de background que Hero via BackgroundWrapper (@ui/BackgroundWrapper.astro).
+ * Deux modes d'affichage via `layout` :
+ *   'centered' (défaut) — texte centré sur fond plein écran.
+ *   'split'             — grille 2 colonnes : titre+contenu à gauche, image à droite.
  *
  * Fallback : layout='split' sans foregroundImage → bascule sur 'centered'.
  */
+
+import BackgroundWrapper from '@ui/BackgroundWrapper.astro';
 
 interface Props {
   title: string;
@@ -16,9 +18,8 @@ interface Props {
   align?: 'center' | 'left';
   size?: 'default' | 'large';
   maxWidth?: 'sm' | 'md' | 'lg' | 'full';
-  /** Mode d'affichage — 'centered' (défaut) ou 'split'. Fallback sur 'centered' si foregroundImage absent. */
+  /** Mode d'affichage. Fallback sur 'centered' si foregroundImage absent. */
   layout?: 'centered' | 'split';
-  /** Image de premier plan — colonne droite en mode split */
   foregroundImage?: string;
   foregroundImageAlt?: string;
   backgroundType?: 'solid' | 'gradient' | 'image';
@@ -51,67 +52,53 @@ const effectiveLayout: 'centered' | 'split' =
 const isImage    = backgroundType === 'image' && Boolean(backgroundSrc);
 const isGradient = backgroundType === 'gradient';
 
-// Couleur thématique — aussi fallback CSS pendant le chargement de l'image
-const colorClass = { default: 'bg-background', muted: 'bg-surface', accent: 'bg-primary/5' }[background];
-
-const bgClass = isImage
-  ? `${colorClass} bg-cover bg-center bg-no-repeat`
-  : isGradient
-    ? `bg-gradient-to-r ${gradient ?? 'from-primary to-primary-dark'}`
-    : colorClass;
-
-const titleSizeClass =
-  size === 'large' ? 'text-4xl sm:text-5xl lg:text-6xl' : 'text-4xl sm:text-5xl';
-
 const titleColor    = isImage || isGradient ? 'text-white'    : 'text-text';
 const subtitleColor = isImage || isGradient ? 'text-white/80' : 'text-text-muted';
 
-// Mode centered uniquement
-const maxWidthClass = { sm: 'max-w-xl', md: 'max-w-2xl', lg: 'max-w-3xl', full: 'max-w-none' }[maxWidth];
-const alignClass = align === 'left' ? 'text-left' : 'text-center';
-const containerClass = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidthClass;
+const titleSizeClass = size === 'large'
+  ? 'text-4xl sm:text-5xl lg:text-6xl'
+  : 'text-4xl sm:text-5xl';
+
+// Mode centered — maxWidth + alignement
+const maxWidthClass   = { sm: 'max-w-xl', md: 'max-w-2xl', lg: 'max-w-3xl', full: 'max-w-none' }[maxWidth];
+const textAlignClass  = align === 'left' ? 'text-left' : 'text-center';
+const centeredWrapper = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidthClass;
 ---
 
-<section
-  class:list={['py-section relative overflow-hidden', bgClass]}
-  style={isImage ? { backgroundImage: `url('${backgroundSrc}')` } : undefined}
+<BackgroundWrapper
+  backgroundType={backgroundType}
+  background={background}
+  backgroundSrc={backgroundSrc}
+  gradient={gradient}
+  overlay={overlay}
+  class="py-section"
 >
-  {isImage && overlay && <div class="absolute inset-0 bg-black/50" aria-hidden="true" />}
-
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    {/* ══ MODE CENTERED ══ */}
-    {effectiveLayout === 'centered' && (
-      <div class:list={[containerClass, alignClass]}>
+    {/* ── Grille unifiée : 1 colonne (centered) ou 2 colonnes lg (split) ── */}
+    <div
+      class:list={[
+        'grid gap-8 lg:gap-16 items-center',
+        effectiveLayout === 'split' ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1',
+      ]}
+    >
+      {/* Colonne contenu — wrapper différent selon le mode */}
+      <div
+        class:list={[
+          effectiveLayout === 'centered' ? [centeredWrapper, textAlignClass] : 'text-left',
+        ]}
+      >
         <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
           {title}
         </h1>
         {subtitle && (
-          <p class:list={['mt-6 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
+          <p class:list={['mt-4 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
         )}
         <slot />
       </div>
-    )}
 
-    {/* ══ MODE SPLIT ══
-        Mobile  : texte en haut (ordre DOM naturel), image en bas (h-40 / 160px)
-        Desktop : grille lg:grid-cols-2, image max-h-[340px] object-cover, items centrés
-    */}
-    {effectiveLayout === 'split' && (
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-
-        {/* Colonne gauche : contenu (toujours en premier dans le DOM) */}
-        <div class="text-left">
-          <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
-            {title}
-          </h1>
-          {subtitle && (
-            <p class:list={['mt-4 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
-          )}
-          <slot />
-        </div>
-
-        {/* Colonne droite : image de premier plan */}
+      {/* Colonne image — visible uniquement en mode split */}
+      {effectiveLayout === 'split' && (
         <div class="flex justify-center lg:justify-end">
           <img
             src={foregroundImage}
@@ -120,9 +107,8 @@ const containerClass = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidt
             loading="lazy"
           />
         </div>
+      )}
 
-      </div>
-    )}
-
+    </div>
   </div>
-</section>
+</BackgroundWrapper>

@@ -25,6 +25,23 @@ export interface NavLink {
 // Sections
 // ---------------------------------------------------------------------------
 
+/**
+ * Propriétés de fond partagées entre HeroConfig et PageHeaderConfig.
+ * Extrait pour éviter la duplication — utilisé via `extends` dans chaque interface.
+ */
+export interface BackgroundConfig {
+  /** Thème couleur — actif sur 'solid', aussi fallback CSS pendant le chargement de l'image */
+  background?: 'default' | 'muted' | 'accent';
+  /** URL image ou vidéo de fond */
+  backgroundSrc?: string;
+  /** Classes Tailwind de dégradé (ex: "from-primary/10 via-background to-background") */
+  gradient?: string;
+  /** Overlay sombre sur image/vidéo */
+  overlay?: boolean;
+  /** Opacité de l'overlay (0–100) */
+  overlayOpacity?: number;
+}
+
 export interface GlobalConfig {
   /** Nom affiché dans le header, footer et balises meta */
   name: string;
@@ -34,6 +51,8 @@ export interface GlobalConfig {
   description: string;
   /** Chemin vers le logo (relatif à /public) */
   logo: string;
+  /** Image Open Graph par défaut (chemin relatif à /public) */
+  ogImage?: string;
   /** URL de production */
   url?: string;
   /** Surcharges SEO spécifiques à la page d'accueil */
@@ -65,6 +84,12 @@ export interface GlobalConfig {
       country?: string;
     };
   };
+  /** Informations légales (RGPD, mentions légales) */
+  legal?: {
+    privacyEmail?: string;
+    legalEmail?: string;
+    lastUpdated?: string;
+  };
 }
 
 export interface AnnouncementConfig {
@@ -78,7 +103,7 @@ export interface AnnouncementConfig {
   dismissible?: boolean;
 }
 
-export interface HeroConfig {
+export interface HeroConfig extends BackgroundConfig {
   title: string;
   subtitle?: string;
   /** Badge flottant au-dessus du titre (ex: "⚡ Disponible 24h/24") */
@@ -95,15 +120,10 @@ export interface HeroConfig {
   foregroundImage?: string;
   /** Texte alternatif de l'image de premier plan */
   foregroundImageAlt?: string;
+  /** Discriminant de fond — 'video' en plus par rapport à PageHeader */
   backgroundType?: 'solid' | 'gradient' | 'image' | 'video';
-  /** URL image/vidéo si backgroundType = 'image' | 'video' */
-  backgroundSrc?: string;
   /** Poster pour la vidéo de fond (préchargement) */
   backgroundVideoPoster?: string;
-  /** Dégradé CSS personnalisé (ex: "from-blue-900 to-indigo-900") */
-  gradient?: string;
-  overlay?: boolean;
-  overlayOpacity?: number;
   textColor?: 'auto' | 'light' | 'dark';
   minHeight?: 'default' | 'screen' | 'large';
   align?: 'center' | 'left';

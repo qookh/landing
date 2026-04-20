@@ -573,9 +573,29 @@ Valeurs `accent` : `'primary' | 'blue' | 'green' | 'purple' | 'orange'`
 
 ---
 
-## 7. Composants Contenu (`src/components/sections/content/`)
+## 7. Composants Contenu & UI partagés
 
-### `PageHeader.astro`
+### `BackgroundWrapper.astro` (`src/components/ui/`)
+
+Composant utilitaire qui encapsule la logique de fond commune à `Hero` et `PageHeader`. **Ne pas instancier directement dans les pages** — utilisé en interne par les composants de section.
+
+| Prop | Type | Description |
+|---|---|---|
+| `backgroundType` | `'solid' \| 'gradient' \| 'image' \| 'video'` | Discriminant de fond |
+| `background` | `'default' \| 'muted' \| 'accent'` | Couleur thématique (fallback CSS pendant chargement image) |
+| `backgroundSrc` | `string` | URL image ou vidéo de fond |
+| `backgroundVideo` | `string` | URL vidéo (backgroundType: 'video') |
+| `backgroundVideoPoster` | `string` | Poster vidéo |
+| `gradient` | `string` | Classes Tailwind de dégradé |
+| `overlay` | `boolean` | Overlay sombre sur image/vidéo |
+| `overlayOpacity` | `number` | Opacité de l'overlay (0–100) |
+| `class` | `string` | Classes supplémentaires pour le `<section>` (padding, min-height…) |
+
+Rend un `<section>` avec les couches background + overlay, puis `<slot />` directement (sans wrapper). Les consumers ajoutent `relative z-10` sur leur contenu.
+
+---
+
+### `PageHeader.astro` (`src/components/sections/content/`)
 
 Composant d'en-tête réutilisable pour toutes les pages secondaires. Partage le **même système de background que `Hero.astro`** (clés identiques).
 
@@ -742,6 +762,8 @@ Résultat des deux passes d'audit croisé composants ↔ SiteConfig :
 | **`background` prop (tous)** | ✅ | Pattern architectural intentionnel — piloté par index.astro, absent de config.json |
 | `tallyFormId` (config uniquement) | ℹ️ | Conservé dans CTAConfig, NewsletterConfig, PricingConfig pour future intégration Tally |
 | **`PageHeader` background system** | ✅ *(2026-04-21)* | `bgImage`/`overlay` (props épars) → `backgroundType`/`backgroundSrc`/`background`/`gradient`/`overlay` — aligné sur Hero |
+| **`BackgroundWrapper` refactoring** | ✅ *(2026-04-21)* | Logique fond/overlay extraite dans `@ui/BackgroundWrapper.astro` — Hero et PageHeader l'utilisent via slot |
+| **`BackgroundConfig` interface** | ✅ *(2026-04-21)* | Props communes (`background`, `backgroundSrc`, `gradient`, `overlay`, `overlayOpacity`) mutualisées — `HeroConfig` et `PageHeaderConfig` étendent cette base |
 
 ---
 
@@ -785,16 +807,17 @@ src/pages/<page>.astro
 
 Toutes les interfaces partagent les primitives réutilisables de `src/types/pages.ts` :
 
-| Interface partagée | Utilisée par | Description |
-|---|---|---|
-| `PageSEO` | Toutes les pages | `title`, `description`, `image`, `keywords` |
-| `PageHeaderConfig` | Toutes sauf pricing | `title`, `subtitle`, `paragraphs?`, `align`, `size`, `maxWidth` |
-| `CTABlockConfig` | Toutes les pages | `title`, `description?`, `action?`, `secondaryAction?` |
-| `ValueItem` | About, Features | Item icône + titre + description |
-| `TeamMember` | About | Membre avec avatar, bio, réseaux sociaux |
-| `CaseStudyItem` | Customers | Témoignage client avec métriques |
-| `FeatureHighlightItem` | Features | Feature mise en avant avec badge, highlights, CTA |
-| `BentoItem` | Features | Item grille bento |
+| Interface partagée | Fichier source | Utilisée par | Description |
+|---|---|---|---|
+| `BackgroundConfig` | `src/types/config.ts` | `HeroConfig`, `PageHeaderConfig` | Props de fond communes (`background`, `backgroundSrc`, `gradient`, `overlay`, `overlayOpacity`) |
+| `PageSEO` | `src/types/pages.ts` | Toutes les pages | `title`, `description`, `image`, `keywords` |
+| `PageHeaderConfig` | `src/types/pages.ts` | Toutes sauf pricing | Étend `BackgroundConfig` + `title`, `subtitle`, `paragraphs?`, layout/split props |
+| `CTABlockConfig` | `src/types/pages.ts` | Toutes les pages | `title`, `description?`, `action?`, `secondaryAction?` |
+| `ValueItem` | `src/types/pages.ts` | About, Features | Item icône + titre + description |
+| `TeamMember` | `src/types/pages.ts` | About | Membre avec avatar, bio, réseaux sociaux |
+| `CaseStudyItem` | `src/types/pages.ts` | Customers | Témoignage client avec métriques |
+| `FeatureHighlightItem` | `src/types/pages.ts` | Features | Feature mise en avant avec badge, highlights, CTA |
+| `BentoItem` | `src/types/pages.ts` | Features | Item grille bento |
 
 ### Patron de chaque page
 

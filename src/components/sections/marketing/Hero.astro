@@ -6,23 +6,10 @@
  * layout: 'split'             — Grille 2 colonnes desktop, texte en haut sur mobile.
  *
  * Fallback : si layout='split' sans foregroundImage → bascule sur 'centered'.
- *
- * @example Mode centré
- * ```astro
- * <Hero title="..." subtitle="..." primaryCTA={{...}} backgroundType="gradient" />
- * ```
- *
- * @example Mode split
- * ```astro
- * <Hero
- *   layout="split"
- *   title="..." subtitle="..."
- *   foregroundImage="/images/hero.jpg"
- *   primaryCTA={{...}}
- *   backgroundType="gradient"
- * />
- * ```
+ * Le fond est délégué à BackgroundWrapper (@ui/BackgroundWrapper.astro).
  */
+
+import BackgroundWrapper from '@ui/BackgroundWrapper.astro';
 
 interface Props {
   title: string;
@@ -30,7 +17,7 @@ interface Props {
   primaryCTA: { label: string; href: string };
   secondaryCTA?: { label: string; href: string };
   badge?: string;
-  /** Mode d'affichage — 'centered' (défaut) ou 'split' (2 colonnes). Fallback sur 'centered' si foregroundImage absent. */
+  /** Mode d'affichage — 'centered' (défaut) ou 'split'. Fallback sur 'centered' si foregroundImage absent. */
   layout?: 'centered' | 'split';
   /** Image de premier plan — colonne droite en mode split */
   foregroundImage?: string;
@@ -45,7 +32,6 @@ interface Props {
   overlayOpacity?: number;
   textColor?: 'auto' | 'light' | 'dark';
   minHeight?: 'default' | 'screen' | 'large';
-  /** Alignement du contenu (mode centered uniquement) */
   align?: 'center' | 'left';
 }
 
@@ -75,12 +61,6 @@ const {
 const effectiveLayout: 'centered' | 'split' =
   layout === 'split' && Boolean(foregroundImage) ? 'split' : 'centered';
 
-const solidBgClass = {
-  default: 'bg-background',
-  muted: 'bg-surface',
-  accent: 'bg-primary/5',
-}[background];
-
 const needsLightText =
   textColor === 'light' ||
   (textColor === 'auto' && (backgroundType === 'image' || backgroundType === 'video') && overlay);
@@ -88,95 +68,113 @@ const needsLightText =
 const textClasses = needsLightText
   ? {
       heading: 'text-white',
-      body: 'text-white/80',
-      button: 'border-white/30 text-white hover:bg-white/10',
+      body:    'text-white/80',
+      button:  'border-white/30 text-white hover:bg-white/10',
     }
   : {
       heading: 'text-text',
-      body: 'text-text-muted',
-      button: 'border-border text-text hover:bg-surface',
+      body:    'text-text-muted',
+      button:  'border-border text-text hover:bg-surface',
     };
 
 const minHeightClass = {
   default: effectiveLayout === 'split' ? 'py-16 md:py-24' : 'py-section',
-  large: 'py-24 md:py-32',
-  screen: 'min-h-[80vh] flex items-center',
+  large:   'py-24 md:py-32',
+  screen:  'min-h-[80vh] flex items-center',
 }[minHeight];
 
+const badgeClass = needsLightText ? 'bg-white/20 text-white' : 'bg-primary/10 text-primary';
+
 // Mode centered — alignement configurable
-const alignClass = align === 'left' ? 'text-left' : 'text-center mx-auto';
+const alignClass       = align === 'left' ? 'text-left' : 'text-center mx-auto';
 const buttonAlignClass = align === 'left' ? 'justify-start' : 'justify-center';
 ---
 
-<section
-  class:list={[
-    'relative overflow-hidden',
-    minHeightClass,
-    backgroundType === 'solid' && solidBgClass,
-    backgroundType === 'gradient' && `bg-linear-to-br ${gradient}`,
-  ]}
+<BackgroundWrapper
+  backgroundType={backgroundType}
+  background={background}
+  gradient={gradient}
+  backgroundSrc={backgroundType === 'image' ? backgroundImage : undefined}
+  backgroundVideo={backgroundType === 'video' ? backgroundVideo : undefined}
+  backgroundVideoPoster={backgroundVideoPoster}
+  overlay={overlay}
+  overlayOpacity={overlayOpacity}
+  class={[minHeightClass, minHeight === 'screen' ? 'flex items-center' : ''].filter(Boolean).join(' ')}
 >
-  {/* ── Fond image ── */}
-  {
-    backgroundType === 'image' && backgroundImage && (
-      <div class="absolute inset-0 z-0">
-        <img src={backgroundImage} alt="" class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
-      </div>
-    )
-  }
-
-  {/* ── Fond vidéo ── */}
-  {
-    backgroundType === 'video' && backgroundVideo && (
-      <div class="absolute inset-0 z-0">
-        <video autoplay muted loop playsinline poster={backgroundVideoPoster} class="w-full h-full object-cover">
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
-      </div>
-    )
-  }
-
-  {/* ── Overlay ── */}
-  {
-    overlay && (backgroundType === 'image' || backgroundType === 'video') && (
-      <div class="absolute inset-0 z-1 bg-black" style={`opacity: ${overlayOpacity / 100}`} />
-    )
-  }
 
   {/* ══════════════════════════════════════════
       MODE CENTERED (défaut)
   ══════════════════════════════════════════ */}
-  {
-    effectiveLayout === 'centered' && (
-      <div
-        class:list={[
-          'relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
-          minHeight === 'screen' && 'w-full',
-        ]}
-      >
-        <div class:list={['max-w-3xl', alignClass]}>
-          {badge && (
-            <span
+  {effectiveLayout === 'centered' && (
+    <div
+      class:list={[
+        'relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+        minHeight === 'screen' && 'w-full',
+      ]}
+    >
+      <div class:list={['max-w-3xl', alignClass]}>
+        {badge && (
+          <span class:list={['inline-block mb-4 px-3 py-1 rounded-full text-sm font-medium', badgeClass]}>
+            {badge}
+          </span>
+        )}
+        <h1 class:list={['text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight', textClasses.heading]}>
+          {title}
+        </h1>
+        <p class:list={['mt-6 text-lg sm:text-xl leading-relaxed', textClasses.body]}>
+          {subtitle}
+        </p>
+        <div class:list={['mt-10 flex flex-col sm:flex-row items-center gap-4', buttonAlignClass]}>
+          <a
+            href={primaryCTA.href}
+            class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
+          >
+            {primaryCTA.label}
+          </a>
+          {secondaryCTA && (
+            <a
+              href={secondaryCTA.href}
               class:list={[
-                'inline-block mb-4 px-3 py-1 rounded-full text-sm font-medium',
-                needsLightText ? 'bg-white/20 text-white' : 'bg-primary/10 text-primary',
+                'inline-flex items-center justify-center px-6 py-3 rounded-md border font-medium transition-colors w-full sm:w-auto',
+                textClasses.button,
               ]}
             >
+              {secondaryCTA.label}
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* ══════════════════════════════════════════
+      MODE SPLIT (2 colonnes)
+      Mobile : texte en haut (ordre DOM naturel), image en bas (h-56 / 224px)
+      Desktop : grille lg:grid-cols-2, image max-h-[480px] object-cover
+  ══════════════════════════════════════════ */}
+  {effectiveLayout === 'split' && (
+    <div
+      class:list={[
+        'relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+        minHeight === 'screen' && 'w-full',
+      ]}
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+        {/* Colonne gauche : contenu (toujours en premier dans le DOM → toujours en haut sur mobile) */}
+        <div class="text-left">
+          {badge && (
+            <span class:list={['inline-block mb-4 px-3 py-1 rounded-full text-sm font-medium', badgeClass]}>
               {badge}
             </span>
           )}
-          <h1
-            class:list={[
-              'text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight',
-              textClasses.heading,
-            ]}
-          >
+          <h1 class:list={['text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight', textClasses.heading]}>
             {title}
           </h1>
           <p class:list={['mt-6 text-lg sm:text-xl leading-relaxed', textClasses.body]}>
             {subtitle}
           </p>
-          <div class:list={['mt-10 flex flex-col sm:flex-row items-center gap-4', buttonAlignClass]}>
+          <div class="mt-10 flex flex-col sm:flex-row items-start gap-4">
             <a
               href={primaryCTA.href}
               class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
@@ -196,82 +194,20 @@ const buttonAlignClass = align === 'left' ? 'justify-start' : 'justify-center';
             )}
           </div>
         </div>
-      </div>
-    )
-  }
 
-  {/* ══════════════════════════════════════════
-      MODE SPLIT (2 colonnes)
-      Mobile : texte en haut (ordre DOM naturel), image en bas (h-56 / 224px)
-      Desktop : grille lg:grid-cols-2, image max-h-[480px] object-cover
-  ══════════════════════════════════════════ */}
-  {
-    effectiveLayout === 'split' && (
-      <div
-        class:list={[
-          'relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
-          minHeight === 'screen' && 'w-full',
-        ]}
-      >
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-
-          {/* ── Colonne gauche : contenu (toujours en premier dans le DOM → toujours en haut sur mobile) ── */}
-          <div class="text-left">
-            {badge && (
-              <span
-                class:list={[
-                  'inline-block mb-4 px-3 py-1 rounded-full text-sm font-medium',
-                  needsLightText ? 'bg-white/20 text-white' : 'bg-primary/10 text-primary',
-                ]}
-              >
-                {badge}
-              </span>
-            )}
-            <h1
-              class:list={[
-                'text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight',
-                textClasses.heading,
-              ]}
-            >
-              {title}
-            </h1>
-            <p class:list={['mt-6 text-lg sm:text-xl leading-relaxed', textClasses.body]}>
-              {subtitle}
-            </p>
-            <div class="mt-10 flex flex-col sm:flex-row items-start gap-4">
-              <a
-                href={primaryCTA.href}
-                class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
-              >
-                {primaryCTA.label}
-              </a>
-              {secondaryCTA && (
-                <a
-                  href={secondaryCTA.href}
-                  class:list={[
-                    'inline-flex items-center justify-center px-6 py-3 rounded-md border font-medium transition-colors w-full sm:w-auto',
-                    textClasses.button,
-                  ]}
-                >
-                  {secondaryCTA.label}
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* ── Colonne droite : image au premier plan ── */}
-          <div class="flex justify-center lg:justify-end">
-            <img
-              src={foregroundImage}
-              alt={foregroundImageAlt}
-              class="w-full rounded-2xl shadow-2xl object-cover h-56 md:h-auto md:max-h-[480px]"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-
+        {/* Colonne droite : image au premier plan */}
+        <div class="flex justify-center lg:justify-end">
+          <img
+            src={foregroundImage}
+            alt={foregroundImageAlt}
+            class="w-full rounded-2xl shadow-2xl object-cover h-56 md:h-auto md:max-h-[480px]"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
+
       </div>
-    )
-  }
-</section>
+    </div>
+  )}
+
+</BackgroundWrapper>

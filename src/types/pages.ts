@@ -7,6 +7,8 @@
  * Primitives partagées réutilisables entre toutes les pages.
  */
 
+import type { BackgroundConfig } from './config';
+
 // ---------------------------------------------------------------------------
 // Primitives partagées
 // ---------------------------------------------------------------------------
@@ -24,7 +26,7 @@ export interface PageSEO {
 }
 
 /** En-tête de page réutilisable (PageHeader.astro) */
-export interface PageHeaderConfig {
+export interface PageHeaderConfig extends BackgroundConfig {
   title: string;
   subtitle?: string;
   /** Paragraphes de contenu inline (en plus du subtitle) */
@@ -44,20 +46,10 @@ export interface PageHeaderConfig {
   /** Texte alternatif de l'image de premier plan */
   foregroundImageAlt?: string;
   /**
-   * Discriminant de fond — même nommage que HeroConfig dans src/types/config.ts.
-   * 'solid'    → couleur thématique via background
-   * 'gradient' → dégradé Tailwind via gradient
-   * 'image'    → image de fond via backgroundSrc (background sert de fallback CSS)
+   * Discriminant de fond — 'solid' | 'gradient' | 'image' (pas de video pour les headers de page).
+   * background sert de fallback CSS pendant le chargement de l'image.
    */
   backgroundType?: 'solid' | 'gradient' | 'image';
-  /** Thème couleur — utilisé sur 'solid' et comme fallback CSS pendant le chargement de l'image */
-  background?: 'default' | 'muted' | 'accent';
-  /** URL de l'image de fond (backgroundType: 'image') */
-  backgroundSrc?: string;
-  /** Classes Tailwind de dégradé (backgroundType: 'gradient', ex: "from-blue-900 to-blue-700") */
-  gradient?: string;
-  /** Overlay sombre pour assurer la lisibilité du texte sur l'image */
-  overlay?: boolean;
 }
 
 /** Bloc CTA de fin de section */

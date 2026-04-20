@@ -1,0 +1,99 @@
+---
+/**
+ * BackgroundWrapper — <section> avec gestion centralisée du fond et de l'overlay.
+ *
+ * Utilisé par Hero.astro et PageHeader.astro pour éviter la duplication de la
+ * logique background (solid/gradient/image/video) et de l'overlay sombre.
+ *
+ * Les consumers gardent leur propre `relative z-10` sur le contenu.
+ */
+
+interface Props {
+  backgroundType?: 'solid' | 'gradient' | 'image' | 'video';
+  /** Thème couleur — actif sur 'solid', aussi fallback visuel pendant le chargement de l'image */
+  background?: 'default' | 'muted' | 'accent';
+  /** Classes Tailwind de dégradé (backgroundType: 'gradient') */
+  gradient?: string;
+  /** URL image de fond (backgroundType: 'image') */
+  backgroundSrc?: string;
+  /** URL vidéo de fond (backgroundType: 'video') */
+  backgroundVideo?: string;
+  /** Poster de la vidéo de fond */
+  backgroundVideoPoster?: string;
+  /** Overlay sombre sur image/vidéo */
+  overlay?: boolean;
+  /** Opacité de l'overlay (0–100) */
+  overlayOpacity?: number;
+  /** Classes supplémentaires pour le <section> (padding, min-height, etc.) */
+  class?: string;
+}
+
+const {
+  backgroundType = 'solid',
+  background = 'default',
+  gradient = 'from-primary/10 via-background to-background',
+  backgroundSrc,
+  backgroundVideo,
+  backgroundVideoPoster,
+  overlay = false,
+  overlayOpacity = 50,
+  class: className = '',
+} = Astro.props;
+
+const solidBgClass = {
+  default: 'bg-background',
+  muted:   'bg-surface',
+  accent:  'bg-primary/5',
+}[background];
+
+// Pour 'image', solidBgClass reste actif comme fallback CSS pendant le chargement
+const bgClass = backgroundType === 'gradient'
+  ? `bg-linear-to-br ${gradient}`
+  : solidBgClass;
+
+const isImage = backgroundType === 'image' && Boolean(backgroundSrc);
+const isVideo = backgroundType === 'video' && Boolean(backgroundVideo);
+const showOverlay = overlay && (isImage || isVideo);
+---
+
+<section class:list={['relative overflow-hidden', bgClass, className]}>
+  {/* ── Fond image ── */}
+  {isImage && (
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <img
+        src={backgroundSrc}
+        alt=""
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  )}
+
+  {/* ── Fond vidéo ── */}
+  {isVideo && (
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        poster={backgroundVideoPoster}
+        class="w-full h-full object-cover"
+      >
+        <source src={backgroundVideo} type="video/mp4" />
+      </video>
+    </div>
+  )}
+
+  {/* ── Overlay sombre ── */}
+  {showOverlay && (
+    <div
+      class="absolute inset-0 z-1 bg-black"
+      style={`opacity: ${overlayOpacity / 100}`}
+      aria-hidden="true"
+    />
+  )}
+
+  <slot />
+</section>
