@@ -85,6 +85,16 @@ export interface HeroConfig {
   badge?: string;
   primaryCTA?: CTALink;
   secondaryCTA?: CTALink;
+  /**
+   * Mode d'affichage du hero.
+   * 'centered' (défaut) → texte centré, fond plein écran.
+   * 'split'             → grille 2 colonnes (texte à gauche, image à droite).
+   */
+  layout?: 'centered' | 'split';
+  /** Image de premier plan (colonne droite en mode split) */
+  foregroundImage?: string;
+  /** Texte alternatif de l'image de premier plan */
+  foregroundImageAlt?: string;
   backgroundType?: 'solid' | 'gradient' | 'image' | 'video';
   /** URL image/vidéo si backgroundType = 'image' | 'video' */
   backgroundSrc?: string;

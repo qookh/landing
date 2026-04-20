@@ -5,11 +5,14 @@
     "keywords": ["avis plombier Paris", "témoignages plomberie", "clients Dupont Plomberie"]
   },
   "header": {
+    "layout": "centered",
     "title": "Ils nous font confiance",
     "subtitle": "Plus de 500 avis vérifiés sur Google. Découvrez ce que disent nos clients.",
-    "backgroundType": "",
-    "backgroundSrc": "",
-    "background": "default",
+    "foregroundImage": "",
+    "foregroundImageAlt": "",
+    "backgroundType": "image",
+    "backgroundSrc": "/images/header-customers.jpg",
+    "background": "",
     "overlay": true
   },
   "stats": {

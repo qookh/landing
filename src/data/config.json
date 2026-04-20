@@ -79,13 +79,16 @@
   },
 
   "hero": {
+    "layout": "split",
     "title": "Plombier d'urgence à Paris — Intervention en 1h",
     "subtitle": "Fuite, dégât des eaux, chauffe-eau en panne ? Notre équipe intervient 24h/24, 7j/7 dans tout Paris et l'Île-de-France.",
     "badge": "⚡ Disponible 24h/24",
     "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
     "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" },
     "backgroundType": "gradient",
-    "align": "center"
+    "align": "center",
+    "foregroundImage": "/images/hero-plombier-index.jpg",
+    "foregroundImageAlt": "plombier en intervention"
   },
 
   "logoCloud": {
@@ -189,7 +192,7 @@
           "Assurance décennale incluse",
           "Formation continue"
         ],
-        "image": "/images/certification.jpg"
+        "image": "/images/certification.png"
       }
     ],
     "startImageLeft": true

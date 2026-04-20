@@ -33,6 +33,17 @@ export interface PageHeaderConfig {
   size?: 'default' | 'large';
   maxWidth?: 'sm' | 'md' | 'lg' | 'full';
   /**
+   * Mode d'affichage.
+   * 'centered' (défaut) → texte centré, fond plein écran.
+   * 'split'             → grille 2 colonnes : titre+contenu à gauche, foregroundImage à droite.
+   * Fallback automatique sur 'centered' si foregroundImage est absent.
+   */
+  layout?: 'centered' | 'split';
+  /** Image de premier plan (colonne droite en mode split) */
+  foregroundImage?: string;
+  /** Texte alternatif de l'image de premier plan */
+  foregroundImageAlt?: string;
+  /**
    * Discriminant de fond — même nommage que HeroConfig dans src/types/config.ts.
    * 'solid'    → couleur thématique via background
    * 'gradient' → dégradé Tailwind via gradient

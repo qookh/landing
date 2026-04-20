@@ -5,12 +5,15 @@
     "keywords": ["services plomberie Paris", "dépannage plombier", "rénovation salle de bain Paris", "détection fuite Paris"]
   },
   "header": {
+    "layout": "split",
     "title": "Tous nos services de plomberie",
     "subtitle": "Du dépannage d'urgence à la rénovation complète, Dupont Plomberie couvre tous vos besoins avec expertise et réactivité.",
-    "backgroundType": "image",
-    "backgroundSrc": "/images/header-services.jpg",
+    "foregroundImage": "/images/header-services.jpg",
+    "foregroundImageAlt": "",
+    "backgroundType": "",
+    "backgroundSrc": "",
     "background": "default",
-    "overlay": true
+    "overlay": false
   },
   "highlight": {
     "title": "Nos prestations phares",

@@ -24,11 +24,14 @@ const pageDescription = cfg.seo?.description ?? '';
   tags={cfg.seo?.keywords}
 >
   <PageHeader
+    layout={cfg.header.layout}
     title={cfg.header.title}
     subtitle={cfg.header.subtitle}
     align={cfg.header.align}
     maxWidth={cfg.header.maxWidth}
     size={cfg.header.size}
+    foregroundImage={cfg.header.foregroundImage}
+    foregroundImageAlt={cfg.header.foregroundImageAlt}
     backgroundType={cfg.header.backgroundType}
     background={cfg.header.background}
     backgroundSrc={cfg.header.backgroundSrc}

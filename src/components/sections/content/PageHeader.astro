@@ -1,55 +1,30 @@
 ---
 /**
- * PageHeader - En-tête de page réutilisable
+ * PageHeader — En-tête de page réutilisable.
  *
- * Même nommage que HeroConfig : backgroundType / backgroundSrc / background / gradient / overlay.
+ * Partage le même système de background que Hero (backgroundType / backgroundSrc / background / gradient / overlay).
+ * Supporte deux modes d'affichage via `layout` :
+ *   'centered' (défaut) — Texte centré, fond plein écran.
+ *   'split'             — Grille 2 colonnes : titre+contenu à gauche, image à droite.
  *
- * @example Couleur thématique
- * ```astro
- * <PageHeader title="Nos services" backgroundType="solid" background="muted" />
- * ```
- *
- * @example Image de fond avec fallback couleur
- * ```astro
- * <PageHeader
- *   title="Contactez-nous"
- *   backgroundType="image"
- *   backgroundSrc="/images/header-contact.jpg"
- *   background="accent"
- *   overlay={true}
- * />
- * ```
- *
- * @example Dégradé personnalisé
- * ```astro
- * <PageHeader
- *   title="Nos réalisations"
- *   backgroundType="gradient"
- *   gradient="from-blue-900 to-indigo-700"
- * />
- * ```
+ * Fallback : layout='split' sans foregroundImage → bascule sur 'centered'.
  */
 
 interface Props {
-  /** Titre de la page (h1) */
   title: string;
-  /** Sous-titre / description */
   subtitle?: string;
-  /** Alignement du texte */
   align?: 'center' | 'left';
-  /** Taille du titre */
   size?: 'default' | 'large';
-  /** Largeur maximale du contenu */
   maxWidth?: 'sm' | 'md' | 'lg' | 'full';
-  /** Discriminant de fond — même nommage que HeroConfig */
+  /** Mode d'affichage — 'centered' (défaut) ou 'split'. Fallback sur 'centered' si foregroundImage absent. */
+  layout?: 'centered' | 'split';
+  /** Image de premier plan — colonne droite en mode split */
+  foregroundImage?: string;
+  foregroundImageAlt?: string;
   backgroundType?: 'solid' | 'gradient' | 'image';
-  /** Thème couleur — actif sur 'solid', aussi fallback CSS quand 'image' charge */
   background?: 'default' | 'muted' | 'accent';
-  /** URL de l'image de fond (backgroundType: 'image') */
   backgroundSrc?: string;
-  /** Classes Tailwind de dégradé (backgroundType: 'gradient') */
   gradient?: string;
-  /** Overlay sombre pour lisibilité sur image — true par défaut */
   overlay?: boolean;
 }
 
@@ -59,12 +34,19 @@ const {
   align = 'center',
   size = 'default',
   maxWidth = 'lg',
+  layout = 'centered',
+  foregroundImage,
+  foregroundImageAlt = '',
   backgroundType = 'solid',
   background = 'default',
   backgroundSrc,
   gradient,
   overlay = true,
 } = Astro.props;
+
+// Fallback : split sans image → centered
+const effectiveLayout: 'centered' | 'split' =
+  layout === 'split' && Boolean(foregroundImage) ? 'split' : 'centered';
 
 const isImage    = backgroundType === 'image' && Boolean(backgroundSrc);
 const isGradient = backgroundType === 'gradient';
@@ -78,22 +60,16 @@ const bgClass = isImage
     ? `bg-gradient-to-r ${gradient ?? 'from-primary to-primary-dark'}`
     : colorClass;
 
-const alignClass = align === 'left' ? 'text-left' : 'text-center';
-
 const titleSizeClass =
   size === 'large' ? 'text-4xl sm:text-5xl lg:text-6xl' : 'text-4xl sm:text-5xl';
 
-const maxWidthClass = {
-  sm: 'max-w-xl',
-  md: 'max-w-2xl',
-  lg: 'max-w-3xl',
-  full: 'max-w-none',
-}[maxWidth];
-
-const containerClass = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidthClass;
-
 const titleColor    = isImage || isGradient ? 'text-white'    : 'text-text';
 const subtitleColor = isImage || isGradient ? 'text-white/80' : 'text-text-muted';
+
+// Mode centered uniquement
+const maxWidthClass = { sm: 'max-w-xl', md: 'max-w-2xl', lg: 'max-w-3xl', full: 'max-w-none' }[maxWidth];
+const alignClass = align === 'left' ? 'text-left' : 'text-center';
+const containerClass = align === 'center' ? `${maxWidthClass} mx-auto` : maxWidthClass;
 ---
 
 <section
@@ -101,17 +77,52 @@ const subtitleColor = isImage || isGradient ? 'text-white/80' : 'text-text-muted
   style={isImage ? { backgroundImage: `url('${backgroundSrc}')` } : undefined}
 >
   {isImage && overlay && <div class="absolute inset-0 bg-black/50" aria-hidden="true" />}
+
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class:list={[containerClass, alignClass]}>
-      <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
-        {title}
-      </h1>
-      {
-        subtitle && (
+
+    {/* ══ MODE CENTERED ══ */}
+    {effectiveLayout === 'centered' && (
+      <div class:list={[containerClass, alignClass]}>
+        <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
+          {title}
+        </h1>
+        {subtitle && (
           <p class:list={['mt-6 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
-        )
-      }
-      <slot />
-    </div>
+        )}
+        <slot />
+      </div>
+    )}
+
+    {/* ══ MODE SPLIT ══
+        Mobile  : texte en haut (ordre DOM naturel), image en bas (h-40 / 160px)
+        Desktop : grille lg:grid-cols-2, image max-h-[340px] object-cover, items centrés
+    */}
+    {effectiveLayout === 'split' && (
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+        {/* Colonne gauche : contenu (toujours en premier dans le DOM) */}
+        <div class="text-left">
+          <h1 class:list={['font-bold leading-tight tracking-tight', titleSizeClass, titleColor]}>
+            {title}
+          </h1>
+          {subtitle && (
+            <p class:list={['mt-4 text-lg leading-relaxed', subtitleColor]}>{subtitle}</p>
+          )}
+          <slot />
+        </div>
+
+        {/* Colonne droite : image de premier plan */}
+        <div class="flex justify-center lg:justify-end">
+          <img
+            src={foregroundImage}
+            alt={foregroundImageAlt}
+            class="w-full rounded-xl shadow-lg object-cover h-40 md:h-auto md:max-h-[340px]"
+            loading="lazy"
+          />
+        </div>
+
+      </div>
+    )}
+
   </div>
 </section>

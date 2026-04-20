@@ -5,13 +5,16 @@
     "keywords": ["contact plombier Paris", "devis plomberie gratuit", "urgence plombier Paris"]
   },
   "header": {
+    "layout": "split",
     "title": "Contactez-nous",
     "subtitle": "Une urgence plomberie ? Un projet de rénovation ? L'équipe Dupont Plomberie est à votre écoute 24h/24.",
     "align": "left",
     "maxWidth": "lg",
-    "backgroundType": "image",
-    "backgroundSrc": "/images/header-contact.jpg",
-    "background": "accent",
+    "foregroundImage": "/images/header-contact.jpg",
+    "foregroundImageAlt": "",
+    "backgroundType": "",
+    "backgroundSrc": "",
+    "background": "",
     "overlay": true
   },
   "formTitle": "Envoyer un message",

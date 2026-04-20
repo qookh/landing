@@ -108,14 +108,55 @@ Sections omises de `sectionOrder` ne s'affichent pas (même si leur clé existe 
 > **Note mapping** : `hero.backgroundSrc` est splitté en `backgroundImage` ou `backgroundVideo` par index.astro selon `backgroundType`. Ne pas mettre `backgroundImage`/`backgroundVideo` directement dans config.json.
 > **Pattern background uniforme** : Hero et `PageHeader` partagent le même jeu de clés (`backgroundType`, `backgroundSrc`, `background`, `gradient`, `overlay`). Voir §7 pour la documentation complète de `PageHeader`.
 
+#### Modes d'affichage (`layout`)
+
+Disponible sur **Hero** et **PageHeader**. Le fond (`backgroundType`, `backgroundSrc`, `gradient`, `overlay`…) fonctionne **identiquement dans les deux modes**.
+
+| Valeur | Desktop | Mobile | Fallback automatique |
+|---|---|---|---|
+| `'centered'` *(défaut)* | Texte centré, fond plein écran | Identique | — |
+| `'split'` | Grille 2 colonnes, `items-center` (texte gauche, image droite) | **Texte en haut** (ordre DOM naturel), image réduite en bas | Si `foregroundImage` absent → bascule sur `'centered'` |
+
+**Props spécifiques au mode split :**
+
+| Prop / Clé JSON | Type | Description |
+|---|---|---|
+| `layout` | `'centered' \| 'split'` | Mode d'affichage |
+| `foregroundImage` | `string` | URL de l'image de premier plan (colonne droite) |
+| `foregroundImageAlt` | `string` | Texte alternatif de l'image |
+
+**Contraintes d'image responsives :**
+
+| Composant | Mobile | Desktop |
+|---|---|---|
+| `Hero` | `h-56` (224 px), `w-full`, `object-cover` | auto, `max-h-[480px]`, `object-cover`, `rounded-2xl shadow-2xl` |
+| `PageHeader` | `h-40` (160 px), `w-full`, `object-cover` | auto, `max-h-[340px]`, `object-cover`, `rounded-xl shadow-lg` |
+
+**Exemples JSON :**
+
 ```json
+// Hero mode split
 "hero": {
-  "title": "Plombier d'urgence à Paris — Intervention en 1h",
-  "subtitle": "Fuite, dégât des eaux, chauffe-eau en panne ? Notre équipe intervient 24h/24, 7j/7.",
-  "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
-  "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" },
+  "layout": "split",
+  "title": "Intervention en 1h garantie",
+  "subtitle": "Artisan certifié Qualibat à Paris depuis 1998.",
+  "badge": "⚡ Disponible 24h/24",
+  "foregroundImage": "/images/hero-plombier.jpg",
+  "foregroundImageAlt": "Plombier en intervention",
   "backgroundType": "gradient",
-  "align": "center"
+  "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
+  "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" }
+}
+
+// PageHeader mode split (dans data/pages/<page>.json)
+"header": {
+  "layout": "split",
+  "title": "Tous nos services de plomberie",
+  "subtitle": "Du dépannage d'urgence à la rénovation complète.",
+  "foregroundImage": "/images/services-illustration.jpg",
+  "foregroundImageAlt": "Équipe Dupont Plomberie",
+  "backgroundType": "gradient",
+  "gradient": "from-primary/10 via-background to-background"
 }
 ```
 
@@ -673,6 +714,7 @@ Ces composants sont **hors du flux config.json** — ils sont utilisés sur des 
 | `bentoGrid.items[].accentColor` | `bentoGrid.items[].accent` | BentoGrid |
 | `comparisonTable.highlightedPlan: string` | `comparisonTable.highlightedPlan: number` | ComparisonTable |
 | `header.bgImage` | `header.backgroundSrc` (+ ajouter `backgroundType: "image"`) | PageHeader |
+| `hero.backgroundImage` *(dans config.json)* | `hero.backgroundSrc` (index.astro splitte) | Hero |
 | `header.background: "accent"` *(seul)* | `header.backgroundType: "solid", background: "accent"` | PageHeader |
 
 ---

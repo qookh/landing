@@ -5,9 +5,12 @@
     "keywords": ["FAQ plombier Paris", "questions plomberie", "tarifs plombier", "zone intervention plombier"]
   },
   "header": {
+    "layout": "centered",
     "title": "Questions fréquentes",
     "subtitle": "Tout ce que vous devez savoir avant de nous appeler. Vous ne trouvez pas votre réponse ?",
     "align": "center",
+    "foregroundImage": "",
+    "foregroundImageAlt": "",
     "backgroundType": "image",
     "backgroundSrc": "/images/header-faq.jpg",
     "background": "default",

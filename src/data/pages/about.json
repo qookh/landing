@@ -5,12 +5,15 @@
     "keywords": ["plombier certifié Paris", "artisan plombier Île-de-France", "Dupont Plomberie équipe"]
   },
   "header": {
+    "layout": "split",
     "title": "25 ans au service des Parisiens",
     "align": "left",
     "maxWidth": "lg",
-    "backgroundType": "image",
-    "backgroundSrc": "/images/header-about.jpg",
-    "background": "default",
+    "foregroundImage": "/images/header-about.jpg",
+    "foregroundImageAlt": "",
+    "backgroundType": "solid",
+    "backgroundSrc": "",
+    "background": "",
     "overlay": true,
     "paragraphs": [
       "Dupont Plomberie a été fondée en 1998 par Michel Dupont avec une idée simple : la plomberie doit être fiable, transparente et accessible à tous. Dès le premier coup de fil, vous méritez un prix clair, un artisan qualifié et une intervention efficace.",
