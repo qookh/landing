@@ -1,0 +1,99 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items: Array<{
+    src: string;
+    alt: string;
+    caption?: string;
+  }>;
+  background?: 'default' | 'muted';
+}
+
+const { title, subtitle, items, background = 'default' } = Astro.props;
+const bgClass = background === 'muted' ? 'bg-surface' : 'bg-background';
+---
+
+<section class={`py-section ${bgClass}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {(title || subtitle) && (
+      <div class="mb-10 text-center">
+        {title && (
+          <h2 class="text-3xl font-bold tracking-tight text-text sm:text-4xl">{title}</h2>
+        )}
+        {subtitle && (
+          <p class="mt-4 text-lg text-text-muted max-w-2xl mx-auto">{subtitle}</p>
+        )}
+      </div>
+    )}
+
+    <div class="relative group">
+      <ul class="gallery-track flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 m-0 p-0 list-none">
+        {items.map((item, i) => (
+          <li class="gallery-item flex-none w-[80vw] sm:w-[45vw] lg:w-[30vw] snap-start">
+            <figure class="relative m-0 rounded-2xl overflow-hidden bg-surface shadow-sm">
+              <div class="aspect-[4/3]">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  width="480"
+                  height="360"
+                  class="w-full h-full object-cover"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
+              {item.caption && (
+                <figcaption class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-4 py-3">
+                  <p class="text-white text-sm font-medium leading-snug">{item.caption}</p>
+                </figcaption>
+              )}
+            </figure>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        class="gallery-prev absolute left-0 top-1/2 -translate-x-5 -translate-y-6 z-10 w-10 h-10 rounded-full bg-background border border-surface shadow-md flex items-center justify-center text-text hover:bg-surface transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        type="button"
+        aria-label="Image précédente"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <button
+        class="gallery-next absolute right-0 top-1/2 translate-x-5 -translate-y-6 z-10 w-10 h-10 rounded-full bg-background border border-surface shadow-md flex items-center justify-center text-text hover:bg-surface transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        type="button"
+        aria-label="Image suivante"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-track {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.gallery-prev, .gallery-next').forEach((btn) => {
+    const track = btn.closest('.relative')?.querySelector<HTMLElement>('.gallery-track');
+    if (!track) return;
+    const isPrev = btn.classList.contains('gallery-prev');
+    btn.addEventListener('click', () => {
+      const item = track.querySelector<HTMLElement>('.gallery-item');
+      const amount = item ? item.offsetWidth + 16 : 320;
+      track.scrollBy({ left: isPrev ? -amount : amount, behavior: 'smooth' });
+    });
+  });
+</script>
