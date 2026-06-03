@@ -28,8 +28,10 @@ import CTA from '@sections/marketing/CTA.astro';
 import Newsletter from '@sections/marketing/Newsletter.astro';
 import StatsSection from '@sections/social-proof/StatsSection.astro';
 import TestimonialsSection from '@sections/social-proof/TestimonialsSection.astro';
+import PricingTable from '@sections/pricing/PricingTable.astro';
 import ComparisonTable from '@sections/pricing/ComparisonTable.astro';
 import FAQSection from '@sections/content/FAQSection.astro';
+import GalleryCarousel from '@sections/marketing/GalleryCarousel.astro';
 
 const cfg = configJson as SiteConfig;
 
@@ -105,6 +107,7 @@ const DEFAULT_ORDER = [
   'integrations',
   'stats',
   'testimonials',
+  'gallery',
   'pricing',
   'comparisonTable',
   'faq',
@@ -136,7 +139,7 @@ const bg = (idx: number): 'default' | 'muted' => (idx % 2 === 0 ? 'default' : 'm
         return <LogoCloud {...cfg.logoCloud} />;
       }
       if (key === 'features' && featuresProps) {
-        return <FeaturesSection {...featuresProps} background={bg(idx)} />;
+        return <div id="features" class="scroll-mt-20"><FeaturesSection {...featuresProps} background={bg(idx)} /></div>;
       }
       if (key === 'howItWorks' && cfg.howItWorks) {
         return <HowItWorks {...cfg.howItWorks} background={bg(idx)} />;
@@ -154,16 +157,19 @@ const bg = (idx: number): 'default' | 'muted' => (idx % 2 === 0 ? 'default' : 'm
         return <StatsSection {...cfg.stats} background={bg(idx)} />;
       }
       if (key === 'testimonials' && testimonialsProps && testimonialsProps.testimonials.length > 0) {
-        return <TestimonialsSection {...testimonialsProps} background={bg(idx)} />;
+        return <div id="testimonials" class="scroll-mt-20"><TestimonialsSection {...testimonialsProps} background={bg(idx)} /></div>;
       }
-/*      if (key === 'pricing' && cfg.pricing) {
-        return <PricingTable {...cfg.pricing} background={bg(idx)} />;
-      } */
+      if (key === 'gallery' && cfg.gallery) {
+        return <GalleryCarousel {...cfg.gallery} background={bg(idx)} />;
+      }
+      if (key === 'pricing' && cfg.pricing) {
+        return <div id="pricing" class="scroll-mt-20"><PricingTable {...cfg.pricing} background={bg(idx)} /></div>;
+      }
       if (key === 'comparisonTable' && cfg.comparisonTable) {
         return <ComparisonTable {...cfg.comparisonTable} background={bg(idx)} />;
       }
       if (key === 'faq' && cfg.faq) {
-        return <FAQSection {...cfg.faq} background={bg(idx)} />;
+        return <div id="faq" class="scroll-mt-20"><FAQSection {...cfg.faq} background={bg(idx)} /></div>;
       }
       if (key === 'cta' && ctaProps) {
         return <CTA {...ctaProps} />;

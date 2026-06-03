@@ -1,108 +1,32 @@
 ---
-import contactJson from '@/data/pages/contact.json';
-import type { ContactPageConfig } from '@/types/pages';
-
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import PageHeader from '@sections/content/PageHeader.astro';
-import ContactForm from '@forms/ContactForm.astro';
-import { Icon } from 'astro-icon/components';
-import { contact, contactMethods, contactFAQs } from '@/config';
-
-const cfg = contactJson as ContactPageConfig;
-const office = contact.address;
-
-const pageTitle = cfg.seo?.title ?? cfg.header.title;
-const pageDescription = cfg.seo?.description ?? '';
 ---
 
 <MarketingLayout
-  title={pageTitle}
-  description={pageDescription}
-  image={cfg.seo?.image}
-  tags={cfg.seo?.keywords}
+  title="Demande de devis — Rizset Plomberie"
+  description="Remplissez notre questionnaire en 2 minutes, nous vous rappelons sous 30 min."
 >
   <PageHeader
-    layout={cfg.header.layout}
-    title={cfg.header.title}
-    subtitle={cfg.header.subtitle}
-    align={cfg.header.align}
-    maxWidth={cfg.header.maxWidth}
-    foregroundImage={cfg.header.foregroundImage}
-    foregroundImageAlt={cfg.header.foregroundImageAlt}
-    backgroundType={cfg.header.backgroundType}
-    background={cfg.header.background}
-    backgroundSrc={cfg.header.backgroundSrc}
-    overlay={cfg.header.overlay}
+    layout="split"
+    title="Demande de devis gratuit"
+    subtitle="Vous préférez le téléphone ? Appelez-moi directement au 04 67 00 00 00. Sinon, remplissez ce questionnaire en 2 minutes et je vous recontacte avec une estimation claire sous 30 minutes."
+    foregroundImage="/images/header-contact.jpg"
+    foregroundImageAlt="Artisan Rizset Plomberie à Montpellier"
+    backgroundType="solid"
+    background="muted"
   />
 
-  <section class="py-section bg-surface">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div>
-          <h2 class="text-2xl font-bold text-text mb-8">{cfg.formTitle}</h2>
-          <ContactForm />
-        </div>
-
-        <div class="space-y-8">
-          <!-- Contact Methods -->
-          <div>
-            <h2 class="text-2xl font-bold text-text mb-4">{cfg.methodsTitle}</h2>
-            <div class="space-y-3">
-              {
-                contactMethods.map((method) => (
-                  <a
-                    href={method.href}
-                    class="flex items-center gap-3 text-text-muted hover:text-primary transition-colors group"
-                  >
-                    <Icon name={method.icon} class="w-5 h-5 text-primary" />
-                    <span class="group-hover:underline">{method.value}</span>
-                  </a>
-                ))
-              }
-            </div>
-          </div>
-
-          <!-- Our Office -->
-          <div>
-            <h2 class="text-2xl font-bold text-text mb-4">{cfg.officeTitle}</h2>
-            <div class="flex items-start gap-3 text-text-muted">
-              <Icon name="lucide:map-pin" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-              <address class="not-italic">
-                {office.street}<br />
-                {office.city}, {office.state}
-                {office.zip}<br />
-                {office.country}
-              </address>
-            </div>
-          </div>
-
-          <!-- FAQ Mini -->
-          <div>
-            <h2 class="text-2xl font-bold text-text mb-4">{cfg.faqsTitle}</h2>
-            <div class="space-y-4">
-              {
-                contactFAQs.map((faq) => (
-                  <div>
-                    <h3 class="font-medium text-text">{faq.question}</h3>
-                    <p class="text-sm text-text-muted mt-1">{faq.answer}</p>
-                  </div>
-                ))
-              }
-            </div>
-            {
-              cfg.faqsLink && (
-                <a
-                  href={cfg.faqsLink.href}
-                  class="inline-flex items-center gap-1 text-primary hover:underline mt-4 text-sm font-medium"
-                >
-                  {cfg.faqsLink.label}
-                  <Icon name="lucide:arrow-right" class="w-4 h-4" />
-                </a>
-              )
-            }
-          </div>
-        </div>
-      </div>
+  <section class="py-section bg-background">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <iframe
+        data-tally-src="https://tally.so/embed/2E7d7V?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="500"
+        style="border: none; margin: 0;"
+        title="Demande de devis Rizset Plomberie"
+      ></iframe>
     </div>
   </section>
 </MarketingLayout>

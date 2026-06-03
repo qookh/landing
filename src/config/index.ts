@@ -65,7 +65,7 @@ export const announcement: AnnouncementConfig = configJson.announcement as Annou
 // Newsletter content — source unique : src/data/config.json → newsletter
 // ---------------------------------------------------------------------------
 export const content: ContentStrings = {
-  newsletter: configJson.newsletter as ContentStrings['newsletter'],
+  newsletter: ((configJson as Record<string, unknown>).newsletter ?? {}) as ContentStrings['newsletter'],
 };
 
 // ---------------------------------------------------------------------------

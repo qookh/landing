@@ -316,6 +316,18 @@ export interface ComparisonTableConfig {
   highlightedPlan?: number;
 }
 
+export interface GalleryItem {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+export interface GalleryConfig {
+  title?: string;
+  subtitle?: string;
+  items: GalleryItem[];
+}
+
 export interface FooterConfig {
   description?: string;
   columns?: Array<{
@@ -349,7 +361,7 @@ export interface SiteConfig {
    * Ordre d'affichage des sections.
    * Clés valides : 'hero' | 'logoCloud' | 'features' | 'howItWorks' | 'featureHighlight'
    *              | 'bentoGrid' | 'integrations' | 'stats' | 'testimonials' | 'pricing'
-   *              | 'faq' | 'comparisonTable' | 'cta' | 'newsletter'
+   *              | 'gallery' | 'faq' | 'comparisonTable' | 'cta' | 'newsletter'
    * Si absent, l'ordre par défaut défini dans index.astro est utilisé.
    */
   sectionOrder?: string[];
@@ -363,6 +375,7 @@ export interface SiteConfig {
   testimonials?: TestimonialsConfig;
   pricing?: PricingConfig;
   cta?: CTAConfig;
+  gallery?: GalleryConfig;
   newsletter?: NewsletterConfig;
   integrations?: IntegrationsConfig;
   faq?: FAQConfig;

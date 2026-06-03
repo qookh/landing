@@ -1,90 +1,96 @@
 # SITE_CONTENT_MAP.md — Carte de Données & Copywriting
 
-> Projet : Landing Page Astro 5 — Dupont Plomberie
-> Dernière mise à jour : 2026-04-21
+> Projet : Landing Page One-Page — Rizset Plomberie Montpellier
+> Dernière mise à jour : 2026-06-03
 > Audience : IA Marketeur, copywriter, responsable contenu
 
 ---
 
-## Instructions Copywriting — Dupont Plomberie
+## Instructions Copywriting — Rizset Plomberie
 
 **Client cible :**
-- Particuliers parisiens (75, 92, 93, 94) confrontés à une urgence plomberie
+- Particuliers montpelliérains (34) confrontés à une urgence plomberie
 - Gestionnaires de copropriété / syndics cherchant un prestataire de confiance
 - Propriétaires bailleurs souhaitant un contrat d'entretien annuel
 
-**Ton :** Rassurant et direct. Professionnel sans être froid — l'artisan de quartier qu'on peut appeler à 2h du matin. Concret : chiffres, délais, garanties plutôt qu'adjectifs vagues.
+**Ton :** Rassurant et direct. Professionnel sans être froid — l'artisan de quartier qu'on appelle à 2h du matin. Concret : chiffres, délais, garanties plutôt qu'adjectifs vagues. Parler à la 1re personne pour renforcer la proximité ("je vous recontacte", "je vous rappelle").
 
-**Mots-clés à intégrer :** urgence, intervention rapide, certifié Qualibat, devis gratuit, 24h/24, Paris, transparent, garanti
+**Mots-clés à intégrer :** urgence, intervention rapide, certifié Qualibat, devis gratuit, 24h/24, Montpellier, transparent, garanti
 
-**À éviter :** superlatifs sans preuve ("le meilleur"), anglicismes, phrases > 20 mots dans les titres, jargon technique inutile
+**À éviter :** superlatifs sans preuve, anglicismes, phrases > 20 mots dans les titres, jargon technique inutile
 
 **Longueurs recommandées :**
 
 | Champ | Longueur idéale | Exemple |
 |---|---|---|
-| `title` Hero | 4–8 mots | "Intervention en 1h garantie" |
-| `subtitle` / `description` section | 1 phrase, max 15 mots | "Artisan certifié Qualibat à Paris depuis 1998." |
-| `description` feature | 1–2 phrases, bénéfice client explicite | "Détection et réparation sans destruction." |
-| `quote` témoignage | 1–3 phrases, fait concret + résultat | "Intervention en 45 min un dimanche soir. Efficace, propre, au prix annoncé." |
-| `answer` FAQ | 2–4 phrases, chiffres si possible | "Oui, 24h/24 et 7j/7. Supplément de 30€ entre 20h et 8h." |
+| `title` Hero | 4–8 mots | "Plombier à Montpellier, intervention en 1h" |
+| `subtitle` section | 1 phrase, max 15 mots | "Artisan certifié Qualibat. Devis gratuit, 7j/7." |
+| `description` feature | 1–2 phrases, bénéfice client | "Détection et réparation sans destruction." |
+| `quote` témoignage | 1–3 phrases, fait concret + résultat | "Arrivé en 40 min un samedi soir. Propre, efficace, au prix annoncé." |
+| `answer` FAQ | 2–4 phrases, chiffres si possible | "Oui, 24h/24 et 7j/7. Supplément de 35 € entre 20h et 8h." |
+
+---
+
+## Parcours de Conversion
+
+```
+Visiteur
+  │
+  ├─ Header CTA "Demander un devis" → Pop-up Tally (2E7d7V) ← conversion instantanée
+  │
+  ├─ Nav ancres → #features / #pricing / #testimonials / #faq (scroll fluide)
+  │
+  ├─ Sections pricing / CTA → /contact (page dédiée avec Tally embed)
+  │
+  └─ Contact page → Tally embed natif (fallback desktop/mobile)
+```
+
+---
+
+## Architecture — One-Page
+
+```
+src/data/config.json
+       │
+       ▼  sectionOrder: ["hero", "logoCloud", "features", "pricing", "testimonials", "faq", "cta"]
+src/pages/index.astro
+       ├── sections features/pricing/testimonials/faq → <div id="…" class="scroll-mt-20">
+       └── Ancres header (#features, #pricing, #testimonials, #faq) → scroll fluide
+```
 
 ---
 
 ## Inventaire des Pages
 
-| Route | Layout | Fichier de données | Interface TS |
-|---|---|---|---|
-| `/` | MarketingLayout | `src/data/config.json` | `SiteConfig` |
-| `/about` | MarketingLayout | `src/data/pages/about.json` | `AboutPageConfig` |
-| `/contact` | MarketingLayout | `src/data/pages/contact.json` | `ContactPageConfig` |
-| `/customers` | MarketingLayout | `src/data/pages/customers.json` | `CustomersPageConfig` |
-| `/faq` | MarketingLayout | `src/data/pages/faq.json` | `FAQPageConfig` |
-| `/features` | MarketingLayout | `src/data/pages/features.json` | `FeaturesPageConfig` |
-| `/pricing` | MarketingLayout | `src/data/pages/pricing.json` | `PricingPageConfig` |
-| `/testimonials` | MarketingLayout | `src/data/pages/testimonials.json` | `TestimonialsPageConfig` |
-| `/privacy` | MarketingLayout | `src/data/pages/privacy.json` | `LegalPageConfig` |
-| `/terms` | MarketingLayout | `src/data/pages/terms.json` | `LegalPageConfig` |
-| `/403`, `/404`, `/500` | MarketingLayout | `src/data/pages/errors.json` | `ErrorsPageConfig` |
-
-**Pages hors data-driven (intentionnel) :** `/login`, `/register`, `/forgot-password`, `/blog`, `/blog/[slug]`, `/dashboard` — ces pages ont leur propre logique ou sont hors scope copywriting.
+| Route | Rôle | Fichier de données |
+|---|---|---|
+| `/` | Landing page one-page | `src/data/config.json` |
+| `/contact` | Questionnaire devis (Tally embed) | aucun JSON — hardcodé |
+| `/privacy` | Politique de confidentialité | `src/data/pages/privacy.json` |
+| `/terms` | Mentions légales | `src/data/pages/terms.json` |
+| `/403`, `/404`, `/500` | Pages d'erreur | `src/data/pages/errors.json` |
 
 ---
 
 ## Page d'Accueil — `src/data/config.json`
 
-### Variables modifiables
+### `global` — Identité de marque
 
-#### `global` — Identité de marque
+| Clé | Valeur actuelle | À personnaliser |
+|---|---|---|
+| `global.name` | `"Rizset Plomberie"` | Nom de l'enseigne |
+| `global.tagline` | `"Votre plombier de confiance à Montpellier"` | Accroche courte |
+| `global.contact.phone` | `"06 00 00 00 00"` | ✅ Numéro réel |
+| `global.contact.address.city` | `"Montpellier"` | Ville |
+| `global.seo.title` | Titre `<title>` | ✅ SEO local |
+| `global.seo.keywords` | `["plombier Montpellier", …]` | Mots-clés locaux |
 
-```json
-"global": {
-  "name": "Dupont Plomberie",
-  "tagline": "Votre plombier de confiance à Paris",
-  "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie.",
-  "logo": "/logo.svg",
-  "ogImage": "/images/og-dupont-plomberie.jpg",
-  "url": "https://dupont-plomberie.fr",
-  "seo": {
-    "title": "Dupont Plomberie — Plombier d'urgence Paris 24h/24",
-    "description": "Plombier certifié Qualibat. Intervention en 1h, devis gratuit, 24h/24 et 7j/7.",
-    "image": "/images/og-dupont-plomberie.jpg",
-    "keywords": ["plombier Paris", "urgence plomberie", "plombier 24h"]
-  },
-  "contact": {
-    "email": "contact@dupont-plomberie.fr",
-    "phone": "01 23 45 67 89",
-    "address": "Paris, Île-de-France"
-  }
-}
-```
-
-#### `announcement` — Bandeau promotionnel
+### `announcement` — Bandeau promotionnel
 
 ```json
 "announcement": {
   "enabled": true,
-  "id": "promo-printemps-2026",
+  "id": "promo-ete-2026",
   "text": "🔧 -20% sur tous les diagnostics ce mois-ci !",
   "href": "/contact",
   "linkText": "Prendre rendez-vous",
@@ -92,282 +98,109 @@
   "dismissible": true
 }
 ```
+> Changer `id` pour réinitialiser le dismiss localStorage côté client.
 
-#### `hero` — Section principale
+### `hero` — Section principale
 
-```json
-"hero": {
-  "layout": "split",
-  "title": "Intervention en 1h garantie",
-  "subtitle": "Artisan certifié Qualibat à Paris depuis 1998.",
-  "badge": "⚡ Disponible 24h/24",
-  "foregroundImage": "/images/hero-plombier.jpg",
-  "foregroundImageAlt": "Plombier en intervention",
-  "backgroundType": "gradient",
-  "gradient": "from-primary/10 via-background to-background",
-  "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
-  "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" }
-}
-```
+| Clé | Description |
+|---|---|
+| `hero.title` | Promesse principale — 4–8 mots |
+| `hero.subtitle` | Accroche — 1 phrase, bénéfice immédiat |
+| `hero.badge` | Badge urgence |
+| `hero.primaryCTA.href` | `tel:+33XXXXXXXXX` — numéro urgence |
+| `hero.secondaryCTA.href` | `/contact` — formulaire devis |
+| `hero.foregroundImage` | Image plombier en intervention (split layout) |
 
-#### `logoCloud` — Certifications et partenaires
+### `features` — Services (ancre `#features`)
 
-```json
-"logoCloud": {
-  "title": "Certifié et approuvé par",
-  "logos": [
-    { "name": "Qualibat", "src": "/logos/qualibat.svg" },
-    { "name": "RGE", "src": "/logos/rge.svg" },
-    { "name": "CAPEB", "src": "/logos/capeb.svg" }
-  ],
-  "variant": "default",
-  "grayscale": true
-}
-```
+6 items max. `icon` (lucide), `title` (2–4 mots), `description` (1–2 phrases, bénéfice client).
 
-#### `features` — Services principaux
+### `pricing` — Grille tarifaire (ancre `#pricing`)
 
-```json
-"features": {
-  "title": "Tous les services de plomberie",
-  "subtitle": "Du dépannage d'urgence à la rénovation complète.",
-  "features": [
-    { "icon": "lucide:zap", "title": "Urgence 24h/24", "description": "Intervention garantie en moins d'une heure, 7j/7." },
-    { "icon": "lucide:droplets", "title": "Fuites & Dégâts des eaux", "description": "Détection et réparation sans destruction." },
-    { "icon": "lucide:flame", "title": "Chauffe-eau & Chaudières", "description": "Installation, dépannage et entretien." }
-  ],
-  "footerLink": { "label": "Voir toutes nos prestations", "href": "/features" }
-}
-```
+3 plans. Plan mis en avant : `"highlighted": true` + `"badge": "Le plus demandé"`.
+Tous les CTAs pointent vers `/contact`.
 
-#### `stats` — Chiffres clés
+### `testimonials` — Avis clients (ancre `#testimonials`)
 
-```json
-"stats": {
-  "title": "Des chiffres qui parlent",
-  "stats": [
-    { "value": "25 ans", "label": "d'expérience" },
-    { "value": "4800+", "label": "Interventions réalisées" },
-    { "value": "98%", "label": "Clients satisfaits" },
-    { "value": "< 1h", "label": "Délai d'intervention" }
-  ],
-  "columns": 4
-}
-```
+3 témoignages locaux Montpellier. Champs : `author`, `role`, `company` (quartier), `quote`.
 
-#### `testimonials` — Avis clients
+### `faq` — Questions fréquentes (ancre `#faq`)
 
-```json
-"testimonials": {
-  "title": "Ce que disent nos clients",
-  "subtitle": "Plus de 500 avis vérifiés sur Google.",
-  "testimonials": [
-    {
-      "author": "Marie Leclerc",
-      "role": "Propriétaire",
-      "company": "Paris 11e",
-      "quote": "Intervention en 45 minutes un dimanche soir. Efficace, propre, et au prix annoncé !"
-    }
-  ],
-  "limit": 3,
-  "footerLink": { "label": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
-}
-```
+5 questions clés : horaires, zone, prix, délai, certification.
 
-#### `pricing` — Grille tarifaire
-
-```json
-"pricing": {
-  "title": "Tarifs clairs et sans surprise",
-  "plans": [
-    {
-      "name": "Diagnostic",
-      "monthlyPrice": 89,
-      "description": "Pour identifier le problème avant d'agir.",
-      "features": ["Visite diagnostic complète", "Rapport écrit", "Devis gratuit", "Déplacement inclus"],
-      "cta": { "label": "Réserver", "href": "/contact" }
-    },
-    {
-      "name": "Intervention Standard",
-      "monthlyPrice": 189,
-      "description": "La plupart des dépannages courants.",
-      "features": ["Diagnostic inclus", "1h de main d'œuvre", "Pièces standard incluses", "Garantie 1 an"],
-      "cta": { "label": "Réserver", "href": "/contact" },
-      "highlighted": true
-    },
-    {
-      "name": "Contrat Annuel",
-      "monthlyPrice": null,
-      "customPrice": "Sur devis",
-      "description": "Pour les propriétaires et gestionnaires.",
-      "features": ["Visites préventives x2/an", "Priorité d'intervention", "Remise 15% sur pièces"],
-      "cta": { "label": "Nous contacter", "href": "/contact" }
-    }
-  ]
-}
-```
-
-#### `cta` — Appel à l'action final
+### `cta` — Appel à l'action final
 
 ```json
 "cta": {
-  "title": "Une urgence ? On est là.",
-  "description": "Fuite, canalisation bouchée, chauffe-eau HS — appelez-nous maintenant.",
-  "action": { "label": "01 23 45 67 89", "href": "tel:0123456789" },
-  "secondaryAction": { "label": "Envoyer un message", "href": "/contact" }
-}
-```
-
-#### `faq` — Questions fréquentes
-
-```json
-"faq": {
-  "title": "Questions fréquentes",
-  "faqs": [
-    { "question": "Intervenez-vous la nuit et le week-end ?", "answer": "Oui, 24h/24 et 7j/7. Supplément de 30€ entre 20h et 8h." },
-    { "question": "Quelle est la zone d'intervention ?", "answer": "Tout Paris (75) et la petite couronne (92, 93, 94)." }
-  ],
-  "variant": "accordion"
+  "title": "Besoin d'un plombier maintenant ?",
+  "action": { "label": "📞 Appeler le 06 XX XX XX XX", "href": "tel:+33XXXXXXXXX" },
+  "secondaryAction": { "label": "Demander un devis gratuit", "href": "/contact" },
+  "tallyFormId": "2E7d7V"
 }
 ```
 
 ---
 
-## Page `/about` — `src/data/pages/about.json`
+## Page `/contact` — Questionnaire Tally (réhumanisée)
 
-**Composants :** PageHeader, StatsSection, VideoEmbed, ValuesSection, TeamSection, ContentSection, CTA
+Page dédiée à la capture de leads. Hardcodée dans `src/pages/contact.astro`.
 
-| Clé JSON | Description |
+| Élément | Valeur |
 |---|---|
-| `seo.title`, `seo.description` | SEO de la page |
-| `header.title`, `header.subtitle` | Titre et accroche de l'en-tête |
-| `header.layout`, `header.foregroundImage` | Mode split ou centered, image droite |
-| `stats.stats[]` | Chiffres clés (valeur + label) |
-| `video.videoId` | ID YouTube/Vimeo (optionnel) |
-| `values.title`, `values.items[]` | Section valeurs / engagements |
-| `team.title`, `team.members[]` | Membres de l'équipe |
-| `content.title`, `content.paragraphs[]` | Bloc texte libre |
-| `cta.title`, `cta.action` | CTA de fin de page |
+| Layout PageHeader | `split` — image artisan à droite |
+| Fond | `backgroundType="solid" background="muted"` → texte sombre, contraste maximal |
+| Titre | "Demande de devis gratuit" |
+| Sous-titre | "Vous préférez le téléphone ? Appelez-moi directement au 04 67 00 00 00. Sinon, remplissez ce questionnaire en 2 minutes et je vous recontacte avec une estimation claire sous 30 minutes." |
+| Image | `/images/header-contact.jpg` — photo artisan, chaleureuse |
+| Formulaire embed | Tally `2E7d7V` — `dynamicHeight=1` |
+
+> **Copywriting** : la 1re personne ("je vous recontacte") humanise la page et réduit la distance. Le numéro de téléphone visible dans le sous-titre est un filet de sécurité pour les visiteurs qui préfèrent l'appel direct.
+
+> **Contraste** : ne jamais utiliser `backgroundType="gradient"` avec un gradient clair sur PageHeader — le composant force automatiquement `text-white` sur tous les gradients. Utiliser `backgroundType="solid"` pour garantir un texte lisible sur fond clair.
+
+Pour changer le formulaire Tally : modifier l'ID `2E7d7V` dans l'URL embed de `contact.astro`.
 
 ---
 
-## Page `/contact` — `src/data/pages/contact.json`
+## Convention de Nommage des Images
 
-**Composants :** PageHeader, ContactForm (données contactMethods/contactFAQs via `src/config`)
+| Dossier | Pattern | Exemples |
+|---|---|---|
+| `/public/images/` | `hero-*.jpg` | `hero-plombier-index.jpg` |
+| `/public/images/` | `header-*.jpg` | `header-contact.jpg` |
+| `/public/images/` | `og-*.jpg` | `og-rizset-plomberie.jpg` |
+| `/public/images/realisations/` | `<intervention>-<etat>.jpg` | `fuite-reparee.jpg`, `chauffe-eau-installe.jpg` |
+| `/public/logos/` | `<certif>.png/.jpg` | `qualibat.jpg`, `rge.png` |
 
-| Clé JSON | Description |
-|---|---|
-| `seo.title`, `seo.description` | SEO de la page |
-| `header.title`, `header.subtitle` | Titre et accroche |
-| `header.layout`, `header.foregroundImage` | Mode split ou centered |
-| `formTitle` | Titre affiché au-dessus du formulaire |
-| `methodsTitle` | Titre de la section "Autres moyens de contact" |
-| `officeTitle` | Titre de la section adresse |
-| `faqsTitle` | Titre de la section FAQ rapide |
-| `faqsLink` | Lien "Voir toutes les FAQ" |
-
-> Les coordonnées réelles (email, téléphone, adresse) viennent de `config.json → global.contact` et `src/config/index.ts`.
+**Règle** : ne jamais créer de sous-dossiers supplémentaires. Respecter strictement ces patterns pour la cohérence et les chemins déjà référencés dans `config.json`.
 
 ---
 
-## Page `/customers` — `src/data/pages/customers.json`
+## Navigation (Header)
 
-**Composants :** PageHeader, StatsSection, CaseStudyCard, LogoCloud, CTA
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO de la page |
-| `header.*` | En-tête (layout, image, fond) |
-| `stats.stats[]` | Chiffres clients (interventions, satisfaction…) |
-| `featuredCases.cases[]` | Cas clients mis en avant (company, quote, author, metrics) |
-| `gridCases.cases[]` | Grille de cas clients |
-| `logoCloud.logos[]` | Logos clients / partenaires |
-| `cta.*` | CTA de fin de page |
+| Lien | Destination | Type |
+|---|---|---|
+| Nos Services | `#features` | Ancre interne |
+| Tarifs | `#pricing` | Ancre interne |
+| Avis Clients | `#testimonials` | Ancre interne |
+| FAQ | `#faq` | Ancre interne |
+| **Demander un devis** (CTA) | Pop-up Tally `2E7d7V` | `data-tally-open` |
 
 ---
 
-## Page `/faq` — `src/data/pages/faq.json`
+## Pages Légales
 
-**Composants :** PageHeader, FAQSection, CTA
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO |
-| `header.*` | En-tête |
-| `faqs[]` | Liste plate de questions/réponses |
-| `categories[]` | Alternative : FAQs groupées par catégorie |
-| `variant` | `'accordion'` ou `'simple'` |
-| `cta.*` | CTA de fin |
-
----
-
-## Page `/features` — `src/data/pages/features.json`
-
-**Composants :** PageHeader, FeatureHighlight, ValuesSection, BentoGrid, CTA
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO |
-| `header.*` | En-tête (layout split recommandé) |
-| `highlight.features[]` | Features mises en avant (badge, titre, description, highlights, image, CTA) |
-| `categories[]` | Groupes de features (ValuesSection par catégorie) |
-| `bentoGrid.items[]` | Grille bento illustrative |
-| `cta.*` | CTA de fin |
-
----
-
-## Page `/pricing` — `src/data/pages/pricing.json`
-
-**Composants :** PricingTable, TrustBadges, ComparisonTable, FAQSection, CTA
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO |
-| `plans[]` | Plans tarifaires (name, monthlyPrice, features[], cta, highlighted) |
-| `annualDiscount` | % de remise annuelle |
-| `guarantee.title`, `guarantee.description` | Garantie (ex: satisfait ou remboursé) |
-| `badges[]` | Badges de confiance (icône + label) |
-| `comparison.plans[]`, `comparison.categories[]` | Tableau comparatif |
-| `faqs[]` | FAQ spécifique tarification |
-| `cta.*` | CTA de fin |
-
----
-
-## Page `/testimonials` — `src/data/pages/testimonials.json`
-
-**Composants :** PageHeader, liste testimonials via `astro:content`, CTA
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO |
-| `header.*` | En-tête |
-| `emptyMessage` | Message si aucun témoignage disponible |
-| `cta.*` | CTA de fin |
-
-> Les témoignages individuels viennent du Content Layer Astro (`src/content/testimonials/`), pas du JSON.
-
----
-
-## Pages `/privacy` et `/terms` — `src/data/pages/privacy.json` / `terms.json`
-
-| Clé JSON | Description |
-|---|---|
-| `seo.*` | SEO |
-| `title` | Titre h1 de la page |
-| `lastUpdated` | Date de dernière mise à jour (format "1er janvier 2026") |
-| `intro` | Paragraphe d'introduction |
-| `sections[]` | Sections : `heading?`, `subheading?`, `content?`, `items?[]` |
-| `contactEmail` | Email DPO / contact légal |
-| `address` | Adresse de l'entreprise |
+| Page | Fichier | Clés modifiables |
+|---|---|---|
+| `/privacy` | `src/data/pages/privacy.json` | `title`, `lastUpdated`, `intro`, `sections[]`, `contactEmail`, `address` |
+| `/terms` | `src/data/pages/terms.json` | Idem |
 
 ---
 
 ## Déploiement pour un Nouveau Client
 
-5 étapes pour adapter le site à un nouveau client :
-
-1. **`src/data/config.json`** — remplacer toutes les sections (contenu page d'accueil + global + contact + announcement)
-2. **`src/data/pages/*.json`** — remplacer le contenu de chaque page secondaire
-3. **`src/config/site.ts`** — nom, URL de prod, ogImage, réseaux sociaux (lit config.json, env var `SITE_NAME` en override)
-4. **`src/config/navigation.ts`** — liens du Header et Footer (statique, éditer ce fichier)
-5. **Assets** → `/public/logo.svg`, `/public/images/og-*.jpg`, `/public/logos/*.svg`, `/public/images/hero-*.jpg`
+1. **`src/data/config.json`** — `global` (nom, ville, contact, SEO) + tout le contenu des sections
+2. **`src/config/navigation.ts`** — mettre à jour le `tallyFormId` et le numéro `tel:` dans le CTA header
+3. **`src/pages/contact.astro`** — remplacer l'ID Tally `2E7d7V` + numéro de téléphone dans le sous-titre + image artisan
+4. **`src/data/pages/privacy.json` et `terms.json`** — mettre à jour les mentions légales
+5. **Assets** → `/public/logo.svg`, `/public/images/og-*.jpg`, `/public/images/hero-*.jpg`, `/public/images/artisan-contact.jpg`

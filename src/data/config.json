@@ -1,28 +1,28 @@
 {
   "global": {
-    "name": "Dupont Plomberie",
-    "tagline": "Votre expert plombier depuis 1998",
-    "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Paris et en Île-de-France. Devis gratuit, artisan certifié Qualibat.",
+    "name": "Rizset Plomberie",
+    "tagline": "Votre plombier de confiance à Montpellier",
+    "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Montpellier et agglomération. Devis gratuit, artisan certifié Qualibat.",
     "logo": "/logo.svg",
-    "ogImage": "/images/og-dupont-plomberie.jpg",
-    "url": "https://dupont-plomberie.fr",
+    "ogImage": "/images/og-rizset-plomberie.jpg",
+    "url": "https://rizset-plomberie.fr",
     "social": {
-      "facebook": "https://facebook.com/dupontplomberie",
-      "instagram": "https://instagram.com/dupontplomberie"
+      "facebook": "https://facebook.com/rizsetplomberie",
+      "instagram": "https://instagram.com/rizsetplomberie"
     },
     "legal": {
-      "privacyEmail": "privacy@dupont-plomberie.fr",
-      "legalEmail": "legal@dupont-plomberie.fr",
-      "lastUpdated": "1er avril 2025"
+      "privacyEmail": "privacy@rizset-plomberie.fr",
+      "legalEmail": "legal@rizset-plomberie.fr",
+      "lastUpdated": "1er juin 2026"
     },
     "contact": {
-      "email": "contact@dupont-plomberie.fr",
-      "phone": "01 23 45 67 89",
+      "email": "contact@rizset-plomberie.fr",
+      "phone": "06 00 00 00 00",
       "address": {
-        "street": "15 rue de la Paix",
-        "city": "Paris",
-        "state": "75",
-        "zip": "75001",
+        "street": "12 rue de la Loge",
+        "city": "Montpellier",
+        "state": "34",
+        "zip": "34000",
         "country": "France"
       }
     },
@@ -30,47 +30,43 @@
       {
         "icon": "lucide:phone",
         "label": "Téléphone",
-        "value": "01 23 45 67 89",
-        "href": "tel:0123456789"
+        "value": "06 00 00 00 00",
+        "href": "tel:+33600000000"
       },
       {
         "icon": "lucide:mail",
         "label": "Email",
-        "value": "contact@dupont-plomberie.fr",
-        "href": "mailto:contact@dupont-plomberie.fr"
-      },
-      {
-        "icon": "simple-icons:facebook",
-        "label": "Facebook",
-        "value": "Retrouvez-nous sur Facebook",
-        "href": "https://facebook.com/dupontplomberie"
+        "value": "contact@rizset-plomberie.fr",
+        "href": "mailto:contact@rizset-plomberie.fr"
       }
     ],
     "contactFAQs": [
       {
         "question": "Intervenez-vous les nuits et le week-end ?",
-        "answer": "Oui, notre service d'urgence est disponible 24h/24, 7j/7 y compris les jours fériés, pour toute panne ou fuite."
+        "answer": "Oui, 24h/24 et 7j/7 sur Montpellier et l'agglomération. Supplément de 35 € entre 20h et 8h."
       },
       {
         "question": "Quel est le délai d'intervention en urgence ?",
-        "answer": "Nous garantissons une intervention en moins d'une heure dans Paris et la petite couronne pour les urgences plomberie."
+        "answer": "Moins d'une heure sur Montpellier en journée, 2h maximum la nuit et en banlieue."
       },
       {
         "question": "Proposez-vous des devis gratuits ?",
-        "answer": "Oui, tous nos devis sont gratuits et sans engagement. Le tarif est fixé avant le début des travaux, aucune mauvaise surprise."
+        "answer": "Oui, diagnostic téléphonique gratuit. Le prix est fixé avant intervention, sans mauvaise surprise."
       }
     ],
     "seo": {
-      "title": "Dupont Plomberie — Plombier d'urgence Paris 24h/24",
-      "description": "Plombier certifié Qualibat à Paris et Île-de-France. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",
-      "image": "/images/og-dupont-plomberie.jpg",
-      "keywords": ["plombier Paris", "urgence plomberie", "dépannage plomberie", "plombier 24h", "fuite eau Paris"]
+      "title": "Rizset Plomberie — Plombier Montpellier 24h/24",
+      "description": "Plombier certifié Qualibat à Montpellier. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",
+      "image": "/images/og-rizset-plomberie.jpg",
+      "keywords": ["plombier Montpellier", "urgence plomberie", "dépannage plomberie 34", "plombier 24h Montpellier", "fuite eau Montpellier"]
     }
   },
 
+  "sectionOrder": ["hero", "logoCloud", "features", "pricing", "testimonials", "gallery", "faq", "cta"],
+
   "announcement": {
     "enabled": true,
-    "id": "promo-printemps-2026",
+    "id": "promo-ete-2026",
     "text": "🔧 -20% sur tous les diagnostics ce mois-ci !",
     "href": "/contact",
     "linkText": "Prendre rendez-vous",
@@ -80,15 +76,15 @@
 
   "hero": {
     "layout": "split",
-    "title": "Plombier d'urgence à Paris — Intervention en 1h",
-    "subtitle": "Fuite, dégât des eaux, chauffe-eau en panne ? Notre équipe intervient 24h/24, 7j/7 dans tout Paris et l'Île-de-France.",
-    "badge": "⚡ Disponible 24h/24",
-    "primaryCTA": { "label": "Appeler maintenant", "href": "tel:0123456789" },
-    "secondaryCTA": { "label": "Voir nos tarifs", "href": "#pricing" },
+    "title": "Plombier à Montpellier, intervention en 1h",
+    "subtitle": "Artisan certifié Qualibat. Devis gratuit, 7j/7.",
+    "badge": "⚡ Urgence disponible 24h/24",
+    "primaryCTA": { "label": "Appeler maintenant", "href": "tel:+33600000000" },
+    "secondaryCTA": { "label": "Demander un devis", "href": "/contact" },
     "backgroundType": "gradient",
-    "align": "center",
+    "gradient": "from-primary/10 via-background to-background",
     "foregroundImage": "/images/hero-plombier-index.jpg",
-    "foregroundImageAlt": "plombier en intervention"
+    "foregroundImageAlt": "Plombier Rizset en intervention à Montpellier"
   },
 
   "logoCloud": {
@@ -105,260 +101,209 @@
   },
 
   "features": {
-    "title": "Tous les services de plomberie",
-    "subtitle": "Du dépannage d'urgence à la rénovation complète, nous couvrons tous vos besoins.",
+    "title": "Tous vos travaux de plomberie",
+    "subtitle": "Du dépannage d'urgence à la rénovation complète.",
     "features": [
       {
         "icon": "lucide:zap",
         "title": "Urgence 24h/24",
-        "description": "Intervention garantie en moins d'une heure, 7 jours sur 7, jours fériés inclus."
+        "description": "Intervention garantie en moins d'une heure sur Montpellier, 7j/7."
       },
       {
         "icon": "lucide:droplets",
         "title": "Fuites & Dégâts des eaux",
-        "description": "Détection et réparation de fuites apparentes ou cachées sans destruction."
+        "description": "Détection et réparation sans destruction."
       },
       {
         "icon": "lucide:flame",
         "title": "Chauffe-eau & Chaudières",
-        "description": "Installation, dépannage et entretien de tous types de chauffe-eau et chaudières."
+        "description": "Installation, dépannage et entretien toutes marques."
       },
       {
         "icon": "lucide:wrench",
-        "title": "Débouchage",
-        "description": "Débouchage de canalisations bouchées par haute pression ou furet motorisé."
+        "title": "Débouchage canalisations",
+        "description": "Hydrocurage haute pression, résultat immédiat."
       },
       {
-        "icon": "lucide:home",
-        "title": "Rénovation Salle de Bain",
-        "description": "Conception et pose complète de salle de bain, douche à l'italienne incluse."
+        "icon": "lucide:bath",
+        "title": "Rénovation salle de bain",
+        "description": "De la conception à la pose, clé en main."
       },
       {
-        "icon": "lucide:shield-check",
-        "title": "Contrat d'entretien",
-        "description": "Abonnement annuel pour la maintenance préventive de vos installations."
+        "icon": "lucide:search",
+        "title": "Détection de fuite",
+        "description": "Équipement électronique, sans casse inutile."
       }
-    ],
-    "footerLink": { "label": "Voir toutes nos prestations", "href": "/services" },
-    "background": "default"
+    ]
   },
 
-  "howItWorks": {
-    "title": "Comment ça marche ?",
-    "subtitle": "Une intervention simple, rapide et transparente en 3 étapes.",
-    "steps": [
+  "pricing": {
+    "title": "Tarifs clairs, sans surprise",
+    "subtitle": "Grille tarifaire transparente — majoration nuit/week-end annoncée à +50 %, aucun frais caché.",
+    "plans": [
       {
-        "icon": "lucide:phone",
-        "title": "Appelez-nous",
-        "description": "Décrivez votre problème au 01 23 45 67 89. Devis téléphonique immédiat et gratuit."
-      },
-      {
-        "icon": "lucide:truck",
-        "title": "On arrive chez vous",
-        "description": "Un plombier qualifié arrive en moins d'une heure avec tout le matériel nécessaire."
-      },
-      {
-        "icon": "lucide:check-circle",
-        "title": "Problème résolu",
-        "description": "Réparation effectuée, facture détaillée remise sur place. Garantie 2 ans sur les pièces."
-      }
-    ],
-    "variant": "horizontal",
-    "showNumbers": true
-  },
-
-  "featureHighlight": {
-    "title": "Pourquoi choisir Dupont Plomberie ?",
-    "subtitle": "25 ans d'expérience au service des Parisiens.",
-    "features": [
-      {
-        "badge": "Notre engagement",
-        "title": "Devis transparent, sans surprise",
-        "description": "Nous établissons un devis clair avant toute intervention. Le prix affiché est le prix payé, sans frais cachés ni supplément d'urgence.",
-        "highlights": [
-          "Devis gratuit en 5 minutes",
-          "Prix fixe annoncé à l'avance",
-          "Paiement après intervention"
+        "name": "Dépannage Urgence",
+        "monthlyPrice": 140,
+        "description": "Déplacement 60 € + 1re heure de main d'œuvre 80 €. Idéal pour fuites, engorgements et diagnostics rapides.",
+        "features": [
+          "Déplacement inclus (60 €)",
+          "1re heure de main d'œuvre (80 €)",
+          "Diagnostic sur place offert",
+          "Devis de réparation gratuit",
+          "Majoration +50 % la nuit et le week-end"
         ],
-        "image": "/images/devis-transparent.jpg",
         "cta": { "label": "Demander un devis", "href": "/contact" }
       },
       {
-        "badge": "Expertise",
-        "title": "Artisans certifiés Qualibat",
-        "description": "Toute notre équipe est certifiée et assurée décennale. Nous intervenons sur tous types d'installations : ancien, neuf, copropriété.",
-        "highlights": [
-          "Certification Qualibat",
-          "Assurance décennale incluse",
-          "Formation continue"
+        "name": "Forfait Chauffe-Eau / Sanitaire",
+        "monthlyPrice": 250,
+        "description": "Remplacement de groupe de sécurité, débouchage complexe ou petite robinetterie — déplacement et main d'œuvre inclus.",
+        "features": [
+          "Déplacement inclus",
+          "Main d'œuvre incluse",
+          "Remplacement groupe de sécurité",
+          "Débouchage complexe",
+          "Garantie 1 an pièces & main d'œuvre"
         ],
-        "image": "/images/certification.png"
+        "cta": { "label": "Prendre rendez-vous", "href": "/contact" },
+        "highlighted": true,
+        "badge": "Le plus demandé"
+      },
+      {
+        "name": "Installation & Rénovation",
+        "monthlyPrice": null,
+        "customPrice": "Sur devis",
+        "description": "Pour les chantiers complets : ballons d'eau chaude, rénovation salle de bain. Étude et devis 100% gratuit.",
+        "features": [
+          "Devis gratuit et détaillé",
+          "Pose de ballons d'eau chaude",
+          "Rénovation salle de bain complète",
+          "Certification Qualibat 7131",
+          "Assurance décennale incluse"
+        ],
+        "cta": { "label": "Demander un devis gratuit", "href": "/contact" }
       }
-    ],
-    "startImageLeft": true
-  },
-
-  "stats": {
-    "title": "Des chiffres qui parlent",
-    "stats": [
-      { "value": "25 ans", "label": "d'expérience" },
-      { "value": "4800+", "label": "Interventions réalisées" },
-      { "value": "98%", "label": "Clients satisfaits" },
-      { "value": "< 1h", "label": "Délai d'intervention" }
-    ],
-    "columns": 4
+    ]
   },
 
   "testimonials": {
     "title": "Ce que disent nos clients",
-    "subtitle": "Plus de 500 avis vérifiés sur Google.",
+    "subtitle": "Des Montpelliérains satisfaits depuis 2005.",
     "testimonials": [
       {
-        "author": "Marie Leclerc",
-        "role": "Propriétaire",
-        "company": "Paris 11e",
-        "quote": "Intervention en 45 minutes un dimanche soir pour une fuite sous évier. Efficace, propre, et au prix annoncé. Je recommande vivement !"
-      },
-      {
-        "author": "Thomas Bernard",
-        "role": "Gestionnaire",
-        "company": "Syndic Haussmann",
-        "quote": "Dupont Plomberie gère l'entretien de nos 3 immeubles depuis 8 ans. Réactivité et professionnalisme exemplaires."
-      },
-      {
         "author": "Sophie Martin",
-        "role": "Locataire",
-        "company": "Paris 3e",
-        "quote": "Chauffe-eau remplacé en une demi-journée. Le plombier a expliqué chaque étape et nettoyé après lui. Parfait !"
-      }
-    ],
-    "limit": 3,
-    "footerLink": { "label": "Lire tous les avis", "href": "https://g.page/dupont-plomberie" }
-  },
-
-  "pricing": {
-    "title": "Tarifs clairs et sans surprise",
-    "subtitle": "Des forfaits adaptés à chaque besoin.",
-    "plans": [
-      {
-        "name": "Diagnostic",
-        "monthlyPrice": 89,
-        "description": "Pour identifier le problème avant d'agir.",
-        "features": [
-          "Visite diagnostic complète",
-          "Rapport écrit",
-          "Devis de réparation gratuit",
-          "Déplacement inclus"
-        ],
-        "cta": { "label": "Réserver", "href": "/contact" }
+        "role": "Propriétaire",
+        "company": "Montpellier Ecusson",
+        "quote": "Arrivé en 40 minutes un samedi soir pour une fuite sous évier. Propre, efficace, et au prix annoncé."
       },
       {
-        "name": "Intervention Standard",
-        "monthlyPrice": 189,
-        "description": "La plupart des dépannages courants.",
-        "features": [
-          "Diagnostic inclus",
-          "1h de main d'œuvre",
-          "Pièces standard incluses",
-          "Garantie 1 an"
-        ],
-        "cta": { "label": "Réserver", "href": "/contact" },
-        "highlighted": true
+        "author": "Marc Dupuy",
+        "role": "Gestionnaire",
+        "company": "Syndic Antigone",
+        "quote": "Rizset gère la plomberie de nos 3 immeubles depuis 5 ans. Réactivité et transparence exemplaires."
       },
       {
-        "name": "Contrat Annuel",
-        "monthlyPrice": null,
-        "customPrice": "Sur devis",
-        "description": "Pour les propriétaires et gestionnaires d'immeuble.",
-        "features": [
-          "Visites préventives x2/an",
-          "Priorité d'intervention",
-          "Remise 15% sur pièces",
-          "Bilan technique annuel"
-        ],
-        "cta": { "label": "Nous contacter", "href": "/contact" }
+        "author": "Isabelle Vidal",
+        "role": "Propriétaire bailleur",
+        "company": "Montpellier Nord",
+        "quote": "Contrat annuel depuis 2 ans. Aucune mauvaise surprise, que des bonnes."
       }
     ],
-    "footerLink": { "label": "Tous les tarifs et conditions", "href": "/tarifs" }
-  },
-
-  "cta": {
-    "title": "Une urgence ? On est là.",
-    "description": "Fuite, canalisation bouchée, chauffe-eau HS — appelez-nous maintenant. Intervention en moins d'une heure.",
-    "action": { "label": "01 23 45 67 89", "href": "tel:0123456789" },
-    "secondaryAction": { "label": "Envoyer un message", "href": "/contact" }
-  },
-
-  "newsletter": {
-    "title": "Conseils plomberie gratuits",
-    "description": "Recevez nos astuces pour entretenir vos installations et éviter les pannes.",
-    "placeholder": "votre@email.fr",
-    "buttonText": "S'abonner",
-    "successMessage": "Merci ! Vous recevrez nos prochains conseils par email.",
-    "errorMessage": "Une erreur est survenue. Réessayez.",
-    "privacyNote": "Pas de spam. Désinscription en un clic."
+    "limit": 3
   },
 
   "faq": {
     "title": "Questions fréquentes",
-    "subtitle": "Tout ce que vous devez savoir avant de nous appeler.",
+    "subtitle": "Tout ce que vous devez savoir avant d'appeler.",
     "faqs": [
       {
         "question": "Intervenez-vous la nuit et le week-end ?",
-        "answer": "Oui, notre service d'urgence fonctionne 24h/24 et 7j/7, jours fériés inclus. Un supplément de 30€ s'applique pour les interventions entre 20h et 8h."
+        "answer": "Oui, 24h/24 et 7j/7. Un supplément de 35 € s'applique entre 20h et 8h et les jours fériés."
       },
       {
-        "question": "Donnez-vous un devis avant intervention ?",
-        "answer": "Oui, systématiquement. Le diagnostic permet d'établir un devis précis que vous signez avant que nous commencions les travaux."
+        "question": "Quelle est votre zone d'intervention ?",
+        "answer": "Montpellier et toute l'agglomération (Castelnau, Lattes, Palavas, Mauguio…). Déplacement inclus dans nos forfaits."
       },
       {
-        "question": "Quelle est la zone d'intervention ?",
-        "answer": "Nous intervenons dans tout Paris (75) et en petite couronne : Hauts-de-Seine (92), Seine-Saint-Denis (93) et Val-de-Marne (94)."
+        "question": "Le devis est-il vraiment gratuit ?",
+        "answer": "Oui. Diagnostic téléphonique gratuit. Si une visite est nécessaire, elle est facturée 89 € et déduite de l'intervention."
       },
       {
-        "question": "Acceptez-vous les bons d'assistance ?",
-        "answer": "Oui, nous acceptons les bons de SOS Plomberie, HomeServe, Assistance Dépannage Habitat et la plupart des contrats d'assistance habitation."
+        "question": "Combien de temps pour une intervention d'urgence ?",
+        "answer": "Moins d'une heure sur Montpellier en journée. Maximum 2h la nuit et en banlieue."
+      },
+      {
+        "question": "Êtes-vous certifié Qualibat ?",
+        "answer": "Oui, certification Qualibat 7131 — Plomberie sanitaire et chauffage. Assurance décennale incluse."
       }
     ],
     "variant": "accordion"
   },
 
+  "cta": {
+    "title": "Besoin d'un plombier maintenant ?",
+    "description": "Fuite, bouchon, chauffe-eau en panne — on intervient en moins d'une heure.",
+    "action": { "label": "📞 Appeler le 06 00 00 00 00", "href": "tel:+33600000000" },
+    "secondaryAction": { "label": "Demander un devis gratuit", "href": "/contact" }
+  },
+
+  "gallery": {
+    "title": "Nos réalisations",
+    "subtitle": "Chaque intervention soignée, comme si c'était chez nous.",
+    "items": [
+      {
+        "src": "/images/realisations/fuite-reparee.jpg",
+        "alt": "Réparation fuite sous évier à Montpellier",
+        "caption": "Fuite sous évier — Montpellier Centre"
+      },
+      {
+        "src": "/images/realisations/chauffe-eau-installe.jpg",
+        "alt": "Installation chauffe-eau électrique 200L",
+        "caption": "Chauffe-eau 200L — Castelnau-le-Lez"
+      },
+      {
+        "src": "/images/realisations/salle-de-bain-renovee.jpg",
+        "alt": "Rénovation complète salle de bain",
+        "caption": "Rénovation salle de bain — Antigone"
+      },
+      {
+        "src": "/images/realisations/debouchage-canalisation.jpg",
+        "alt": "Débouchage canalisation hydrocurage haute pression",
+        "caption": "Hydrocurage — copropriété Lattes"
+      },
+      {
+        "src": "/images/realisations/robinetterie-posee.jpg",
+        "alt": "Pose robinetterie salle de bain",
+        "caption": "Robinetterie neuve — Port Marianne"
+      }
+    ]
+  },
+
   "footer": {
-    "description": "Artisan plombier certifié Qualibat à Paris depuis 1998. Urgence 24h/24.",
+    "description": "Artisan plombier certifié Qualibat à Montpellier depuis 2005. Urgence 24h/24.",
     "columns": [
       {
         "title": "Services",
         "links": [
-          { "label": "Urgence plomberie", "href": "/urgence" },
-          { "label": "Détection de fuite", "href": "/fuite" },
-          { "label": "Chauffe-eau", "href": "/chauffe-eau" },
-          { "label": "Débouchage", "href": "/debouchage" },
-          { "label": "Rénovation salle de bain", "href": "/renovation" }
+          { "label": "Urgence plomberie", "href": "/#features" },
+          { "label": "Fuites & Dégâts des eaux", "href": "/#features" },
+          { "label": "Chauffe-eau & Chaudières", "href": "/#features" },
+          { "label": "Débouchage", "href": "/#features" },
+          { "label": "Rénovation salle de bain", "href": "/#features" }
         ]
       },
       {
-        "title": "Zones d'intervention",
+        "title": "Contact",
         "links": [
-          { "label": "Paris", "href": "/paris" },
-          { "label": "Hauts-de-Seine", "href": "/92" },
-          { "label": "Seine-Saint-Denis", "href": "/93" },
-          { "label": "Val-de-Marne", "href": "/94" }
-        ]
-      },
-      {
-        "title": "À propos",
-        "links": [
-          { "label": "Notre équipe", "href": "/equipe" },
-          { "label": "Certifications", "href": "/certifications" },
-          { "label": "Avis clients", "href": "/avis" },
-          { "label": "Contact", "href": "/contact" }
+          { "label": "Demander un devis", "href": "/contact" },
+          { "label": "Appeler maintenant", "href": "tel:+33600000000" }
         ]
       }
     ],
     "legal": {
-      "privacyUrl": "/confidentialite",
-      "termsUrl": "/mentions-legales",
-      "copyright": "© 2026 Dupont Plomberie. Tous droits réservés."
+      "privacyUrl": "/privacy",
+      "termsUrl": "/terms",
+      "copyright": "© 2026 Rizset Plomberie. Tous droits réservés."
     }
   }
 }
