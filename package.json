@@ -3,6 +3,7 @@
   "type": "module",
   "version": "1.4.1",
   "description": "Landing page Rizset Plomberie — Astro 6 + Tailwind CSS 4",
+  "overrides": { "vite": "^7.3.2" },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
