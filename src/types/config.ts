@@ -241,8 +241,6 @@ export interface PricingConfig {
   annualDiscount?: number;
   defaultPeriod?: 'monthly' | 'annual';
   footerLink?: CTALink;
-  /** ID formulaire Tally (si intégration Tally) */
-  tallyFormId?: string;
 }
 
 export interface CTAConfig {
@@ -250,8 +248,6 @@ export interface CTAConfig {
   description?: string;
   action?: CTALink;
   secondaryAction?: CTALink;
-  /** ID formulaire Tally (popup au clic) */
-  tallyFormId?: string;
 }
 
 export interface NewsletterConfig {
@@ -265,7 +261,6 @@ export interface NewsletterConfig {
   /** URL endpoint (vide = mode démo) */
   action?: string;
   variant?: 'default' | 'compact' | 'card';
-  tallyFormId?: string;
 }
 
 export interface IntegrationsConfig {

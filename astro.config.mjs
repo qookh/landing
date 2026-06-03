@@ -1,9 +1,7 @@
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
-import { siteConfig } from './src/config';
 
 // Site URL from environment variable with localhost fallback
 const siteUrl = process.env.SITE_URL || 'http://localhost:4321';
@@ -29,25 +27,37 @@ function envCheckIntegration() {
 export default defineConfig({
   site: siteUrl,
   integrations: [
-    mdx(),
-    icon(),
+    icon({
+      iconDir: 'src/icons',
+      include: {
+        lucide: [
+          'arrow-right', 'bath', 'bell', 'calendar', 'check', 'check-circle',
+          'chevron-down', 'chevron-right', 'chevrons-left', 'chevrons-right',
+          'clock', 'droplets', 'flame', 'help-circle', 'image',
+          'layout-dashboard', 'mail', 'menu', 'minus', 'phone', 'play',
+          'quote', 'search', 'shield-check', 'sparkles', 'twitter',
+          'user', 'wrench', 'x', 'zap',
+        ],
+        'simple-icons': ['facebook', 'github', 'google', 'instagram'],
+      },
+    }),
     envCheckIntegration(),
     sitemap({
-      filter: (page) => {
-        const { features } = siteConfig;
-
-        // Filter out pages based on feature flags
-        if (!features.blog && page.includes('/blog')) return false;
-        if (!features.docs && page.includes('/docs')) return false;
-        if (!features.changelog && page.includes('/changelog')) return false;
-        if (!features.testimonials && page.includes('/testimonials')) return false;
-        if (!features.roadmap && page.includes('/roadmap')) return false;
-
-        return true;
-      },
+      // docs and changelog removed — their pages no longer exist
+      filter: (page) => !page.includes('/docs') && !page.includes('/changelog'),
     }),
   ],
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      watch: {
+        ignored: [
+          '**/node_modules/**',
+          '**/.astro/**',
+          '**/public/icons/**',
+          '**/.github/**',
+        ],
+      },
+    },
   },
 });

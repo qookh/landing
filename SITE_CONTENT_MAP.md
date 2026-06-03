@@ -85,20 +85,20 @@ src/pages/index.astro
 | `global.seo.title` | Titre `<title>` | ✅ SEO local |
 | `global.seo.keywords` | `["plombier Montpellier", …]` | Mots-clés locaux |
 
-### `announcement` — Bandeau promotionnel
+### `announcement` — Bandeau d'urgence
 
 ```json
 "announcement": {
   "enabled": true,
-  "id": "promo-ete-2026",
-  "text": "🔧 -20% sur tous les diagnostics ce mois-ci !",
+  "id": "urgence-contact-2026",
+  "text": "🔧 Une urgence ? Remplissez notre formulaire pour une intervention rapide !",
   "href": "/contact",
-  "linkText": "Prendre rendez-vous",
+  "linkText": "Formulaire de contact",
   "variant": "primary",
   "dismissible": true
 }
 ```
-> Changer `id` pour réinitialiser le dismiss localStorage côté client.
+> Changer `id` pour réinitialiser le dismiss localStorage côté client (les anciens visiteurs reverront le bandeau).
 
 ### `hero` — Section principale
 
@@ -172,7 +172,10 @@ Pour changer le formulaire Tally : modifier l'ID `2E7d7V` dans l'URL embed de `c
 | `/public/images/realisations/` | `<intervention>-<etat>.jpg` | `fuite-reparee.jpg`, `chauffe-eau-installe.jpg` |
 | `/public/logos/` | `<certif>.png/.jpg` | `qualibat.jpg`, `rge.png` |
 
-**Règle** : ne jamais créer de sous-dossiers supplémentaires. Respecter strictement ces patterns pour la cohérence et les chemins déjà référencés dans `config.json`.
+**Règles** :
+- Toujours utiliser des chemins absolus commençant par `/` (ex: `/images/logos/qualibat.jpg`, jamais `images/logos/qualibat.jpg`).
+- Ne jamais créer de sous-dossiers supplémentaires hors ceux listés ci-dessus.
+- Respecter strictement ces patterns pour la cohérence avec les chemins référencés dans `config.json`.
 
 ---
 
@@ -180,11 +183,14 @@ Pour changer le formulaire Tally : modifier l'ID `2E7d7V` dans l'URL embed de `c
 
 | Lien | Destination | Type |
 |---|---|---|
-| Nos Services | `#features` | Ancre interne |
-| Tarifs | `#pricing` | Ancre interne |
-| Avis Clients | `#testimonials` | Ancre interne |
-| FAQ | `#faq` | Ancre interne |
-| **Demander un devis** (CTA) | Pop-up Tally `2E7d7V` | `data-tally-open` |
+| Nos Services | `/#features` | Ancre absolue (fonctionne depuis toutes les pages) |
+| Tarifs | `/#pricing` | Ancre absolue |
+| Avis Clients | `/#testimonials` | Ancre absolue |
+| FAQ | `/#faq` | Ancre absolue |
+| Contact | `/contact` | Lien direct |
+| **Demander un devis** (CTA) | `/contact` | Bouton primaire |
+
+> **Règle** : utiliser `/#section` (chemin absolu) et non `#section` (relatif) — les ancres relatives sont brisées depuis les pages secondaires comme `/contact`.
 
 ---
 

@@ -14,7 +14,6 @@
  */
 import { siteConfig } from '@/config';
 import { Icon } from 'astro-icon/components';
-import ThemeToggle from '@ui/ThemeToggle.astro';
 import type { FeatureFlags } from '@/lib/types';
 
 const { features, navigation } = siteConfig;
@@ -63,7 +62,6 @@ const primaryCTA = headerNav.cta.find((cta) => cta.variant === 'primary');
 
       <!-- Desktop Actions - Right -->
       <div class="hidden md:flex items-center gap-4">
-        <ThemeToggle />
         {
           ghostCTAs.map((cta) => (
             <a
@@ -88,7 +86,6 @@ const primaryCTA = headerNav.cta.find((cta) => cta.variant === 'primary');
 
       <!-- Mobile menu button -->
       <div class="flex items-center gap-2 md:hidden">
-        <ThemeToggle />
         <button
           id="mobile-menu-button"
           type="button"

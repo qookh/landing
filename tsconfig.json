@@ -8,9 +8,7 @@
       "@sections/*": ["src/components/sections/*"],
       "@ui/*": ["src/components/ui/*"],
       "@forms/*": ["src/components/forms/*"],
-      "@layout/*": ["src/components/layout/*"],
-      "@dashboard/*": ["src/components/dashboard/*"],
-      "@dashboard-ui/*": ["src/components/dashboard-ui/*"]
+      "@layout/*": ["src/components/layout/*"]
     }
   },
   "include": ["src/**/*", "astro.config.mjs", ".astro/types.d.ts"],

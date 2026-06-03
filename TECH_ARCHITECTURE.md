@@ -1,6 +1,6 @@
 # TECH_ARCHITECTURE.md — Architecture Technique
 
-> Projet : Landing Page One-Page Astro 5 + Tailwind CSS 4 — Rizset Plomberie
+> Projet : Landing Page One-Page Astro 6 + Tailwind CSS 4 — Rizset Plomberie
 > Dernière mise à jour : 2026-06-03
 > Audience : développeur, IA technique
 
@@ -38,23 +38,25 @@ src/pages/index.astro
 
 > `Header.astro` et `Footer.astro` lisent depuis `src/config/` — pas de props depuis `config.json`.
 
+> **Règle critique** : `astro.config.mjs` ne doit **jamais** importer depuis `src/config/`. Astro surveille toutes les dépendances transitives du fichier de config — un import de `siteConfig` rend `features.ts`, `navigation.ts` et `config.json` des déclencheurs de redémarrage complet du serveur. Voir section 11.
+
 ---
 
 ## 2. Navigation avec Ancres Internes
 
-Le header utilise des ancres HTML standard pointant vers les sections de la landing page.
+Le header utilise des ancres **absolues** pointant vers les sections de la landing page. Les ancres relatives (`#section`) fonctionnent depuis `/` mais sont brisées depuis toute page secondaire comme `/contact`.
 
 **`src/config/navigation.ts`** :
 ```typescript
 header: {
   main: [
-    { label: 'Nos Services',  href: '#features'    },
-    { label: 'Tarifs',        href: '#pricing'      },
-    { label: 'Avis Clients',  href: '#testimonials' },
-    { label: 'FAQ',           href: '#faq'          },
+    { label: 'Nos Services',  href: '/#features'    },
+    { label: 'Tarifs',        href: '/#pricing'      },
+    { label: 'Avis Clients',  href: '/#testimonials' },
+    { label: 'FAQ',           href: '/#faq'          },
+    { label: 'Contact',       href: '/contact'       },
   ],
-  cta: [{ label: 'Demander un devis', href: '/contact', variant: 'primary',
-          tallyFormId: '2E7d7V', tallyEmojiText: '👋', tallyEmojiAnimation: 'wave' }],
+  cta: [{ label: 'Demander un devis', href: '/contact', variant: 'primary' }],
 }
 ```
 
@@ -69,7 +71,7 @@ header: {
 
 ---
 
-## 3. Intégration Tally — Pop-up & Embed
+## 3. Intégration Tally — Embed `/contact`
 
 ### Script global (MarketingLayout.astro)
 
@@ -79,34 +81,9 @@ header: {
 
 Ajouté avant `</BaseLayout>` dans `src/layouts/MarketingLayout.astro`. Chargé sur toutes les pages marketing (index, contact, privacy, terms). `is:inline` requis car le tag `<script>` contient l'attribut `async`.
 
-### Pop-up — attributs `data-tally-*`
-
-Tout élément HTML portant `data-tally-open` déclenche la pop-up au clic sans JavaScript supplémentaire (le script `embed.js` scanne le DOM) :
-
-```html
-<button
-  data-tally-open="2E7d7V"
-  data-tally-emoji-text="👋"
-  data-tally-emoji-animation="wave"
->
-  Demander un devis
-</button>
-```
-
-**Paramètres disponibles :**
-
-| Attribut | Valeur | Rôle |
-|---|---|---|
-| `data-tally-open` | ID du formulaire | Ouvre ce formulaire en pop-up |
-| `data-tally-emoji-text` | ex: `"👋"` | Emoji affiché sur le bouton Tally |
-| `data-tally-emoji-animation` | `"wave"` \| `"spin"` \| `"pulse"` | Animation de l'emoji |
-| `data-tally-layout` | `"modal"` (défaut) \| `"drawer"` | Style de la pop-up |
-| `data-tally-width` | ex: `"600"` | Largeur de la pop-up (px) |
-| `data-tally-auto-close` | ms | Ferme automatiquement après soumission |
-
 ### Embed natif — page `/contact`
 
-Sur `/contact`, le formulaire est intégré en iframe native (fallback desktop/mobile) :
+Sur `/contact`, le formulaire est intégré en iframe native :
 
 ```html
 <iframe
@@ -121,39 +98,9 @@ Sur `/contact`, le formulaire est intégré en iframe native (fallback desktop/m
 
 `dynamicHeight=1` → le script `embed.js` redimensionne l'iframe automatiquement selon le contenu. `data-tally-src` (et non `src`) est requis pour que le script de resize fonctionne.
 
-### Type `NavigationCTA` étendu (`src/lib/types.ts`)
+Pour changer le formulaire : modifier l'ID `2E7d7V` dans l'URL embed de `contact.astro`.
 
-```typescript
-export interface NavigationCTA {
-  label: string;
-  href: string;
-  variant: 'primary' | 'secondary' | 'ghost';
-  tallyFormId?: string;       // si défini → <button data-tally-open> au lieu de <a>
-  tallyEmojiText?: string;
-  tallyEmojiAnimation?: string;
-}
-```
-
-### Rendu conditionnel dans `Header.astro`
-
-```astro
-{primaryCTA.tallyFormId ? (
-  <button
-    data-tally-open={primaryCTA.tallyFormId}
-    data-tally-emoji-text={primaryCTA.tallyEmojiText}
-    data-tally-emoji-animation={primaryCTA.tallyEmojiAnimation}
-    class="px-4 py-2 rounded-md bg-primary text-white ..."
-  >
-    {primaryCTA.label}
-  </button>
-) : (
-  <a href={primaryCTA.href} class="...">
-    {primaryCTA.label}
-  </a>
-)}
-```
-
-Logique identique dans la branche mobile (menu hamburger).
+> La pop-up Tally (`data-tally-open`) a été supprimée. Tous les CTAs pointent directement vers `/contact`. Si besoin de réactiver une pop-up, ajouter `data-tally-open="<ID>"` sur n'importe quel élément HTML — le script `embed.js` scanne le DOM automatiquement.
 
 ---
 
@@ -243,8 +190,8 @@ const subtitleColor = isImage || isGradient ? 'text-white/80' : 'text-text-muted
 
 ### `Header.astro`
 - Lit `navigation.header` depuis `src/config/`
-- CTA primary : `<button data-tally-*>` si `tallyFormId` présent, sinon `<a>`
-- Menu mobile : même logique conditionnelle
+- CTA primary : `<a href="/contact">` simple — rendu conditionnel Tally supprimé
+- Menu mobile : même logique, fermeture automatique au clic sur un lien
 
 ### `Footer.astro`
 Colonnes fixes lues depuis `navigation.footer` :
@@ -262,7 +209,7 @@ Colonnes fixes lues depuis `navigation.footer` :
 | `BackgroundConfig` | `src/types/config.ts` | `background`, `backgroundSrc`, `gradient`, `overlay`, `overlayOpacity` |
 | `HeroConfig` | `src/types/config.ts` | Étend `BackgroundConfig` + layout/foreground/video |
 | `SiteConfig` | `src/types/config.ts` | Objet racine |
-| `NavigationCTA` | `src/lib/types.ts` | Étend avec `tallyFormId?`, `tallyEmojiText?`, `tallyEmojiAnimation?` |
+| `NavigationCTA` | `src/lib/types.ts` | `label`, `href`, `variant` — champs Tally supprimés |
 | `PageHeaderConfig` | `src/types/pages.ts` | Étend `BackgroundConfig` — `backgroundType` sans `'video'` |
 
 ---
@@ -278,16 +225,104 @@ Colonnes fixes lues depuis `navigation.footer` :
 | `testimonials[].name` | `testimonials[].author` | TestimonialsSection |
 | `pricing.plans[].price` | `pricing.plans[].monthlyPrice` | PricingTable |
 | Ancre sans id dans index.astro | `<div id="features" class="scroll-mt-20">` | Navigation header |
+| `href="#section"` dans les liens nav | `href="/#section"` | Ancre relative brisée depuis `/contact` ou toute page secondaire |
 | `backgroundType="gradient"` avec gradient clair (`from-primary/10…`) | `backgroundType="solid" background="muted"` | PageHeader — texte blanc sur fond blanc = illisible |
+| `bg-gradient-to-r` / `bg-gradient-to-br` | `bg-linear-to-r` / `bg-linear-to-br` | Tailwind CSS 4 — ancienne syntaxe silencieusement ignorée |
+| `import { siteConfig } from './src/config'` dans `astro.config.mjs` | Filtre sitemap statique sans import | Rend `src/config/**` + `config.json` des déclencheurs de redémarrage — voir section 11 |
+| `icon()` sans `include` dans `astro.config.mjs` | `icon({ include: { lucide: [...], 'simple-icons': [...] } })` | Charge les packs entiers (~15 Mo JSON) → timeout module runner Vite à 60 s |
 
 ---
 
-## 9. Vérification
+## 9. Thème — Light Mode Strict
+
+Le dark mode a été définitivement supprimé. Le site est exclusivement en light mode.
+
+| Composant | Action effectuée |
+|---|---|
+| `src/components/ui/ThemeToggle.astro` | **Supprimé** — fichier effacé |
+| `src/components/layout/Header.astro` | Import et 2 usages `<ThemeToggle />` retirés |
+| `src/layouts/BaseLayout.astro` | Bloc `localStorage.theme` + `matchMedia('prefers-color-scheme')` retiré du script inline |
+| `src/styles/global.css` | Bloc `.dark { --color-* }` supprimé (18 lignes) |
+
+**Script BaseLayout après nettoyage** — ne conserve que le dismiss annonce :
+```javascript
+(function () {
+  const keys = Object.keys(localStorage).filter((k) =>
+    k.startsWith('announcement-dismissed-')
+  );
+  keys.forEach((key) => {
+    if (localStorage.getItem(key) === 'true') {
+      const id = key.replace('announcement-dismissed-', '');
+      document.documentElement.classList.add(`announcement-${id}-dismissed`);
+    }
+  });
+})();
+```
+
+> Si le dark mode doit être réactivé, il faut : 1) recréer `ThemeToggle.astro`, 2) restaurer le bloc `.dark` dans `global.css`, 3) restaurer le script de détection dans `BaseLayout.astro`.
+
+---
+
+## 10. Serveur de Développement — Stabilité
+
+### Causes de boucle de rechargement (résolues)
+
+| Symptôme | Cause | Fix appliqué |
+|---|---|---|
+| `"Configuration file updated. Restarting..."` en boucle | `astro.config.mjs` importait `siteConfig` → tout `src/config/` surveillé | Import supprimé, filtre sitemap statique |
+| `"Local icons changed, reloading"` à chaque restart | `astro-icon` vite plugin écoute `watcher.on("all")` ET se déclenche sur tout fichier nommé `astro.config` | Cascade brisée en supprimant la cause précédente |
+| `"transport invoke timed out after 60000ms"` | `@iconify-json/lucide` (1 300+ icônes) + `@iconify-json/simple-icons` (3 000+) chargés en entier → ~15 Mo de JSON parsé dans le thread SSR | Option `include` dans `icon()` — seules les 26 icônes utilisées sont chargées |
+| `"Failed to load url astro:server-app.js"` | Cascade des deux points ci-dessus : restart trop rapide, module virtuel Vite non régénéré | Résolu en corrigeant les causes amont |
+| Collections `docs`/`changelog` fantômes | `src/content.config.ts` déclarait `glob()` vers des dossiers supprimés | Déclarations retirées de `content.config.ts` |
+
+### `astro.config.mjs` — règles à respecter
+
+1. **Ne jamais importer depuis `src/config/`** — utiliser des valeurs statiques ou lire un JSON avec `readFileSync` si nécessaire.
+2. **Toujours déclarer `icon({ include: { ... } })`** après avoir listé les icônes réellement utilisées (`grep -rn '<Icon' src --include="*.astro"`).
+3. **`ssr.noExternal: ['astro-icon']`** — contre-productif : force Vite à bundler un module chargé de gros JSON, ralentit le démarrage.
+
+### `astro-icon` — icônes actuellement déclarées dans `include`
+
+```javascript
+// astro.config.mjs
+icon({
+  iconDir: 'src/icons',
+  include: {
+    lucide: [
+      'arrow-right', 'bell', 'calendar', 'check', 'chevron-down',
+      'chevron-right', 'chevrons-left', 'chevrons-right', 'clock',
+      'help-circle', 'image', 'layout-dashboard', 'menu', 'minus',
+      'play', 'quote', 'search', 'shield-check', 'sparkles',
+      'twitter', 'user', 'x',
+    ],
+    'simple-icons': ['facebook', 'github', 'google', 'instagram'],
+  },
+})
+```
+
+> Ajouter un `<Icon name="lucide:new-icon" />` dans un composant **sans** ajouter `'new-icon'` à cette liste → l'icône ne s'affiche pas en production. Toujours mettre à jour `include` en parallèle.
+> Même règle pour les icônes définies dans `src/data/config.json` (champ `"icon"`) — elles passent par le même pipeline astro-icon au rendu.
+
+### Collections de contenu actives (`src/content.config.ts`)
+
+| Collection | Dossier | Statut |
+|---|---|---|
+| `blog` | `src/content/blog/` | Actif |
+| `testimonials` | `src/content/testimonials/` | Actif |
+| ~~`docs`~~ | ~~`src/content/docs/`~~ | Supprimé |
+| ~~`changelog`~~ | ~~`src/content/changelog/`~~ | Supprimé |
+
+---
+
+## 11. Vérification
 
 ```bash
 npx astro check   # 0 erreurs, 0 warnings
 ```
 
-**Tally pop-up** : cliquer le bouton "Demander un devis" dans le header → la pop-up doit s'ouvrir avec l'emoji 👋.
-**Tally embed** : ouvrir `/contact` avec JS activé → l'iframe se redimensionne automatiquement.
-**Ancres** : cliquer "Nos Services" dans le header → scroll fluide vers `#features` avec décalage sticky header.
+**Serveur de développement** : `npm run dev` démarre sans boucle de rechargement. Aucun "Configuration file updated" intempestif. Le log doit afficher `[astro-icon] Loaded icons from src/icons, lucide, simple-icons` une seule fois.
+**Ancres inter-pages** : depuis `/contact`, cliquer "Nos Services" → navigation vers `/#features` (retour sur `/` + scroll vers la section).
+**Light mode strict** : vérifier que ThemeToggle n'apparaît plus en desktop ni en mobile. Vérifier que `localStorage.theme = 'dark'` ne déclenche plus de mode sombre.
+**Tally embed** : ouvrir `/contact` avec JS activé → l'iframe se redimensionne automatiquement via `dynamicHeight=1`.
+**Bandeau** : le nouveau texte d'urgence s'affiche. Fermer → ne réapparaît pas (dismiss stocké sous la clé `urgence-contact-2026`).
+**Icônes** : après ajout d'un `<Icon name="lucide:X" />`, vérifier que `'X'` est bien présent dans `include.lucide` de `astro.config.mjs`.

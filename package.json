@@ -2,26 +2,13 @@
   "name": "landing",
   "type": "module",
   "version": "1.4.1",
-  "description": "A production-ready SaaS theme for Astro. Built for those who want to go from zero to launch quickly.",
-  "keywords": [
-    "astro",
-    "theme",
-    "saas",
-    "landing-page",
-    "tailwindcss"
-  ],
-  "overrides": { "vite": "^7" },
-  "author": "Erland <hello@erland.me>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/erlandv/virex.git"
-  },
-  "homepage": "https://virex.erland.me",
+  "description": "Landing page Rizset Plomberie — Astro 6 + Tailwind CSS 4",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "postinstall": "node scripts/patch-unist.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -29,15 +16,12 @@
     "check": "npm run lint && npm run format:check && astro check"
   },
   "dependencies": {
-    "@astrojs/mdx": "^6.0.1",
-    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "@iconify-json/lucide": "^1.2.82",
     "@iconify-json/simple-icons": "^1.2.63",
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^6.4.2",
-    "astro-icon": "^1.1.5",
-    "chart.js": "^4.4.0"
+    "astro-icon": "^1.1.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

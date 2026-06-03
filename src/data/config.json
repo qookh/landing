@@ -66,10 +66,10 @@
 
   "announcement": {
     "enabled": true,
-    "id": "promo-ete-2026",
-    "text": "🔧 -20% sur tous les diagnostics ce mois-ci !",
+    "id": "urgence-contact-2026",
+    "text": "🔧 Une urgence ? Remplissez notre formulaire pour une intervention rapide !",
     "href": "/contact",
-    "linkText": "Prendre rendez-vous",
+    "linkText": "Formulaire de contact",
     "variant": "primary",
     "dismissible": true
   },
@@ -90,10 +90,10 @@
   "logoCloud": {
     "title": "Certifié et approuvé par",
     "logos": [
-      { "name": "Qualibat", "src": "images/logos/qualibat.jpg" },
-      { "name": "RGE", "src": "images/logos/rge.png" },
-      { "name": "CAPEB", "src": "images/logos/capeb.png" },
-      { "name": "Décennale Pro", "src": "images/logos/decenale.png" }
+      { "name": "Qualibat", "src": "/images/logos/qualibat.jpg" },
+      { "name": "RGE", "src": "/images/logos/rge.png" },
+      { "name": "CAPEB", "src": "/images/logos/capeb.png" },
+      { "name": "Décennale Pro", "src": "/images/logos/decenale.png" }
     ],
     "grayscale": false,
     "background": "muted",
