@@ -1,0 +1,6 @@
+{
+  "name": "landing",
+  "assets": {
+    "directory": "./dist"
+  }
+}
