@@ -75,9 +75,18 @@ Sans ça : `Unable to locate 'lucide:xxx' icon!` au build.
 | Output directory | `dist` |
 | Deploy command | `npx wrangler deploy` |
 | Node.js version | `22` (lu depuis `.nvmrc`) |
-| Variable d'env | `SITE_URL=https://rizset.com` |
+| Variable d'env | `SITE_URL=https://rizset-plomberie.fr` |
 
 **Important** : définir `SITE_URL` dans le dashboard Cloudflare → Workers & Pages → landing → Settings → Environment variables. Sans ça le sitemap pointe vers `http://localhost:4321`.
+
+### `.env` local — seules 2 variables nécessaires
+
+```bash
+SITE_URL=https://rizset-plomberie.fr   # override URL canonique (sitemap, OG)
+SITE_AUTHOR=Quoc-Khai TRINH            # auteur meta tags
+```
+
+`SITE_NAME` et `SITE_DESCRIPTION` **ne doivent pas être présents** — `config.json` est la source de vérité unique pour ces valeurs. Les renseigner dans `.env` les écraserait silencieusement.
 
 ---
 

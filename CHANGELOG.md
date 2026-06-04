@@ -7,6 +7,47 @@ et ce projet adhère au [Versionnage Sémantique](https://semver.org/lang/fr/).
 
 ---
 
+## [1.5.1] — 2026-06-04
+
+### Changed
+
+- **Description SEO locale** : `config.json → global.description` et `seo.description` mis à jour vers la phrase SEO local : _"Plombier à Montpellier — intervention en 1h, devis gratuit, artisan certifié Qualibat. Urgence 24h/24 sur Montpellier et agglomération."_ La meta description dans le HTML généré reflète désormais cette phrase.
+
+### Fixed
+
+- **`.env` avec valeurs stale du template** : `SITE_NAME=landing-rizset` et `SITE_DESCRIPTION=Landing template headless CMS` écrasaient les valeurs correctes de `config.json` (priorité `.env` dans `src/config/site.ts`). Résolution : suppressions des deux variables, `SITE_URL` corrigé de `https://landing-rizset.com` → `https://rizset-plomberie.fr`. `config.json` est désormais le seul point de vérité pour le nom et la description du site.
+
+---
+
+## [1.5.0] — 2026-06-04
+
+### Changed
+
+- **Refonte complète section Pricing** : modèle SaaS mensuel/annuel remplacé par un modèle **à la prestation** aligné sur les prix réels du marché plomberie en province (Montpellier).
+  - Nouvelles cartes : "Dépannage & Débouchage" (à partir de 150 € TTC), "Remplacement & Robinetterie" (à partir de 180 € TTC), "Installation & Rénovation" (sur devis gratuit).
+  - Bandeau de confiance : "Prix fixé par téléphone · Devis écrit gratuit · Aucun frais caché".
+  - Chaque carte affiche un détail transparent du calcul (`priceBreakdown`).
+
+### Removed
+
+- **Toggle mensuel/annuel** et son script JS (50 lignes) supprimés de `PricingTable.astro`. `PricingTable.astro` passe de 330 à 135 lignes.
+
+### Breaking — data model `config.json → pricing.plans[]`
+
+| Champ supprimé | Remplacé par |
+|---|---|
+| `monthlyPrice: number \| null` | `price: number \| null` |
+| `customPrice?: string` | `priceLabel?: string` |
+| _(n'existait pas)_ | `priceUnit?: string` |
+| _(n'existait pas)_ | `priceBreakdown?: string[]` |
+
+Champs supprimés au niveau `pricing` : `annualDiscount`, `defaultPeriod`.
+Champ ajouté au niveau `pricing` : `trustBanner?: string`.
+
+Interfaces mises à jour : `PricingConfig` dans `src/types/config.ts` et `PricingPlan` dans `src/lib/types.ts`.
+
+---
+
 ## [1.4.0] — 2026-06-03
 
 ### Fixed

@@ -1,7 +1,7 @@
 # TECH_ARCHITECTURE.md — Architecture Technique
 
 > Projet : Landing Page One-Page Astro 6 + Tailwind CSS 4 — Rizset Plomberie
-> Dernière mise à jour : 2026-06-03
+> Dernière mise à jour : 2026-06-04
 > Audience : développeur, IA technique
 
 **Interface TypeScript** : `src/types/config.ts` → `SiteConfig`
@@ -143,11 +143,28 @@ Lu depuis `src/config/index.ts → announcement`. Changer `announcement.id` pour
 | Prop | Type | Clé JSON |
 |---|---|---|
 | `title` | `string` | `pricing.title` |
+| `subtitle` | `string` | `pricing.subtitle` |
+| `trustBanner` | `string` | `pricing.trustBanner` |
 | `plans` | `Array<PricingPlan>` | `pricing.plans` ✅ |
-| `annualDiscount` | `number` | `pricing.annualDiscount` |
 | `footerLink` | `{ label; href }` | `pricing.footerLink` |
+| `background` | `'default' \| 'muted' \| 'accent'` | géré par `index.astro` |
 
-**Structure PricingPlan :** `name`, `monthlyPrice: number | null`, `customPrice?: string`, `description`, `features: string[]`, `cta`, `highlighted?: boolean`, `badge?: string`
+**Structure PricingPlan :**
+
+| Champ | Type | Description |
+|---|---|---|
+| `name` | `string` | Nom du forfait |
+| `price` | `number \| null` | Prix en € TTC (null = sur devis) |
+| `priceLabel` | `string?` | Préfixe — "À partir de", "Sur devis" |
+| `priceUnit` | `string?` | Unité — "€ TTC", "gratuit" |
+| `priceBreakdown` | `string[]?` | Détail du calcul affiché sous le prix |
+| `description` | `string` | Courte description |
+| `features` | `string[]` | Liste des inclus |
+| `cta` | `{ label; href }` | Bouton d'action |
+| `highlighted` | `boolean?` | Surligne la carte en `border-primary` |
+| `badge` | `string?` | Étiquette flottante en haut de carte |
+
+Aucun toggle mensuel/annuel — composant entièrement statique, pas de `<script>`.
 
 ---
 
@@ -223,7 +240,7 @@ Colonnes fixes lues depuis `navigation.footer` :
 | `hero.backgroundImage` dans config.json | `hero.backgroundSrc` | Hero (index.astro splitte) |
 | `header.bgImage` | `header.backgroundSrc` + `backgroundType: "image"` | PageHeader |
 | `testimonials[].name` | `testimonials[].author` | TestimonialsSection |
-| `pricing.plans[].price` | `pricing.plans[].monthlyPrice` | PricingTable |
+| `pricing.plans[].monthlyPrice` | `pricing.plans[].price` | PricingTable — renommé en v1.5.0 |
 | Ancre sans id dans index.astro | `<div id="features" class="scroll-mt-20">` | Navigation header |
 | `href="#section"` dans les liens nav | `href="/#section"` | Ancre relative brisée depuis `/contact` ou toute page secondaire |
 | `backgroundType="gradient"` avec gradient clair (`from-primary/10…`) | `backgroundType="solid" background="muted"` | PageHeader — texte blanc sur fond blanc = illisible |
@@ -289,11 +306,12 @@ icon({
   iconDir: 'src/icons',
   include: {
     lucide: [
-      'arrow-right', 'bell', 'calendar', 'check', 'chevron-down',
-      'chevron-right', 'chevrons-left', 'chevrons-right', 'clock',
-      'help-circle', 'image', 'layout-dashboard', 'menu', 'minus',
-      'play', 'quote', 'search', 'shield-check', 'sparkles',
-      'twitter', 'user', 'x',
+      'arrow-right', 'bath', 'bell', 'calendar', 'check', 'check-circle',
+      'chevron-down', 'chevron-right', 'chevrons-left', 'chevrons-right',
+      'clock', 'droplets', 'flame', 'help-circle', 'image',
+      'layout-dashboard', 'mail', 'menu', 'minus', 'phone', 'play',
+      'quote', 'search', 'shield-check', 'sparkles', 'twitter',
+      'user', 'wrench', 'x', 'zap',
     ],
     'simple-icons': ['facebook', 'github', 'google', 'instagram'],
   },
