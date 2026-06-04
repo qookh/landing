@@ -2,7 +2,7 @@
   "global": {
     "name": "Rizset Plomberie",
     "tagline": "Votre plombier de confiance à Montpellier",
-    "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Montpellier et agglomération. Devis gratuit, artisan certifié Qualibat.",
+    "description": "Plombier à Montpellier — intervention en 1h, devis gratuit, artisan certifié Qualibat. Urgence 24h/24 sur Montpellier et agglomération.",
     "logo": "/logo.svg",
     "ogImage": "/images/og-rizset-plomberie.png",
     "url": "https://rizset-plomberie.fr",
@@ -56,7 +56,7 @@
     ],
     "seo": {
       "title": "Rizset Plomberie — Plombier Montpellier 24h/24",
-      "description": "Plombier certifié Qualibat à Montpellier. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",
+      "description": "Plombier à Montpellier — intervention en 1h, devis gratuit, artisan certifié Qualibat. Urgence 24h/24 sur Montpellier et agglomération.",
       "image": "/images/og-rizset-plomberie.png",
       "keywords": ["plombier Montpellier", "urgence plomberie", "dépannage plomberie 34", "plombier 24h Montpellier", "fuite eau Montpellier"]
     }
@@ -138,31 +138,38 @@
   },
 
   "pricing": {
-    "title": "Tarifs clairs, sans surprise",
-    "subtitle": "Grille tarifaire transparente — majoration nuit/week-end annoncée à +50 %, aucun frais caché.",
+    "title": "Des tarifs clairs, annoncés avant l'intervention",
+    "subtitle": "Pas d'abonnement, pas de surprise. Vous savez combien ça coûte avant qu'on commence.",
+    "trustBanner": "Prix fixé par téléphone · Devis écrit gratuit · Aucun frais caché",
     "plans": [
       {
-        "name": "Dépannage Urgence",
-        "monthlyPrice": 140,
-        "description": "Déplacement 60 € + 1re heure de main d'œuvre 80 €. Idéal pour fuites, engorgements et diagnostics rapides.",
+        "name": "Dépannage & Débouchage",
+        "price": 150,
+        "priceLabel": "À partir de",
+        "priceUnit": "€ TTC",
+        "description": "Fuite, engorgement, pression faible — diagnostic sur place et réparation en une visite.",
+        "priceBreakdown": ["Déplacement 60 € inclus", "Main d'œuvre 80 €/h", "Majoration nuit/WE +50 %"],
         "features": [
-          "Déplacement inclus (60 €)",
-          "1re heure de main d'œuvre (80 €)",
-          "Diagnostic sur place offert",
-          "Devis de réparation gratuit",
-          "Majoration +50 % la nuit et le week-end"
+          "Déplacement inclus sur Montpellier",
+          "Diagnostic offert sur place",
+          "Réparation fuite simple ou débouchage",
+          "Devis écrit avant toute intervention",
+          "Règlement à la fin de l'intervention"
         ],
-        "cta": { "label": "Demander un devis", "href": "/contact" }
+        "cta": { "label": "Appeler pour un devis", "href": "tel:+33600000000" }
       },
       {
-        "name": "Forfait Chauffe-Eau / Sanitaire",
-        "monthlyPrice": 250,
-        "description": "Remplacement de groupe de sécurité, débouchage complexe ou petite robinetterie — déplacement et main d'œuvre inclus.",
+        "name": "Remplacement & Robinetterie",
+        "price": 180,
+        "priceLabel": "À partir de",
+        "priceUnit": "€ TTC",
+        "description": "Remplacement de robinet, mitigeur, groupe de sécurité ou flexible — pièce et pose incluses.",
+        "priceBreakdown": ["Déplacement 60 € inclus", "Main d'œuvre + pièce standard", "Garantie 1 an pièces & MO"],
         "features": [
           "Déplacement inclus",
-          "Main d'œuvre incluse",
-          "Remplacement groupe de sécurité",
-          "Débouchage complexe",
+          "Remplacement robinetterie ou mitigeur",
+          "Groupe de sécurité chauffe-eau",
+          "Pièce fournie et posée",
           "Garantie 1 an pièces & main d'œuvre"
         ],
         "cta": { "label": "Prendre rendez-vous", "href": "/contact" },
@@ -171,13 +178,15 @@
       },
       {
         "name": "Installation & Rénovation",
-        "monthlyPrice": null,
-        "customPrice": "Sur devis",
-        "description": "Pour les chantiers complets : ballons d'eau chaude, rénovation salle de bain. Étude et devis 100% gratuit.",
+        "price": null,
+        "priceLabel": "Sur devis",
+        "priceUnit": "gratuit",
+        "description": "Chauffe-eau, salle de bain complète, mise aux normes — étude et chiffrage 100 % gratuits.",
+        "priceBreakdown": ["Devis détaillé sous 24 h", "Certification Qualibat 7131", "Assurance décennale incluse"],
         "features": [
-          "Devis gratuit et détaillé",
-          "Pose de ballons d'eau chaude",
-          "Rénovation salle de bain complète",
+          "Devis gratuit et détaillé sous 24 h",
+          "Installation chauffe-eau toutes marques",
+          "Rénovation salle de bain clé en main",
           "Certification Qualibat 7131",
           "Assurance décennale incluse"
         ],

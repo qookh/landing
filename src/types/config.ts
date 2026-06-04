@@ -225,21 +225,19 @@ export interface TestimonialsConfig {
 export interface PricingConfig {
   title?: string;
   subtitle?: string;
+  trustBanner?: string;
   plans: Array<{
     name: string;
-    /** Prix mensuel en €/$ — null pour les plans sur devis */
-    monthlyPrice: number | null;
-    /** Texte affiché si monthlyPrice est null (ex: "Sur devis") */
-    customPrice?: string;
+    price: number | null;
+    priceLabel?: string;
+    priceUnit?: string;
+    priceBreakdown?: string[];
     description: string;
     features: string[];
     cta: CTALink;
-    /** Mettre en avant ce plan ("Most Popular") */
     highlighted?: boolean;
     badge?: string;
   }>;
-  annualDiscount?: number;
-  defaultPeriod?: 'monthly' | 'annual';
   footerLink?: CTALink;
 }
 
