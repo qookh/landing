@@ -4,7 +4,7 @@
     "tagline": "Votre plombier de confiance à Montpellier",
     "description": "Intervention rapide 24h/24 pour tous vos problèmes de plomberie à Montpellier et agglomération. Devis gratuit, artisan certifié Qualibat.",
     "logo": "/logo.svg",
-    "ogImage": "/images/og-rizset-plomberie.jpg",
+    "ogImage": "/images/og-rizset-plomberie.png",
     "url": "https://rizset-plomberie.fr",
     "social": {
       "facebook": "https://facebook.com/rizsetplomberie",
@@ -57,7 +57,7 @@
     "seo": {
       "title": "Rizset Plomberie — Plombier Montpellier 24h/24",
       "description": "Plombier certifié Qualibat à Montpellier. Intervention en 1h, devis gratuit, disponible 24h/24 et 7j/7.",
-      "image": "/images/og-rizset-plomberie.jpg",
+      "image": "/images/og-rizset-plomberie.png",
       "keywords": ["plombier Montpellier", "urgence plomberie", "dépannage plomberie 34", "plombier 24h Montpellier", "fuite eau Montpellier"]
     }
   },
